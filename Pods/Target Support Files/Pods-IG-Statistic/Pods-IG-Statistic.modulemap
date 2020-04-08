@@ -1,0 +1,6 @@
+framework module Pods_IG_Statistic {
+  umbrella header "Pods-IG-Statistic-umbrella.h"
+
+  export *
+  module * { export * }
+}
