@@ -8,24 +8,23 @@
 
 import UIKit
 
-class ProfilePageViewController: UIPageViewController {
-
+final class ProfilePageViewController: UIPageViewController {
     let postsCVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PostsVC") as! PostsCollectionViewController
     let CVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TagedVC") as! CollectionViewController
     
-    lazy var subViewControllers: [UIViewController] = {
-        return [
-        postsCVC,
-        CVC
-        ]
-    }()
+    lazy var subViewControllers: [UIViewController] = { return [ postsCVC, CVC ] }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         dataSource = self
         delegate = self
         setViewControllerFromIndex(index: 0)
+    }
+}
+
+extension ProfilePageViewController {
+    func transferData(_ profile: Profile, _ credentials: Credentials) {
+        postsCVC.transferData(profile, credentials)
     }
     
     func setViewControllerFromIndex(index: Int) {
@@ -37,7 +36,8 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let currentIndex: Int = subViewControllers.firstIndex(of: viewController) ?? 0
         if currentIndex <= 0 {
-            return nil
+            //return nil
+            return subViewControllers[0]
         }
         return subViewControllers[currentIndex - 1]
     }
@@ -45,7 +45,8 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let currentIndex: Int = subViewControllers.firstIndex(of: viewController) ?? 0
         if currentIndex >= subViewControllers.count - 1 {
-            return nil
+            //return nil
+            return subViewControllers[subViewControllers.count - 1]
         }
         return subViewControllers[currentIndex + 1]
     }
@@ -55,11 +56,5 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
 extension ProfilePageViewController: UIPageViewControllerDelegate {
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return subViewControllers.count
-    }
-}
-
-extension ProfilePageViewController {
-    func transferData(_ profile: Profile, _ credentials: Credentials) {
-        postsCVC.transferData(profile, credentials)
     }
 }

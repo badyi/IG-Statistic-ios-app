@@ -17,7 +17,6 @@ protocol PostViewDelegate: AnyObject {
 
 class PostView {
     let uid = UUID().uuidString
-    
     var id: String
     var caption: String?
     var mediaType: String?
@@ -47,15 +46,6 @@ class PostView {
     
     init(with post: Post) {
         id = post.id
-//        caption = post.caption
-//        mediaType = post.mediaType
-//        mediaURL = post.mediaURL
-//        date = post.date
-//        likesCount = post.likesCount
-//        isCommentEnabled = post.isCommentEnabled
-//        commentesCount = post.commentesCount
-//        username = post.username
-//        ownerID = post.ownerID
     }
     
     func setAllInfo(with post: Post) {
@@ -70,7 +60,7 @@ class PostView {
         username = post.username
         ownerID = post.ownerID
     }
-    
+
     weak var delegate: PostViewDelegate?
 }
 

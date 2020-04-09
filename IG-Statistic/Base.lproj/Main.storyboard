@@ -234,7 +234,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="lKK-Di-zrH"/>
                     <connections>
-                        <outlet property="followersCont" destination="Tep-ou-i7Q" id="f7k-AM-Jwr"/>
+                        <outlet property="followersCount" destination="Tep-ou-i7Q" id="f7k-AM-Jwr"/>
                         <outlet property="followingsCount" destination="FB7-s0-VE5" id="tKF-gQ-dO0"/>
                         <outlet property="name" destination="jvk-Ly-bOB" id="eWl-Dr-GIj"/>
                         <outlet property="pageControl" destination="k0n-cA-lYQ" id="dZ6-y7-Z0O"/>

@@ -8,78 +8,75 @@
 import Foundation
 import UIKit
 
-protocol ProfilePresenterViewDelegate: NSObjectProtocol {
-    func setupProfileView()
+protocol ProfileViewProtocol: AnyObject {
+    func setUpView()
+    func setManiInfo(_ profileView: ProfileView)
+    func imageDidLoaded(_ image: UIImage)
 }
 
-class ProfilePresenter {
-    private let profileService: ProfileService
-    weak var profilePresenterViewDelegate: ProfilePresenterViewDelegate?
-    var profile: Profile
-    var credentials: Credentials
+protocol ProfilePresenterProtocol: AnyObject {
+    func getMainProfileInfo()
+    func getProfileImage()
+    func getCredentials() -> Credentials
+}
+
+final class ProfilePresenter: ProfilePresenterProtocol {
+    weak var view: ProfileViewProtocol?
+    private let profileService: ProfileService!
+    var credentials: Credentials!
+
+    var image: UIImage? {
+        didSet {
+            DispatchQueue.main.async {
+                self.view?.imageDidLoaded(self.image!)
+            }
+        }
+    }
     
-    init(_ credentials: Credentials) {
+    var profile: Profile! {
+        didSet {
+            let profileView = ProfileView(with: profile)
+            DispatchQueue.main.async {
+                self.view?.setManiInfo(profileView)
+            }
+            getProfileImage()
+        }
+    }
+
+    init(with credentials: Credentials, view: ProfileViewProtocol) {
         profileService = ProfileService()
         profile = Profile()
+        self.view = view
         self.credentials = credentials
     }
     
-    func getMainProfileInfo(completionBlock: @escaping() -> ()) {
-        profileService.getMainProfileInfo(credentials) { (profile) in
-            guard let prof = profile else { return }
-            self.profile = prof
-            completionBlock()
+    func getMainProfileInfo() {
+        profileService.getMainProfileInfo(credentials) { result in
+            switch result {
+            case let .success(profile):
+                let profile: Profile = profile
+                self.profile = profile
+            case let .failure(error):
+                print(error)
+            }
         }
      }
     
-    func getUsername() -> String? {
-        guard let username = profile.username else {
-            return nil
-        }
-        return username
-    }
-    
-    func getName() -> String? {
-        guard let name = profile.name else {
-            return nil
-        }
-        return name
-    }
-    
-    func getBio() -> String? {
-        guard let bio = profile.bio else {
-            return nil
-        }
-        return bio
-    }
-    
-    func getPostsCount() -> Int? {
-        guard let count = profile.postsCount else {
-            return nil
-        }
-        return count
-    }
-    
-    func getFollowersCount() -> Int? {
-        guard let count = profile.followersCount else {
-            return nil
-        }
-        return count
-    }
-    
-    func getFollowingsCount() -> Int? {
-        guard let count = profile.followingsCount else {
-            return nil
-        }
-        return count
-    }
-    
-    func getProfilePicture(completionBlock: @escaping(_ image: UIImage) -> ()) {
+    func getProfileImage() {
         guard let imageUrl = profile.profilePictureURLString else {
             return
         }
-        profileService.getImage(imageUrl) { (image) in
-            completionBlock(image)
+        profileService.getImage(imageUrl) { result in
+            switch result {
+            case let .success(image):
+                self.image = image
+            case let .failure(error):
+                print(error)
+            }
         }
+    }
+    
+    func getCredentials() -> Credentials {
+        return credentials
     }
 }

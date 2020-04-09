@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Profile {
+final class Profile {
     var userID: String
     var username: String?
     var name: String?
@@ -34,5 +34,23 @@ class Profile {
         followersCount =  info.followers_count
         followingsCount = info.follows_count
         profilePictureURLString = info.profile_picture_url
+    }
+}
+
+final class ProfileView {
+    let username: String
+    let name: String
+    let postsCount: String
+    let followersCount: String
+    let followingsCount: String
+    let bio: String
+    
+    init(with profile: Profile) {
+        username = profile.username!
+        name = profile.name!
+        postsCount = String(profile.postsCount!)
+        followersCount = String(profile.followersCount!)
+        followingsCount = String(profile.followingsCount!)
+        bio = profile.bio!
     }
 }

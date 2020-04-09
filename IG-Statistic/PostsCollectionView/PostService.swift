@@ -9,7 +9,7 @@
 import Foundation
 import ResourceNetworking
 
-struct PostsResponse: Codable {
+fileprivate struct PostsResponse: Codable {
     let media: Media
     let id: String
 }
@@ -23,7 +23,7 @@ fileprivate struct Data: Codable {
     let id: String
 }
 
-struct PostResponse: Codable {
+fileprivate struct PostResponse: Codable {
     let id: String
     let media_type: String
     let media_url: String
@@ -39,109 +39,87 @@ struct Owner: Codable {
     let id: String
 }
 
-class PostService {
-    func getAllPostsWithID(_ credentials: Credentials, completionBlock: @escaping(_ posts: [Post]?) -> ()) {
+fileprivate final class PostResourceFactory {
+    func createPostsListResource(with credentials: Credentials) -> Resource<PostsResponse>? {
         guard let instID = credentials.instUserID else {
-            return
+            print("smt went wrong. invalid inst user id")
+            return nil
         }
         guard var urlComponents = URLComponents(string: "https://graph.facebook.com/\(instID)") else {
-            return
+            print("smt went wrong. invalid url components")
+            return nil
         }
         urlComponents.queryItems = [
             URLQueryItem(name: "fields", value: "media"),
             URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
         ]
         guard let url = urlComponents.url else {
-            return
-        }
-        let session = URLSession.shared
-        session.dataTask(with: url){ (data, response, error) in
-            if error != nil {
-                completionBlock(nil)
-                return
-            }
-            guard response != nil else {
-                return
-            }
-            guard let data = data else {
-                return
-            }
-            do {
-                let jsonResponse = try JSONDecoder().decode(PostsResponse.self, from: data)
-                let posts = jsonResponse.media.data.map { Post(with: $0.id) }
-                completionBlock(posts)
-            } catch {
-                completionBlock(nil)
-            }
-        }.resume()
-    }
-    
-    func getPostInfo(_ credentials: Credentials,_ post: Post ,completionBlock: @escaping(_ post: Post?) -> ()) {
-        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/\(post.id)") else {
-            return
-        }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "fields", value: "id,media_type,media_url,owner,timestamp,caption,is_comment_enabled,like_count,username"),
-            URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
-        ]
-        guard let url = urlComponents.url else {
-            return
-        }
-        let session = URLSession.shared
-        session.dataTask(with: url){ (data, response, error) in
-            if error != nil {
-                completionBlock(nil)
-                return
-            }
-            guard response != nil else {
-                return
-            }
-            guard let data = data else {
-                return
-            }
-            do {
-                let jsonResponse = try JSONDecoder().decode(PostResponse.self, from: data)
-//                post.caption = jsonResponse.caption
-//                post.mediaURL = jsonResponse.mediaURL
-//                post.mediaType = jsonResponse.mediaType
-//                post.date = jsonResponse.timestamp
-//                post.likesCount = jsonResponse.likeCount
-//                                post.isCommentEnabled = jsonResponse.isCommentEnabled
-//                post.username = jsonResponse.username
-//                post.ownerID = jsonResponse.owner.id
-//                post.commentesCount = jsonResponse
-                completionBlock(post)
-            } catch {
-                completionBlock(nil)
-            }
-        }.resume()
-    }
-    
-    func getPostInfoResource(_ credentials: Credentials, _ post: Post) -> Resource<PostResponse> {
-        let str = "https://graph.facebook.com/\(post.id)"
-        guard var urlComponents = URLComponents(string: "\(str)") else {
-            fatalError("urlCmpsError")
-        }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "fields", value: "id,media_type,media_url,owner,timestamp,caption,is_comment_enabled,like_count,username"),
-            URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
-        ]
-        guard let url = urlComponents.url else {
-            fatalError("urlError")
+            print("smt went wrong. invalid url")
+            return nil
         }
         return Resource(url: url, headers: nil)
-     }
+    }
+    
+    func createPostInfoResource(with credentials: Credentials,_ post: Post) -> Resource<PostResponse>? {
+        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/\(post.id)") else {
+            print("smt went wrong. invalid url components")
+            return nil
+        }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "fields", value: "id,media_type,media_url,owner,timestamp,caption,is_comment_enabled,like_count,username"),
+            URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
+        ]
+        guard let url = urlComponents.url else {
+            print("smt went wrong. invalid url")
+            return nil
+        }
+        return Resource(url: url, headers: nil)
+    }
 }
 
-//,owner,timestamp,caption,is_comment_enabled,like_count,username
+final class PostService {
+    let networkHelper = NetworkHelper(reachability: FakeReachability())
 
-//struct ServerPost: Codable {
-//    let id: String
-//    let media_type: String
-//    let media_url: String
-//    let owner: Owner
-//    let timestamp: String
-//    let caption: String
-//    let is_comment_enabled: Bool
-//    let like_count: Int
-//}
+    func getAllPostsIDList(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<[Post]>) -> ()) {
+        guard let resource = PostResourceFactory().createPostsListResource(with: credentials) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) { result in
+            switch result {
+            case let .success(postsResponse):
+                let postsResponse: PostsResponse = postsResponse
+                let posts = postsResponse.media.data.map { Post(with: $0.id) }
+                completionBlock(.success(posts))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
+    
+    func getPostInfo(_ credentials: Credentials,_ post: Post ,completionBlock: @escaping(OperationCompletion<Post>) -> ()) {
+        guard let resource = PostResourceFactory().createPostInfoResource(with: credentials, post) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) { result in
+            switch result {
+            case let .success(postInfo):
+                let postResponse: PostResponse = postInfo
+                var post: Post = Post(with: post.id)
+                post.caption = postResponse.caption
+                post.date = postResponse.timestamp
+                post.mediaURL = postResponse.media_url
+                post.mediaType = postResponse.media_type
+                post.likesCount = postResponse.like_count
+                post.username = postResponse.username
+                post.ownerID = postResponse.owner.id
+                completionBlock(.success(post))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
+}

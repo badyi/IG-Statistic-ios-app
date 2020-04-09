@@ -14,7 +14,7 @@ protocol AuthViewProtocol: AnyObject {
     func performSeg(withIdentifier id: String, sender: Any)
 }
 
-protocol AuthViewPresenter: AnyObject {
+protocol AuthPresenterProtocol: AnyObject {
     func getCredentials() -> Credentials?
     func isAccessTokenExisting() -> Bool
     func setCredentialsIfAccessTokenExists()
@@ -24,9 +24,9 @@ protocol AuthViewPresenter: AnyObject {
     func instUserIDLoaded()
 }
 
-final class AuthPresenter: AuthViewPresenter {
+final class AuthPresenter: AuthPresenterProtocol {
     weak var view: AuthViewProtocol?
-    private var authService: AuthService = AuthService()
+    private var authService: AuthService!
     
     private var credentials: Credentials? {
         didSet {
@@ -41,6 +41,7 @@ final class AuthPresenter: AuthViewPresenter {
     }
     
     init(view: AuthViewProtocol) {
+        authService = AuthService()
         self.view = view
     }
 

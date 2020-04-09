@@ -187,8 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				79C80F20242FBB3E000B0285 /* PostService.swift */,
-				7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */,
 				79C80F18242F9959000B0285 /* Post.swift */,
+				7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */,
 				79C80F1C242FACEA000B0285 /* PostsCollectionViewController.swift */,
 				799863FF24313A43005BABD4 /* PostCollectionViewCell.swift */,
 				7998640024313A43005BABD4 /* PostCollectionViewCell.xib */,

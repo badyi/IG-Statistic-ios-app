@@ -23,9 +23,11 @@ struct MainInfoResponse: Codable {
 fileprivate final class ProfileResourceFactory {
     func createMainProfileInfoResource(with credentials: Credentials) -> Resource<MainInfoResponse>? {
         guard let instID = credentials.instUserID else {
+            print("smt went wrong. invalid inst user id")
             return nil
         }
         guard var urlComponents = URLComponents(string: "https://graph.facebook.com/v3.2/\(instID)") else {
+            print("smt went wrong. invalid url components")
             return nil
         }
         urlComponents.queryItems = [
@@ -33,15 +35,14 @@ fileprivate final class ProfileResourceFactory {
             URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
         ]
         guard let url = urlComponents.url else {
+            print("smt went wrong. invalid url")
             return nil
         }
         return Resource(url: url, headers: nil)
     }
     
     func createImageResource(for urlString: String) -> Resource<UIImage>? {
-        guard let url = URL(string: urlString) else {
-            return nil
-        }
+        guard let url = URL(string: urlString) else { return nil }
         let parse: (Data) throws -> UIImage = { data in
             guard let image = UIImage(data: data) else {
                 throw NSError(domain: "some_domain", code: 129, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("My string", comment: "My comment")])
@@ -55,34 +56,38 @@ fileprivate final class ProfileResourceFactory {
 final class ProfileService {
     let networkHelper = NetworkHelper(reachability: FakeReachability())
 
-    func getMainProfileInfo (_ credentials: Credentials, completionBlock: @escaping(_ profile: Profile?) -> ()) {
+    func getMainProfileInfo (_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Profile>) -> ()) {
         guard let resource = ProfileResourceFactory().createMainProfileInfoResource(with: credentials) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in
             switch result {
             case let .success(mainInfo):
-                let maingInfo: MainInfoResponse = mainInfo
+                let mainInfo: MainInfoResponse = mainInfo
                 let profile = Profile(with: mainInfo.id)
                 profile.setInfo(mainInfo)
-                completionBlock(profile)
-                //completionBlock(.success(credentials))
+                completionBlock(.success(profile))
             case let .failure(error):
-                completionBlock(nil)
+                completionBlock(.failure(error))
             }
         }
     }
     
-    func getImage(_ imageURL: String, completionBlock: @escaping(_ image: UIImage) -> ()) {
-        guard let resource = ProfileResourceFactory().createImageResource(for: imageURL) else { return }
+    func getImage(_ imageURL: String, completionBlock: @escaping(OperationCompletion<UIImage>) -> ()) {
+        guard let resource = ProfileResourceFactory().createImageResource(for: imageURL) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
+            return
+        }
         _ = networkHelper.load(resource: resource) { result in
             switch result {
-                case .success(let image):
+                case let .success(image):
                     let image = image
-                    completionBlock(image)
-                case .failure(let error):
-                    print(error)
-                    completionBlock(UIImage())
+                    completionBlock(.success(image))
+                case let .failure(error):
+                    completionBlock(.failure(error))
             }
         }
     }

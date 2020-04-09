@@ -104,6 +104,8 @@ final class AuthService {
     
     func getPagesInstagramBusinessAccount(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Credentials>) -> ()) {
         guard let resource = AuthResourceFactory().createPagesInstagramBusinessAccountResource(with: credentials) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in

@@ -20,7 +20,7 @@ class PostCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func config(with postV: PostView) {
+    func configure(with postV: PostView) {
         iamge.image = postV.image
     }
 }

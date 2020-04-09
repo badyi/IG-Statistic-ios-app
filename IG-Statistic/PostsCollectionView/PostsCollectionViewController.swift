@@ -16,42 +16,17 @@ class FakeReachability: ReachabilityProtocol {
 }
 
 class PostsCollectionViewController: UICollectionViewController {
-    
-    let networkHelper = NetworkHelper(reachability: FakeReachability())
-    var postsViews: [PostView] = []
-    var postsPresenter: PostsCollectionPresenter? {
+    var presenter: PostsCollectionPresenter! {
         didSet {
-            self.postsPresenter?.getPosts() { posts in
-                self.posts = posts!
-            }
+            self.collectionView.reloadData()
         }
     }
-
-    var posts: [Post]? {
-        didSet {
-            guard let posts = self.posts else {
-                return
-            }
-            let postsViews: [PostView] = posts.map { p in
-                let result = PostView(with: p)
-                result.delegate = self
-                return result
-            }
-            self.postsViews = postsViews
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
-
     private let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.tintColor = UIColor.red
         self.collectionView!.register(UINib.init(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
@@ -70,40 +45,30 @@ extension PostsCollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let count = posts?.count else {
+        guard let count = presenter?.postsCount() else {
             return 0
         }
         return count
     }
 
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let post = posts?[indexPath.row] else {
-            return
-        }
-        postsPresenter?.getPostInfo(post) { result in
-            guard let post = result else { return }
-            self.postsViews[indexPath.row].setAllInfo(with: post)
-        }
+        let post = presenter.post(at: indexPath.row)
+        let postView = presenter.postView(at: indexPath.row)
+        presenter.getPostInfo(post, indexPath: indexPath)
+        (cell as! PostCollectionViewCell).configure(with: postView)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCollectionViewCell
-        if posts?.count == 0 {
-            return cell
-        }
-        
-        cell.config(with: postsViews[indexPath.row])
+        cell.configure(with: presenter.postView(at: indexPath.row))
         return cell
     }
 }
 
 extension PostsCollectionViewController {
-    func didLoadedPosts(_ posts: [Post]) {
-        self.posts = posts
-    }
-    
     func transferData(_ profile: Profile, _ credentials: Credentials) {
-        postsPresenter = PostsCollectionPresenter(profile, credentials)
+        presenter = PostsCollectionPresenter(profile, credentials,self)
+        presenter.getPosts()
     }
 }
 
@@ -120,14 +85,17 @@ extension PostsCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PostsCollectionViewController: PostViewDelegate {
-    func iconDidLoaded(for post: PostView) {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
+extension PostsCollectionViewController: PostListViewProtocol {
+    func reloadData() {
+        self.collectionView.reloadData()
     }
     
-    func urlDidLoaded(for post: PostView) {
-        
+    func reloadItem(with index: Int) {
+        let index: IndexPath = IndexPath(row: index, section: 0)
+        self.collectionView.reloadItems(at: [index])
+    }
+    
+    func postsWithIDdidLoaded() {
+        self.collectionView.reloadData()
     }
 }

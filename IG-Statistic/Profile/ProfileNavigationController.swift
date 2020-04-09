@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileNavigationController: UINavigationController {
+final class ProfileNavigationController: UINavigationController {
     
     var credentials: Credentials?
 
