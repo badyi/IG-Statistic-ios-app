@@ -31,10 +31,13 @@ class PostsCollectionViewController: UICollectionViewController {
         refreshControl.tintColor = UIColor.red
         self.collectionView!.register(UINib.init(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.refreshControl = refreshControl
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.estimatedItemSize = .zero
     }
     
     @objc func refresh() {
         collectionView.reloadData()
+        refreshControl.endRefreshing()
     }
 }
 
@@ -42,7 +45,6 @@ extension PostsCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let count = presenter?.postsCount() else {

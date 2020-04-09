@@ -43,7 +43,8 @@ class PostView {
         }
     }
     
-    
+    let networkHelper = NetworkHelper(reachability: FakeReachability())
+
     init(with post: Post) {
         id = post.id
     }
@@ -76,23 +77,30 @@ extension PostView {
         guard let urlString = mediaURL else {
             return
         }
-        guard let url = URL(string: urlString) else {
+        guard let resourse = ResourseFactory().createImageResource(for: urlString) else {
             return
         }
-        let session = URLSession.shared
-        session.dataTask(with: url){ (data, response, error) in
-            if error != nil {
-                return
+        _ = networkHelper.load(resource: resourse) { result in
+            switch result {
+            case let .success(image):
+                self.image = image
+            case let .failure(error):
+                print(error)
             }
-            guard response != nil else {
-                return
+        }
+    }
+}
+
+fileprivate final class ResourseFactory {
+    func createImageResource(for urlString: String) -> Resource<UIImage>? {
+        guard let url = URL(string: urlString) else { return nil }
+        let parse: (Data) throws -> UIImage = { data in
+            guard let image = UIImage(data: data) else {
+                throw NSError(domain: "some_domain", code: 129, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("My string", comment: "My comment")])
             }
-            guard let data = data else {
-                return
-            }
-            let image = UIImage(data: data)
-            self.image = image
-        }.resume()
+            return image
+        }
+        return Resource<UIImage>(url: url, method: .get, parse: parse)
     }
 }
 

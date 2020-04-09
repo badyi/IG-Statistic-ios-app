@@ -36,8 +36,7 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let currentIndex: Int = subViewControllers.firstIndex(of: viewController) ?? 0
         if currentIndex <= 0 {
-            //return nil
-            return subViewControllers[0]
+            return nil
         }
         return subViewControllers[currentIndex - 1]
     }
@@ -45,12 +44,10 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let currentIndex: Int = subViewControllers.firstIndex(of: viewController) ?? 0
         if currentIndex >= subViewControllers.count - 1 {
-            //return nil
-            return subViewControllers[subViewControllers.count - 1]
+            return nil
         }
         return subViewControllers[currentIndex + 1]
     }
-    
 }
 
 extension ProfilePageViewController: UIPageViewControllerDelegate {

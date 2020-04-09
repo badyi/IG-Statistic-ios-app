@@ -17,27 +17,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="226" height="226"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xkc-54-wZG">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ete-IG-kI4">
                         <rect key="frame" x="0.0" y="0.0" width="226" height="226"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ete-IG-kI4">
-                                <rect key="frame" x="0.0" y="0.0" width="226" height="226"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="fif-Bi-aUf">
-                                <rect key="frame" x="94.5" y="94.5" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="ete-IG-kI4" secondAttribute="height" multiplier="1:1" id="zBG-SU-K9J"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
+            <constraints>
+                <constraint firstItem="ete-IG-kI4" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="1wj-iG-2Yv"/>
+                <constraint firstAttribute="trailing" secondItem="ete-IG-kI4" secondAttribute="trailing" id="cFe-aa-mDE"/>
+                <constraint firstItem="ete-IG-kI4" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="fe8-2p-4Lg"/>
+                <constraint firstItem="ete-IG-kI4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kdB-jG-mG8"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="226" height="219"/>
             <connections>
-                <outlet property="activityIndicator" destination="fif-Bi-aUf" id="VbA-3W-GzM"/>
                 <outlet property="iamge" destination="ete-IG-kI4" id="c7s-tW-Rt7"/>
             </connections>
             <point key="canvasLocation" x="214.49275362318843" y="297.32142857142856"/>
