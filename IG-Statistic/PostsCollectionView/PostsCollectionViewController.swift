@@ -62,6 +62,9 @@ extension PostsCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCollectionViewCell
+        let post = presenter.post(at: indexPath.row)
+        let postView = presenter.postView(at: indexPath.row)
+        presenter.getPostInfo(post, indexPath: indexPath)
         cell.configure(with: presenter.postView(at: indexPath.row))
         return cell
     }

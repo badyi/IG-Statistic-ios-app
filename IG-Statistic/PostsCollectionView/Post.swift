@@ -28,7 +28,6 @@ class PostView {
     var username: String?
     var ownerID: String?
     
-    
     private var cancel: Cancellation?
     
     private(set) var mediaURL: String? {
@@ -37,6 +36,11 @@ class PostView {
         }
     }
     
+    private(set) var thumbnail_url: String? {
+        didSet{
+            loadImageIfNeeded()
+        }
+    }
     private(set) var image: UIImage? {
         didSet {
             delegate?.iconDidLoaded(for: self)
@@ -60,6 +64,7 @@ class PostView {
         commentesCount = post.commentesCount
         username = post.username
         ownerID = post.ownerID
+        thumbnail_url = post.thumbnail_url
     }
 
     weak var delegate: PostViewDelegate?
@@ -74,8 +79,11 @@ extension PostView: Equatable {
 extension PostView {
     func loadImageIfNeeded() {
         if image != nil || cancel != nil { return }
-        guard let urlString = mediaURL else {
+        guard var urlString = mediaURL else {
             return
+        }
+        if let thn_url = thumbnail_url {
+            urlString = thn_url
         }
         guard let resourse = ResourseFactory().createImageResource(for: urlString) else {
             return
@@ -116,7 +124,8 @@ struct Post: Codable {
     var location: String?
     var username: String?
     var ownerID: String?
-    
+    var thumbnail_url: String?
+
     init(with id: String) {
         self.id = id
     }
