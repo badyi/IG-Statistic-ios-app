@@ -15,10 +15,6 @@ protocol PostListViewProtocol: AnyObject {
     func postsWithIDdidLoaded()
 }
 
-protocol PostsCollectionPresenterProtocol {
-    
-}
-
 class PostsCollectionPresenter {
     weak var view: PostListViewProtocol?
     private var profile: Profile!

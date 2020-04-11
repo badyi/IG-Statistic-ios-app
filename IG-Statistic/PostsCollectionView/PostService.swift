@@ -29,7 +29,7 @@ fileprivate struct PostResponse: Codable {
     let media_url: String
     let owner: Owner
     let timestamp: String
-    let caption: String
+    let caption: String?
     let is_comment_enabled: Bool
     let like_count: Int
     let username: String

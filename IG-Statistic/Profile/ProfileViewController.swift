@@ -36,7 +36,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: ProfileViewProtocol {
     func setUpView() {
-        
+
     }
     
     func setManiInfo(_ profile: ProfileView) {
@@ -51,7 +51,8 @@ extension ProfileViewController: ProfileViewProtocol {
     
     func imageDidLoaded(_ image: UIImage) {
         self.profileImage.image = image;
-    }
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
+        self.profileImage.clipsToBounds = true    }
 }
 
 extension ProfileViewController {
@@ -59,7 +60,16 @@ extension ProfileViewController {
         guard segue.identifier == "PVCSegue" else { return }
         guard let PVC = segue.destination as? ProfilePageViewController else { return }
         pageVC = PVC
+        pageVC.PPVCdelegate = self
     }
 }
 
-
+extension ProfileViewController: ProfilePageViewControllerDelegate {
+    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController, didUpdatePageCount count: Int) {
+        pageControl.numberOfPages = count
+    }
+    
+    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController, didUpdatePageIndex index: Int) {
+        pageControl.currentPage = index
+    }
+}

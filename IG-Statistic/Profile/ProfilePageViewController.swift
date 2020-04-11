@@ -8,17 +8,30 @@
 
 import UIKit
 
+
+protocol ProfilePageViewControllerDelegate: class {
+    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController,
+        didUpdatePageCount count: Int)
+    
+    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController,
+        didUpdatePageIndex index: Int)
+}
+
 final class ProfilePageViewController: UIPageViewController {
     let postsCVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PostsVC") as! PostsCollectionViewController
     let CVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TagedVC") as! CollectionViewController
     
     lazy var subViewControllers: [UIViewController] = { return [ postsCVC, CVC ] }()
     
+    weak var PPVCdelegate: ProfilePageViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         dataSource = self
         delegate = self
         setViewControllerFromIndex(index: 0)
+        PPVCdelegate?.ProfilePageViewController(ProfilePageViewController: self, didUpdatePageCount: subViewControllers.count)
     }
 }
 
@@ -38,7 +51,7 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
         if currentIndex <= 0 {
             return nil
         }
-        return subViewControllers[currentIndex - 1]
+        return subViewControllers[currentIndex]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -47,6 +60,14 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
             return nil
         }
         return subViewControllers[currentIndex + 1]
+    }
+    
+  
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let firstViewController = viewControllers?.first,
+            let index = subViewControllers.firstIndex(of: firstViewController){
+            PPVCdelegate?.ProfilePageViewController(ProfilePageViewController: self, didUpdatePageIndex: index)
+        }
     }
 }
 
