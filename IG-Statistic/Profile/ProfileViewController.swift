@@ -13,6 +13,7 @@ final class ProfileViewController: UIViewController {
     var pageVC: ProfilePageViewController!
     var profilePresenter: ProfilePresenter!
     
+    @IBOutlet weak var shInsights: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var postsCount: UILabel!
     @IBOutlet weak var followersCount: UILabel!
@@ -27,6 +28,7 @@ final class ProfileViewController: UIViewController {
         guard let credentials = navigationVC.credentials else { return }
         profilePresenter = ProfilePresenter(with: credentials,view: self)
         profilePresenter?.getMainProfileInfo()
+        setUpView()
     }
     
     @IBAction func valueChanged(_ sender: Any) {
@@ -36,7 +38,10 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: ProfileViewProtocol {
     func setUpView() {
-
+        self.shInsights.setTitleColor(UIColor(hexString: "#C70039"), for: .normal ) // = UIColor(hexString: "#9932CC")
+        self.shInsights.layer.cornerRadius = 3
+        self.shInsights.layer.borderWidth = 0.5
+        self.shInsights.layer.borderColor = UIColor(hexString: "#D3D3D3").cgColor
     }
     
     func setManiInfo(_ profile: ProfileView) {

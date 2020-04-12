@@ -34,6 +34,7 @@ fileprivate struct PostResponse: Codable {
     let like_count: Int
     let username: String
     let thumbnail_url: String?
+    let comments_count: Int
 }
 
 struct Owner: Codable {
@@ -67,7 +68,7 @@ fileprivate final class PostResourceFactory {
             return nil
         }
         urlComponents.queryItems = [
-            URLQueryItem(name: "fields", value: "id,media_type,media_url,owner,timestamp,caption,is_comment_enabled,like_count,username,thumbnail_url"),
+            URLQueryItem(name: "fields", value: "id,media_type,media_url,owner,timestamp,caption,is_comment_enabled,like_count,username,thumbnail_url,comments_count"),
             URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
         ]
         guard let url = urlComponents.url else {
@@ -118,6 +119,7 @@ final class PostService {
                 post.username = postResponse.username
                 post.ownerID = postResponse.owner.id
                 post.thumbnail_url = postResponse.thumbnail_url
+                post.commentesCount = postResponse.comments_count
                 completionBlock(.success(post))
             case let .failure(error):
                 completionBlock(.failure(error))
