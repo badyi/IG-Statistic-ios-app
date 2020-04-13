@@ -20,6 +20,8 @@ struct MainInfoResponse: Codable {
     let profile_picture_url: String
 }
 
+
+
 fileprivate final class ProfileResourceFactory {
     func createMainProfileInfoResource(with credentials: Credentials) -> Resource<MainInfoResponse>? {
         guard let instID = credentials.instUserID else {

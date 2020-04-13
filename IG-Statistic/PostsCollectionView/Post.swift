@@ -12,14 +12,26 @@ import ResourceNetworking
 
 protocol PostViewDelegate: AnyObject {
     func iconDidLoaded(for post: PostView)
-    func urlDidLoaded(for post: PostView)
+    func insightsDidLoaded(for post: PostView)
+    func loadInsights(for post: PostView)
+}
+
+struct Insights {
+    var engagement: Int = 0
+    var impressions: Int = 0
+    var reach: Int = 0
+    var saved: Int = 0
 }
 
 class PostView {
     let uid = UUID().uuidString
     var id: String
     var caption: String?
-    var mediaType: String?
+    var mediaType: String? {
+        didSet {
+          //  delegate?.loadInsights(for: self)
+        }
+    }
     var date: String?
     var likesCount: Int?
     var isCommentEnabled: Bool?
@@ -27,17 +39,24 @@ class PostView {
     var location: String?
     var username: String?
     var ownerID: String?
+    var showInsights = false
+    
+    var insights: Insights? {
+        didSet {
+            //	delegate?.insightsDidLoaded(for: self)
+        }
+    }
     
     private var cancel: Cancellation?
     
     private(set) var mediaURL: String? {
-        didSet{
+        didSet {
             loadImageIfNeeded()
         }
     }
     
     private(set) var thumbnail_url: String? {
-        didSet{
+        didSet {
             loadImageIfNeeded()
         }
     }
@@ -97,6 +116,9 @@ extension PostView {
             }
         }
     }
+
+ 
+    
 }
 
 fileprivate final class ResourseFactory {

@@ -20,7 +20,8 @@ class PostsCollectionPresenter {
     private var profile: Profile!
     private var credentials: Credentials!
     private var postService: PostService!
-    
+    private var shInsights: Bool = false
+    let semaphore = DispatchSemaphore(value: 1)
     var posts: [Post] = [] {
         didSet {
             let postsViews: [PostView] = posts.map { p in
@@ -56,6 +57,14 @@ class PostsCollectionPresenter {
         }
     }
     
+    func setInsightsState(with flag: Bool){
+        shInsights = flag
+    }
+    
+    func showInsights() -> Bool {
+        shInsights
+    }
+    
     func postsCount() -> Int {
         posts.count
     }
@@ -69,11 +78,26 @@ class PostsCollectionPresenter {
     }
     
     func getPostInfo (_ post: Post, indexPath: IndexPath) {
-        postService.getPostInfo(credentials, post) { result in
+        if (post.date != nil) {
+            return
+        }
+        postService.getPostInfo(credentials, post) {[weak self] result in
             switch result {
             case let .success(post):
                 let post: Post = post
-                self.postView(at: indexPath.row).setAllInfo(with: post)
+                self?.postView(at: indexPath.row).setAllInfo(with: post)
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func getInsights(post: PostView, index: Int) {
+        postService.getPostInsights(credentials, post) {[weak self] result in
+            switch result {
+            case let .success(insights):
+                let insights: Insights = insights
+                self?.postView(at: index).insights = insights
             case let .failure(error):
                 print(error)
             }
@@ -82,10 +106,22 @@ class PostsCollectionPresenter {
 }
 
 extension PostsCollectionPresenter: PostViewDelegate {
+    func loadInsights(for post: PostView) {
+        let index = postsViews.firstIndex(of: post)
+        getInsights(post: post, index: index!)
+    }
+    
+    func insightsDidLoaded(for post: PostView) {
+        DispatchQueue.main.async { [weak self] in
+            //guard let index = self?.postsViews.firstIndex(of: post) else { return }
+            self?.view?.reloadData()
+        }
+    }
+    
     func iconDidLoaded(for post: PostView) {
-        DispatchQueue.main.async {
-            guard let index = self.postsViews.firstIndex(of: post) else { return }
-            self.view?.reloadItem(with: index)
+        DispatchQueue.main.async { [weak self] in
+            guard let index = self?.postsViews.firstIndex(of: post) else { return }
+            self?.view?.reloadItem(with: index)
         }
     }
     

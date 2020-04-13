@@ -22,6 +22,7 @@ final class Profile {
     init () {
         userID = ""
     }
+    
     init(with id: String) {
         userID = id
     }

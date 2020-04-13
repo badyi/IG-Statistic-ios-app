@@ -77,6 +77,22 @@ fileprivate final class PostResourceFactory {
         }
         return Resource(url: url, headers: nil)
     }
+    
+    func createInsightsResource(with credentials: Credentials,_ post: PostView) -> Resource<InsightsResonse>? {
+        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/\(post.id)/insights") else {
+            print("smt went wrong. invalid url components")
+            return nil
+        }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "metric", value: "engagement,impressions,reach,saved"),
+            URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
+        ]
+        guard let url = urlComponents.url else {
+            print("smt went wrong. invalid url")
+            return nil
+        }
+        return Resource(url: url, headers: nil)
+    }
 }
 
 final class PostService {
@@ -126,4 +142,47 @@ final class PostService {
             }
         }
     }
+    
+    func getPostInsights(_ credentials: Credentials, _ post: PostView, completionBlock: @escaping(OperationCompletion<Insights>) -> ()) {
+        guard let resource = PostResourceFactory().createInsightsResource(with: credentials, post) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) { result in
+            switch result {
+            case let .success(postInsights):
+                var insights = Insights()
+                insights.engagement = postInsights.data[0].values[0].value
+                insights.impressions = postInsights.data[1].values[0].value
+                insights.reach = postInsights.data[2].values[0].value
+                insights.saved = postInsights.data[3].values[0].value
+                completionBlock(.success(insights))
+            case let .failure(error):
+                var insights = Insights()
+                completionBlock(.success(insights))
+            }
+        }
+    }
 }
+
+fileprivate struct InsightsResonse: Codable {
+    let data: [Datum]
+}
+
+fileprivate struct Datum: Codable {
+    let name, period: String
+    let values: [Value]
+    let title, datumDescription, id: String
+
+    enum CodingKeys: String, CodingKey {
+        case name, period, values, title
+        case datumDescription = "description"
+        case id
+    }
+}
+
+fileprivate struct Value: Codable {
+    let value: Int
+}
+

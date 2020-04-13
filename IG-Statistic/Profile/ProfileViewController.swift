@@ -12,7 +12,7 @@ final class ProfileViewController: UIViewController {
 
     var pageVC: ProfilePageViewController!
     var profilePresenter: ProfilePresenter!
-    
+    var showInsightsFlag: Bool = false
     @IBOutlet weak var shInsights: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var postsCount: UILabel!
@@ -31,14 +31,34 @@ final class ProfileViewController: UIViewController {
         setUpView()
     }
     
+    @IBAction func showInsights(_ sender: UIButton) {
+        showInsightsFlag = !showInsightsFlag
+        pageVC.insightsTapped(with: showInsightsFlag)
+        if showInsightsFlag == true {
+            shInsights.setTitle("Hide insights", for: .normal)
+            shInsights.setTitleColor(.white, for: .normal)
+            shInsights.layer.borderWidth = 0.8
+            shInsights.layer.borderColor = UIColor.systemBlue.cgColor
+
+        } else {
+            shInsights.setTitle("Show insights", for: .normal)
+            shInsights.setTitleColor(.systemBlue, for: .normal)
+            self.shInsights.layer.borderWidth = 0.5
+            self.shInsights.layer.borderColor = UIColor(hexString: "#D3D3D3").cgColor
+        }
+    }
+    
+    @IBAction func showAdditionalInfo(_ sender: UIButton) {
+        print(199)
+    }
+    
     @IBAction func valueChanged(_ sender: Any) {
-        print(1)
+        print(234)
     }
 }
 
 extension ProfileViewController: ProfileViewProtocol {
     func setUpView() {
-        self.shInsights.setTitleColor(UIColor(hexString: "#C70039"), for: .normal ) // = UIColor(hexString: "#9932CC")
         self.shInsights.layer.cornerRadius = 3
         self.shInsights.layer.borderWidth = 0.5
         self.shInsights.layer.borderColor = UIColor(hexString: "#D3D3D3").cgColor
@@ -70,11 +90,11 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController: ProfilePageViewControllerDelegate {
-    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController, didUpdatePageCount count: Int) {
+    func profilePageViewController(ProfilePageViewController: ProfilePageViewController, didUpdatePageCount count: Int) {
         pageControl.numberOfPages = count
     }
     
-    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController, didUpdatePageIndex index: Int) {
+    func profilePageViewController(ProfilePageViewController: ProfilePageViewController, didUpdatePageIndex index: Int) {
         pageControl.currentPage = index
     }
 }

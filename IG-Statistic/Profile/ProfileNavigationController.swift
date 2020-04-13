@@ -13,8 +13,7 @@ final class ProfileNavigationController: UINavigationController {
     var credentials: Credentials?
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()        
         let tabBarVC = self.tabBarController as! BaseUITabBarViewController
         guard let credentials = tabBarVC.credentials else { return }
         self.credentials = credentials

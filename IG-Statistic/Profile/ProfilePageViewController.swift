@@ -10,10 +10,10 @@ import UIKit
 
 
 protocol ProfilePageViewControllerDelegate: class {
-    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController,
+    func profilePageViewController(ProfilePageViewController: ProfilePageViewController,
         didUpdatePageCount count: Int)
     
-    func ProfilePageViewController(ProfilePageViewController: ProfilePageViewController,
+    func profilePageViewController(ProfilePageViewController: ProfilePageViewController,
         didUpdatePageIndex index: Int)
 }
 
@@ -31,11 +31,15 @@ final class ProfilePageViewController: UIPageViewController {
         dataSource = self
         delegate = self
         setViewControllerFromIndex(index: 0)
-        PPVCdelegate?.ProfilePageViewController(ProfilePageViewController: self, didUpdatePageCount: subViewControllers.count)
+        PPVCdelegate?.profilePageViewController(ProfilePageViewController: self, didUpdatePageCount: subViewControllers.count)
     }
 }
 
 extension ProfilePageViewController {
+    func insightsTapped(with flag: Bool) {
+        postsCVC.insightsTapped(with: flag)
+    }
+    
     func transferData(_ profile: Profile, _ credentials: Credentials) {
         postsCVC.transferData(profile, credentials)
     }
@@ -66,7 +70,7 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let firstViewController = viewControllers?.first,
             let index = subViewControllers.firstIndex(of: firstViewController){
-            PPVCdelegate?.ProfilePageViewController(ProfilePageViewController: self, didUpdatePageIndex: index)
+            PPVCdelegate?.profilePageViewController(ProfilePageViewController: self, didUpdatePageIndex: index)
         }
     }
 }
