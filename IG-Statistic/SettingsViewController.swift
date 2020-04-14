@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController {
     
 
     @IBAction func logOutTapped(_ sender: Any) {
-        LoginManager().logOut()
+        
         let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "AuthViewController")
         let cookies = HTTPCookieStorage.shared
         let facebookCookies = cookies.cookies(for: URL(string: "https://facebook.com/")!)
@@ -29,6 +29,7 @@ class SettingsViewController: UIViewController {
         for cookie in facebookCookies2! {
             cookies.deleteCookie(cookie)
         }
+        LoginManager().logOut()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = loginPage
     }

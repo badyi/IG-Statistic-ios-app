@@ -104,7 +104,9 @@ final class AuthPresenter: AuthPresenterProtocol {
             case let .success(credentials):
                 self.credentials = credentials
             case let .failure(error):
-                self.view?.smtWrong()
+                DispatchQueue.main.async {
+                    self.view?.smtWrong()
+                }
                 print(error)
             }
         }

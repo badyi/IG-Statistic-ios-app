@@ -13,7 +13,7 @@
         <scene sceneID="vvQ-6h-1eR">
             <objects>
                 <viewController storyboardIdentifier="AuthViewController" id="mrI-zb-q2D" customClass="AuthViewController" customModule="IG_Statistic" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="MP5-Vr-uNT">
+                    <view key="view" contentMode="scaleToFill" id="MP5-Vr-uNT" customClass="GradientView" customModule="IG_Statistic" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -61,7 +61,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SBe-4g-LAE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253" y="-1088"/>
+            <point key="canvasLocation" x="1155" y="-1109"/>
         </scene>
         <!--Profile-->
         <scene sceneID="DO2-vT-kBN">
@@ -391,7 +391,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GaB-j3-dEG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2068" y="-371"/>
+            <point key="canvasLocation" x="1928" y="-370"/>
         </scene>
         <!--hashtagSearch-->
         <scene sceneID="VhJ-z2-eyS">
@@ -408,7 +408,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zTQ-AG-GKz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253" y="-370"/>
+            <point key="canvasLocation" x="1155" y="-371"/>
         </scene>
         <!--Statistic-->
         <scene sceneID="rGA-G6-8el">
