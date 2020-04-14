@@ -12,7 +12,7 @@
         <!--Auth View Controller-->
         <scene sceneID="vvQ-6h-1eR">
             <objects>
-                <viewController id="mrI-zb-q2D" customClass="AuthViewController" customModule="IG_Statistic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" id="mrI-zb-q2D" customClass="AuthViewController" customModule="IG_Statistic" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MP5-Vr-uNT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -249,7 +249,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gFZ-Ry-mRX"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="lKK-Di-zrH"/>
+                    <navigationItem key="navigationItem" title="Profile" id="lKK-Di-zrH">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="gear" catalog="system" id="lvj-ky-TQD">
+                            <connections>
+                                <segue destination="4B7-Y8-FOz" kind="show" id="LrT-YN-pYx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="followersCount" destination="Tep-ou-i7Q" id="f7k-AM-Jwr"/>
                         <outlet property="followingsCount" destination="FB7-s0-VE5" id="tKF-gQ-dO0"/>
@@ -262,7 +268,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uGQ-Cb-kAV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2040" y="-1109.1549295774648"/>
+            <point key="canvasLocation" x="1929" y="-1109"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="9uM-Bh-kY4">
+            <objects>
+                <viewController id="4B7-Y8-FOz" customClass="SettingsViewController" customModule="IG_Statistic" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ebj-Sc-GQn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IcC-BW-M55">
+                                <rect key="frame" x="134" y="269" width="52" height="30"/>
+                                <state key="normal" title="Log out"/>
+                                <connections>
+                                    <action selector="logOutTapped:" destination="4B7-Y8-FOz" eventType="touchUpInside" id="T2e-Cn-ziE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="IcC-BW-M55" firstAttribute="centerX" secondItem="ebj-Sc-GQn" secondAttribute="centerX" id="Gv8-2q-R50"/>
+                            <constraint firstItem="IcC-BW-M55" firstAttribute="centerY" secondItem="ebj-Sc-GQn" secondAttribute="centerY" id="NTe-2k-8mX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RRy-or-aDQ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1ZV-T1-unP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XuN-8Q-WZZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2841" y="-2232"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2zM-Im-YkD">
@@ -427,4 +462,7 @@
             <point key="canvasLocation" x="3705" y="-951"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="gear" catalog="system" width="128" height="119"/>
+    </resources>
 </document>

@@ -17,6 +17,8 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let loginView : LoginManager = LoginManager()
+        
         presenter = AuthPresenter(view: self)
         setUpView()
         loginButton.delegate = self

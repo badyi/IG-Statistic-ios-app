@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852D8E024438362008F2F7F /* UIColorExtension.swift */; };
 		085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */; };
+		08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5824462955005B7A7D /* SettingsViewController.swift */; };
 		7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */; };
 		792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DBF5824265EE0003E39C5 /* AppDelegate.swift */; };
-		792DBF5B24265EE0003E39C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DBF5A24265EE0003E39C5 /* SceneDelegate.swift */; };
 		792DBF6024265EE0003E39C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792DBF5E24265EE0003E39C5 /* Main.storyboard */; };
 		792DBF6224265EE3003E39C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792DBF6124265EE3003E39C5 /* Assets.xcassets */; };
 		792DBF6524265EE3003E39C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792DBF6324265EE3003E39C5 /* LaunchScreen.storyboard */; };
@@ -75,11 +75,11 @@
 /* Begin PBXFileReference section */
 		0852D8E024438362008F2F7F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
+		08DB7E5824462955005B7A7D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		117BD61E07C240843DFE7898 /* Pods_IG_Statistic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG_Statistic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionPresenter.swift; sourceTree = "<group>"; };
 		792DBF5524265EE0003E39C5 /* IG-Statistic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IG-Statistic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		792DBF5824265EE0003E39C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		792DBF5A24265EE0003E39C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		792DBF5F24265EE0003E39C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		792DBF6124265EE3003E39C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		792DBF6424265EE3003E39C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -178,7 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				792DBF5824265EE0003E39C5 /* AppDelegate.swift */,
-				792DBF5A24265EE0003E39C5 /* SceneDelegate.swift */,
 				0852D8E024438362008F2F7F /* UIColorExtension.swift */,
 				7974FD402426C0F900E62A9B /* BaseUITabBarViewController.swift */,
 				7953E9B3242D426200489394 /* PostsCollectionView */,
@@ -187,6 +186,7 @@
 				79C80F15242E6EBB000B0285 /* CollectionViewController.swift */,
 				79C80F11242E6E8B000B0285 /* FirtsViewController.swift */,
 				79C80F13242E6E9B000B0285 /* SecondViewController.swift */,
+				08DB7E5824462955005B7A7D /* SettingsViewController.swift */,
 				792DBF5E24265EE0003E39C5 /* Main.storyboard */,
 				792DBF6124265EE3003E39C5 /* Assets.xcassets */,
 				792DBF6324265EE3003E39C5 /* LaunchScreen.storyboard */,
@@ -391,13 +391,13 @@
 				79C80F12242E6E8B000B0285 /* FirtsViewController.swift in Sources */,
 				792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */,
 				79C80F21242FBB3E000B0285 /* PostService.swift in Sources */,
+				08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */,
 				79C80F19242F9959000B0285 /* Post.swift in Sources */,
 				085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */,
 				799863FA2431229A005BABD4 /* ProfilePresenter.swift in Sources */,
 				7974FD412426C0F900E62A9B /* BaseUITabBarViewController.swift in Sources */,
 				0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */,
 				79C80F1D242FACEA000B0285 /* PostsCollectionViewController.swift in Sources */,
-				792DBF5B24265EE0003E39C5 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
