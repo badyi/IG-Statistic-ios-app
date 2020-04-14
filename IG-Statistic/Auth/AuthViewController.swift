@@ -13,6 +13,7 @@ import ResourceNetworking
 final class AuthViewController: UIViewController {
     private var presenter: AuthPresenter!
     private var loginButton : FBLoginButton = FBLoginButton(permissions: [ .publicProfile, .email, .userFriends, "instagram_basic", "pages_show_list", "instagram_manage_insights", "instagram_manage_comments"])
+    var pages : [String: String] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,25 @@ final class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: AuthViewProtocol {
+    func smtWrong() {
+        let alert = UIAlertController(title: "Error", message: "smt went wrong. try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert,animated: true, completion: nil)
+        loginButton.isHidden = false
+    }
+    
+    func selected(alertAction: UIAlertAction) {
+        self.presenter.setPageId(pageName: alertAction.title!)
+    }
+    
+    func selectPage(pages: [String: String]) {
+        let pageMenu = UIAlertController(title: nil, message: "Choose page", preferredStyle: .actionSheet)
+        for i in pages {
+            pageMenu.addAction(UIAlertAction(title: i.value, style: .default, handler: selected))
+        }
+        self.present(pageMenu, animated: true, completion: nil)
+    }
+
     func setUpView() {
         loginButton.center = view.center
         if presenter.isAccessTokenExisting()  == true {

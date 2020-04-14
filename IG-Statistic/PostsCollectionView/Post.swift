@@ -17,6 +17,7 @@ protocol PostViewDelegate: AnyObject {
 }
 
 struct Insights {
+    var enable = false
     var engagement: Int = 0
     var impressions: Int = 0
     var reach: Int = 0
@@ -27,11 +28,7 @@ class PostView {
     let uid = UUID().uuidString
     var id: String
     var caption: String?
-    var mediaType: String? {
-        didSet {
-          //  delegate?.loadInsights(for: self)
-        }
-    }
+    var mediaType: String?
     var date: String?
     var likesCount: Int?
     var isCommentEnabled: Bool?
@@ -39,11 +36,10 @@ class PostView {
     var location: String?
     var username: String?
     var ownerID: String?
-    var showInsights = false
     
     var insights: Insights? {
         didSet {
-            //	delegate?.insightsDidLoaded(for: self)
+            delegate?.insightsDidLoaded(for: self)
         }
     }
     
@@ -116,9 +112,6 @@ extension PostView {
             }
         }
     }
-
- 
-    
 }
 
 fileprivate final class ResourseFactory {
@@ -134,7 +127,7 @@ fileprivate final class ResourseFactory {
     }
 }
 
-struct Post: Codable {
+struct Post: Codable, Equatable{
     var id: String
     var caption: String?
     var mediaType: String?

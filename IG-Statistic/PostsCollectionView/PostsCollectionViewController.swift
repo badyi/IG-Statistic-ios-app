@@ -16,11 +16,7 @@ class FakeReachability: ReachabilityProtocol {
 }
 
 class PostsCollectionViewController: UICollectionViewController {
-    var presenter: PostsCollectionPresenter! {
-        didSet {
-            self.collectionView.reloadData()
-        }
-    }
+    var presenter: PostsCollectionPresenter! 
     private let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
@@ -36,8 +32,10 @@ class PostsCollectionViewController: UICollectionViewController {
     }
     
     @objc func refresh() {
-        reloadData()
-        refreshControl.endRefreshing()
+        if presenter != nil {
+            presenter.getPosts()
+            refreshControl.endRefreshing()
+        }
     }
 }
 
@@ -63,7 +61,7 @@ extension PostsCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let post = presenter.post(at: indexPath.row)
         let postView = presenter.postView(at: indexPath.row)
-        presenter.getPostInfo(post, indexPath: indexPath)
+        presenter.getPostInfo(post, index: indexPath.row)
         presenter.loadInsights(for: postView)
         (cell as! PostCollectionViewCell).configure(with: postView, presenter.showInsights())
     }
@@ -106,6 +104,6 @@ extension PostsCollectionViewController: PostListViewProtocol {
     }
     
     func postsWithIDdidLoaded() {
-        self.collectionView.reloadData()
+        self.reloadData()
     }
 }

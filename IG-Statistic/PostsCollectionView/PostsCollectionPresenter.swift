@@ -22,6 +22,7 @@ class PostsCollectionPresenter {
     private var postService: PostService!
     private var shInsights: Bool = false
     let semaphore = DispatchSemaphore(value: 1)
+    
     var posts: [Post] = [] {
         didSet {
             let postsViews: [PostView] = posts.map { p in
@@ -30,13 +31,16 @@ class PostsCollectionPresenter {
                 return result
             }
             self.postsViews = postsViews
-            DispatchQueue.main.async {
-                self.view?.postsWithIDdidLoaded()            
-            }
         }
     }
     
-    var postsViews: [PostView] = []
+    var postsViews: [PostView] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.view?.postsWithIDdidLoaded()
+            }
+        }
+    }
     
     init(_ profile: Profile,_ credentials: Credentials, _ view: PostListViewProtocol) {
         self.profile = profile
@@ -46,7 +50,7 @@ class PostsCollectionPresenter {
     }
     
     func getPosts() {
-        postService.getAllPostsIDList(credentials){ result in
+        postService.getAllPostsIDList(credentials) { result in
             switch result {
             case let .success(posts):
                 let posts: [Post] = posts
@@ -77,15 +81,15 @@ class PostsCollectionPresenter {
         postsViews[index]
     }
     
-    func getPostInfo (_ post: Post, indexPath: IndexPath) {
-        if (post.date != nil) {
+    func getPostInfo (_ post: Post, index: Int) {
+        if post.date != nil {
             return
         }
         postService.getPostInfo(credentials, post) {[weak self] result in
             switch result {
             case let .success(post):
                 let post: Post = post
-                self?.postView(at: indexPath.row).setAllInfo(with: post)
+                self?.postView(at: index).setAllInfo(with: post)
             case let .failure(error):
                 print(error)
             }
@@ -93,6 +97,9 @@ class PostsCollectionPresenter {
     }
     
     func getInsights(post: PostView, index: Int) {
+        if post.insights != nil {
+            return
+        }
         postService.getPostInsights(credentials, post) {[weak self] result in
             switch result {
             case let .success(insights):
@@ -113,8 +120,8 @@ extension PostsCollectionPresenter: PostViewDelegate {
     
     func insightsDidLoaded(for post: PostView) {
         DispatchQueue.main.async { [weak self] in
-            //guard let index = self?.postsViews.firstIndex(of: post) else { return }
-            self?.view?.reloadData()
+            guard let index = self?.postsViews.firstIndex(of: post) else { return }
+            self?.view?.reloadItem(with: index)
         }
     }
     

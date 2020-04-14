@@ -12,6 +12,8 @@ import FacebookLogin
 protocol AuthViewProtocol: AnyObject {
     func setUpView()
     func performSeg(withIdentifier id: String, sender: Any)
+    func selectPage(pages:[String: String])
+    func smtWrong()
 }
 
 protocol AuthPresenterProtocol: AnyObject {
@@ -27,7 +29,7 @@ protocol AuthPresenterProtocol: AnyObject {
 final class AuthPresenter: AuthPresenterProtocol {
     weak var view: AuthViewProtocol?
     private var authService: AuthService!
-    
+    var pages: [String: String] = [:]
     private var credentials: Credentials? {
         didSet {
             if credentials?.pageID == nil {
@@ -72,12 +74,28 @@ final class AuthPresenter: AuthPresenterProtocol {
     func setUserPages() {
         authService.getUserPages(credentials!) { result in
             switch result {
-            case let .success(credentials):
-                self.credentials = credentials
+            case let .success(pages):
+                self.pages = pages
+                DispatchQueue.main.async {
+                    self.view?.selectPage(pages: pages)
+                }
             case let .failure(error):
+                DispatchQueue.main.async {
+                    self.view?.smtWrong()
+                }
                 print (error)
             }
         }
+    }
+    
+    func setPageId(pageName: String){
+        let cred = credentials
+        for i in pages {
+            if i.value == pageName {
+                cred?.pageID = i.key
+            }
+        }
+        credentials = cred
     }
 
     func setPageIBA() {
@@ -86,6 +104,7 @@ final class AuthPresenter: AuthPresenterProtocol {
             case let .success(credentials):
                 self.credentials = credentials
             case let .failure(error):
+                self.view?.smtWrong()
                 print(error)
             }
         }

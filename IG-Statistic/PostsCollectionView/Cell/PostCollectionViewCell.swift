@@ -13,11 +13,8 @@ class PostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iamge: UIImageView!
     @IBOutlet weak var insightsView: UIView!
     @IBOutlet weak var viewsCount: UILabel!
-    
     @IBOutlet weak var uniqueAccountsCount: UILabel!
-    
     @IBOutlet weak var likesCount: UILabel!
-    
     @IBOutlet weak var commentsCount: UILabel!
     @IBOutlet weak var bookmarksCount: UILabel!
     
@@ -32,19 +29,34 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with postV: PostView, _ flag: Bool) {
+        guard let imge = postV.image  else {
+            return
+        }
         iamge.image = postV.image
         if  flag == true {
             insightsView.isHidden = false
+            likesCount.text = String(postV.likesCount!)
+            commentsCount.text = String(postV.commentesCount!)
             if let insights = postV.insights {
-                viewsCount.text = String(insights.impressions)
-                uniqueAccountsCount.text = String(insights.reach)
-                likesCount.text = String(postV.likesCount!)
-                commentsCount.text = String(postV.commentesCount!)
-                bookmarksCount.text = String(insights.saved)
+                if insights.enable == true {
+                    viewsCount.isHidden = false
+                    uniqueAccountsCount.isHidden = false
+                    bookmarksCount.isHidden = false
+                    viewsCount.text = String(insights.impressions)
+                    uniqueAccountsCount.text = String(insights.reach)
+                    bookmarksCount.text = String(insights.saved)
+                } else {
+                    viewsCount.isHidden = true
+                    uniqueAccountsCount.isHidden = true
+                    bookmarksCount.isHidden = true
+                }
             }
         }
         else {
             insightsView.isHidden = true
         }
+    }
+    override func prepareForReuse() {
+        iamge.image = nil
     }
 }

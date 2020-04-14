@@ -153,13 +153,14 @@ final class PostService {
             switch result {
             case let .success(postInsights):
                 var insights = Insights()
+                insights.enable = true
                 insights.engagement = postInsights.data[0].values[0].value
                 insights.impressions = postInsights.data[1].values[0].value
                 insights.reach = postInsights.data[2].values[0].value
                 insights.saved = postInsights.data[3].values[0].value
                 completionBlock(.success(insights))
             case let .failure(error):
-                var insights = Insights()
+                let insights = Insights()
                 completionBlock(.success(insights))
             }
         }

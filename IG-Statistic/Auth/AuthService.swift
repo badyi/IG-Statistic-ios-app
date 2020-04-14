@@ -84,7 +84,7 @@ fileprivate final class AuthResourceFactory {
 final class AuthService {
     let networkHelper = NetworkHelper(reachability: FakeReachability())
     
-    func getUserPages(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Credentials>) -> ()) {
+    func getUserPages(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<[String:String]>) -> ()) {
         guard let resource = AuthResourceFactory().createUserPagesResource(with: credentials) else {
             let error = Error.self
             completionBlock(.failure(error as! Error))
@@ -93,9 +93,13 @@ final class AuthService {
         _ = networkHelper.load(resource: resource) { result in
             switch result {
             case let .success(pages):
-                let pages: usersPagesResponse = pages
-                credentials.pageID = pages.data[0].id
-                completionBlock(.success(credentials))
+                let pagesResponse: usersPagesResponse = pages
+                let pages: [String:String] = pagesResponse.data.reduce([String: String]()) { (dict, item) -> [String: String] in
+                    var dict = dict
+                    dict[item.id] = item.name
+                    return dict
+                }
+                completionBlock(.success(pages))
             case let .failure(error):
                 completionBlock(.failure(error))
             }

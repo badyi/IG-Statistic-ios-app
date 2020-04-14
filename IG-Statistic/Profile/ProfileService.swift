@@ -10,7 +10,7 @@ import UIKit
 import ResourceNetworking
 
 struct MainInfoResponse: Codable {
-    let biography: String
+    let biography: String?
     let id: String
     let username: String
     let name: String
@@ -19,8 +19,6 @@ struct MainInfoResponse: Codable {
     let follows_count: Int
     let profile_picture_url: String
 }
-
-
 
 fileprivate final class ProfileResourceFactory {
     func createMainProfileInfoResource(with credentials: Credentials) -> Resource<MainInfoResponse>? {
