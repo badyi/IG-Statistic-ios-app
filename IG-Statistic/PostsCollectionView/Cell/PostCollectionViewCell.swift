@@ -26,6 +26,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     func setupView() {
         insightsView.isHidden = true
         insightsView.layer.cornerRadius = 7
+        setColors()
     }
     
     func configure(with postV: PostView, _ flag: Bool) {
@@ -56,7 +57,13 @@ class PostCollectionViewCell: UICollectionViewCell {
             insightsView.isHidden = true
         }
     }
+    
     override func prepareForReuse() {
         iamge.image = nil
+    }
+    
+    func setColors() {
+        insightsView.tintColor = UIColor(hexString: "FF6347")
+        
     }
 }

@@ -17,16 +17,22 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         presenter = AuthPresenter(view: self)
         setUpView()
         loginButton.delegate = self
-        presenter.setCredentialsIfAccessTokenExists()
+        if presenter.isAccessTokenExisting() {
+            if presenter.doesDefaultUserPageExist() {
+                presenter.useDefaultUserPage(flag: true)
+            }
+            presenter.setCredentialsIfAccessTokenExists()
+        }
     }
 }
 
 extension AuthViewController: AuthViewProtocol {
-    func smtWrong() {
-        let alert = UIAlertController(title: "Error", message: "smt went wrong. try again", preferredStyle: .alert)
+    func smtWrongAlert(reason: String) {
+        let alert = UIAlertController(title: "Error", message: reason, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert,animated: true, completion: nil)
         loginButton.isHidden = false

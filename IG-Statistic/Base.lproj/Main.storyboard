@@ -285,9 +285,19 @@
                                     <action selector="logOutTapped:" destination="4B7-Y8-FOz" eventType="touchUpInside" id="T2e-Cn-ziE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKx-ws-jHI">
+                                <rect key="frame" x="114" y="231" width="92" height="30"/>
+                                <state key="normal" title="Change Page"/>
+                                <connections>
+                                    <action selector="changePageTapped:" destination="4B7-Y8-FOz" eventType="touchUpInside" id="YCa-U0-Pzh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="SKx-ws-jHI" firstAttribute="leading" secondItem="RRy-or-aDQ" secondAttribute="leading" constant="114" id="7sq-bU-hY3"/>
+                            <constraint firstItem="IcC-BW-M55" firstAttribute="top" secondItem="SKx-ws-jHI" secondAttribute="bottom" constant="8" id="9ZM-C7-EmF"/>
+                            <constraint firstItem="RRy-or-aDQ" firstAttribute="trailing" secondItem="SKx-ws-jHI" secondAttribute="trailing" constant="114" id="Fze-fM-8sm"/>
                             <constraint firstItem="IcC-BW-M55" firstAttribute="centerX" secondItem="ebj-Sc-GQn" secondAttribute="centerX" id="Gv8-2q-R50"/>
                             <constraint firstItem="IcC-BW-M55" firstAttribute="centerY" secondItem="ebj-Sc-GQn" secondAttribute="centerY" id="NTe-2k-8mX"/>
                         </constraints>

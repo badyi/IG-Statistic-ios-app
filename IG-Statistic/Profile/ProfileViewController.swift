@@ -36,13 +36,14 @@ final class ProfileViewController: UIViewController {
         pageVC.insightsTapped(with: showInsightsFlag)
         if showInsightsFlag == true {
             shInsights.setTitle("Hide insights", for: .normal)
-            shInsights.setTitleColor(.white, for: .normal)
+            shInsights.setTitleColor(UIColor(hexString: "FF6347"), for: .normal)
             shInsights.layer.borderWidth = 0.8
-            shInsights.layer.borderColor = UIColor.systemBlue.cgColor
+            shInsights.layer.borderColor = UIColor(hexString: "#FF6347").cgColor
 
         } else {
             shInsights.setTitle("Show insights", for: .normal)
             shInsights.setTitleColor(.systemBlue, for: .normal)
+            shInsights.setTitleShadowColor(.systemBlue, for: .normal)
             self.shInsights.layer.borderWidth = 0.5
             self.shInsights.layer.borderColor = UIColor(hexString: "#D3D3D3").cgColor
         }
@@ -77,7 +78,8 @@ extension ProfileViewController: ProfileViewProtocol {
     func imageDidLoaded(_ image: UIImage) {
         self.profileImage.image = image;
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
-        self.profileImage.clipsToBounds = true    }
+        self.profileImage.clipsToBounds = true
+    }
 }
 
 extension ProfileViewController {

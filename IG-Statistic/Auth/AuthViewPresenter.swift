@@ -13,7 +13,7 @@ protocol AuthViewProtocol: AnyObject {
     func setUpView()
     func performSeg(withIdentifier id: String, sender: Any)
     func selectPage(pages:[String: String])
-    func smtWrong()
+    func smtWrongAlert(reason: String)
 }
 
 protocol AuthPresenterProtocol: AnyObject {
@@ -24,12 +24,18 @@ protocol AuthPresenterProtocol: AnyObject {
     func setUserPages()
     func setPageIBA()
     func instUserIDLoaded()
+    func setToUserDefaultsPageID(_ pageID: String)
+    func doesDefaultUserPageExist() -> Bool
+    func setDefaultUserPage()
+    func useDefaultUserPage(flag: Bool)
 }
 
 final class AuthPresenter: AuthPresenterProtocol {
+    
     weak var view: AuthViewProtocol?
     private var authService: AuthService!
     var pages: [String: String] = [:]
+    var useDefaultPageID = false
     private var credentials: Credentials? {
         didSet {
             if credentials?.pageID == nil {
@@ -71,7 +77,30 @@ final class AuthPresenter: AuthPresenterProtocol {
         credentials = Credentials(fbToken)
     }
     
+    func useDefaultUserPage(flag: Bool) {
+        useDefaultPageID = flag
+    }
+    
+    func doesDefaultUserPageExist() -> Bool {
+        let status = UserDefaults.standard.bool(forKey: "userPageIsExisting")
+        guard let _ = UserDefaults.standard.string(forKey: "pageID") else {
+            return false
+        }
+        return status
+    }
+    
+    func setDefaultUserPage() {
+        let pageID = UserDefaults.standard.string(forKey: "pageID")
+        let cred = credentials
+        cred?.pageID = pageID
+        credentials = cred
+    }
+    
     func setUserPages() {
+        if useDefaultPageID == true {
+            setDefaultUserPage()
+            return
+        }
         authService.getUserPages(credentials!) { result in
             switch result {
             case let .success(pages):
@@ -81,7 +110,7 @@ final class AuthPresenter: AuthPresenterProtocol {
                 }
             case let .failure(error):
                 DispatchQueue.main.async {
-                    self.view?.smtWrong()
+                    self.view?.smtWrongAlert(reason: "cant get user pages")
                 }
                 print (error)
             }
@@ -93,7 +122,11 @@ final class AuthPresenter: AuthPresenterProtocol {
         for i in pages {
             if i.value == pageName {
                 cred?.pageID = i.key
+                setToUserDefaultsPageID((cred?.pageID)!)
             }
+        }
+        if cred?.pageID == nil {
+            view?.smtWrongAlert(reason: "cant set page id")
         }
         credentials = cred
     }
@@ -105,7 +138,7 @@ final class AuthPresenter: AuthPresenterProtocol {
                 self.credentials = credentials
             case let .failure(error):
                 DispatchQueue.main.async {
-                    self.view?.smtWrong()
+                    self.view?.smtWrongAlert(reason: "cant get instagram business account")
                 }
                 print(error)
             }
@@ -116,5 +149,10 @@ final class AuthPresenter: AuthPresenterProtocol {
         DispatchQueue.main.sync {
             self.view?.performSeg(withIdentifier: "authToTabBar", sender: self)
         }
+    }
+    
+    func setToUserDefaultsPageID(_ pageID: String) {
+        UserDefaults.standard.set(true, forKey: "userPageIsExisting")
+        UserDefaults.standard.set(pageID, forKey: "pageID")
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 class Credentials {
-    var fbAccessToken: String
+    var fbAccessToken: String?
     var instUserID: String?
     var fbUserId: String?
     var token_type: String?
@@ -19,3 +19,4 @@ class Credentials {
         self.fbAccessToken = fbAccessToken
     }
 }
+
