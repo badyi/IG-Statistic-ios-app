@@ -18,11 +18,10 @@ final class InfoHeaderView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
 
         imageView = UIImageView()
-        imageView.layer.cornerRadius = imageView.frame.width / 2
-        
+        //imageView.layer.cornerRadius = imageView.frame.width / 2
+        //imageView.clipsToBounds = true
         nickname = UILabel()
-        nickname.text = "darov"
-        
+        contentView.backgroundColor = .systemBlue
         contentView.addSubview(imageView)
         contentView.addSubview(nickname)
 
@@ -36,12 +35,19 @@ final class InfoHeaderView: UITableViewHeaderFooterView {
         nickname.topAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.bottomAnchor, constant: 5).isActive = true
         nickname.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         nickname.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        
-        //imageView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-        //imageView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func setImage(with img: UIImage) {
+        imageView.image = img
+        imageView.layer.cornerRadius = imageView.frame.width / 2
+        imageView.clipsToBounds = true
+    }
+    
+    func setNickname(with nickname: String) {
+        self.nickname.text = nickname
     }
 }

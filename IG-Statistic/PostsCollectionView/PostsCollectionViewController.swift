@@ -21,14 +21,7 @@ class PostsCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refreshControl.tintColor = UIColor.red
-        self.collectionView!.register(UINib.init(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView!.refreshControl = refreshControl
-        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.estimatedItemSize = .zero
+        setupView()
     }
     
     @objc func refresh() {
@@ -40,6 +33,15 @@ class PostsCollectionViewController: UICollectionViewController {
 }
 
 extension PostsCollectionViewController {
+    func setupView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refreshControl.tintColor = UIColor.red
+        self.collectionView!.register(UINib.init(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.refreshControl = refreshControl
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.estimatedItemSize = .zero    }
     func insightsTapped(with flag: Bool) {
         presenter.setInsightsState(with: flag)
         reloadData()

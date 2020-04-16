@@ -10,16 +10,29 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
-    let tableview: UITableView = {
+    private let tableview: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
-    let cellID = "infoCell"
+    private let cellID = "infoCell"
+    private var presenter: InfoPresenter?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+    }
+}
+
+extension InfoViewController: InfoViewProtocol {
+    func setInfo(with profile: Profile, _ image: UIImage) {
+        presenter = InfoPresenter(profile: profile, image: image)
+        reloadData()
+    }
+    
+    func reloadData() {
+        self.tableview.reloadData()
     }
 }
 
@@ -47,11 +60,15 @@ extension InfoViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        guard let count = presenter?.infoCount() else {
+            return 0
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! InfoTableViewCell
+        cell.config(with: (presenter?.getInfoName(at: indexPath.row))!, presenter?.getInfo(at: indexPath.row))
         return cell
     }
 }
@@ -69,7 +86,11 @@ extension InfoViewController: UITableViewDelegate {
         guard let view = tableview.dequeueReusableHeaderFooterView(withIdentifier: InfoHeaderView.reuseIdentifier) as? InfoHeaderView else {
             return nil
         }
-        view.imageView.image = UIImage(named: "heart")
+        guard let nick = presenter?.getNickname(),let image = presenter?.getProfileImage() else {
+            return nil
+        }
+        view.setNickname(with: nick)
+        view.setImage(with: image)
         return view
     }
 }

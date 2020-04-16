@@ -17,7 +17,6 @@ final class Profile {
     var followingsCount: Int?
     var profilePictureURLString: String?
     var bio: String?
-    var accountType: String?
     var website: String?
     init () {
         userID = ""

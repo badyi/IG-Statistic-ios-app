@@ -33,9 +33,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         }
     }
     
-    var profile: Profile! {
+    var profile: Profile? {
         didSet {
-            let profileView = ProfileView(with: profile)
+            let profileView = ProfileView(with: profile!)
             DispatchQueue.main.async {
                 self.view?.setManiInfo(profileView)
             }
@@ -63,7 +63,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
      }
     
     func getProfileImage() {
-        guard let imageUrl = profile.profilePictureURLString else {
+        guard let imageUrl = profile?.profilePictureURLString else {
             return
         }
         profileService.getImage(imageUrl) { result in

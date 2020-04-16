@@ -200,7 +200,7 @@
                                         </state>
                                         <connections>
                                             <action selector="showAdditionalInfo:" destination="hkC-EX-uf2" eventType="touchUpInside" id="gkS-Qa-aUl"/>
-                                            <segue destination="5Q6-RY-lec" kind="show" id="8o6-sP-x5i"/>
+                                            <segue destination="5Q6-RY-lec" kind="show" identifier="infoSegue" id="8o6-sP-x5i"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04x-hE-SyR">

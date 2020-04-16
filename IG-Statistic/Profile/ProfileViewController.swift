@@ -72,7 +72,7 @@ extension ProfileViewController: ProfileViewProtocol {
         name.text = profile.name
         self.title = profile.username
         
-        self.pageVC?.transferData(self.profilePresenter!.profile, self.profilePresenter!.credentials)
+        self.pageVC?.transferData(self.profilePresenter!.profile!, self.profilePresenter!.credentials)
     }
     
     func imageDidLoaded(_ image: UIImage) {
@@ -84,10 +84,18 @@ extension ProfileViewController: ProfileViewProtocol {
 
 extension ProfileViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "PVCSegue" else { return }
-        guard let PVC = segue.destination as? ProfilePageViewController else { return }
-        pageVC = PVC
-        pageVC.PPVCdelegate = self
+        if segue.identifier == "PVCSegue" {
+            guard let PVC = segue.destination as? ProfilePageViewController else { return }
+            pageVC = PVC
+            pageVC.PPVCdelegate = self
+        } else if segue.identifier == "infoSegue" {
+            guard let infoVC = segue.destination as? InfoViewController else {
+                return }
+            guard let profile = self.profilePresenter.profile,let image = self.profileImage.image else {
+                return
+            }
+            infoVC.setInfo(with: profile, image)
+        }
     }
 }
 
