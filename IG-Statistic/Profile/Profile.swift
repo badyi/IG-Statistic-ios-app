@@ -18,7 +18,7 @@ final class Profile {
     var profilePictureURLString: String?
     var bio: String?
     var accountType: String?
-    
+    var website: String?
     init () {
         userID = ""
     }

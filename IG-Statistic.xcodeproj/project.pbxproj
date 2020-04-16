@@ -11,6 +11,11 @@
 		085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */; };
 		08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5824462955005B7A7D /* SettingsViewController.swift */; };
 		08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5E2446564D005B7A7D /* GradientView.swift */; };
+		08DB7E9624486295005B7A7D /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E9524486295005B7A7D /* Info.swift */; };
+		08DB7E9D24486D39005B7A7D /* InfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */; };
+		08DB7EA72448726C005B7A7D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7EA62448726C005B7A7D /* InfoViewController.swift */; };
+		08DB7EAB24487905005B7A7D /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7EA924487905005B7A7D /* InfoTableViewCell.swift */; };
+		08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */; };
 		7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */; };
 		792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DBF5824265EE0003E39C5 /* AppDelegate.swift */; };
 		792DBF6024265EE0003E39C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792DBF5E24265EE0003E39C5 /* Main.storyboard */; };
@@ -78,6 +83,11 @@
 		085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
 		08DB7E5824462955005B7A7D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		08DB7E5E2446564D005B7A7D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		08DB7E9524486295005B7A7D /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoHeaderView.swift; sourceTree = "<group>"; };
+		08DB7EA62448726C005B7A7D /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		08DB7EA924487905005B7A7D /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
 		117BD61E07C240843DFE7898 /* Pods_IG_Statistic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG_Statistic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionPresenter.swift; sourceTree = "<group>"; };
 		792DBF5524265EE0003E39C5 /* IG-Statistic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IG-Statistic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +149,7 @@
 				795090F92426A3AD00EA3BFB /* Profile.swift */,
 				7974FD462428B6C100E62A9B /* ProfileService.swift */,
 				799863F92431229A005BABD4 /* ProfilePresenter.swift */,
+				08DB7E992448629E005B7A7D /* Info */,
 				7953E9B6242D430C00489394 /* ProfileViewController.swift */,
 				79C80F0D242E55E6000B0285 /* ProfilePageViewController.swift */,
 				7953E9BE242DAA1D00489394 /* ProfileNavigationController.swift */,
@@ -155,6 +166,26 @@
 				7950911B2426B04500EA3BFB /* AuthViewController.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		08DB7E992448629E005B7A7D /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */,
+				08DB7E9524486295005B7A7D /* Info.swift */,
+				08DB7EA62448726C005B7A7D /* InfoViewController.swift */,
+				08DB7EA8244878E8005B7A7D /* Cell */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		08DB7EA8244878E8005B7A7D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				08DB7EA924487905005B7A7D /* InfoTableViewCell.swift */,
+				08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		792DBF4C24265EE0003E39C5 = {
@@ -323,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7974FD55242A4B8E00E62A9B /* Pods_IG_Statistic.framework in Resources */,
+				08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */,
 				792DBF6524265EE3003E39C5 /* LaunchScreen.storyboard in Resources */,
 				792DBF6224265EE3003E39C5 /* Assets.xcassets in Resources */,
 				792DBF6024265EE0003E39C5 /* Main.storyboard in Resources */,
@@ -385,10 +417,14 @@
 				79C80F14242E6E9B000B0285 /* SecondViewController.swift in Sources */,
 				7953E9BF242DAA1D00489394 /* ProfileNavigationController.swift in Sources */,
 				7998640124313A43005BABD4 /* PostCollectionViewCell.swift in Sources */,
+				08DB7E9D24486D39005B7A7D /* InfoHeaderView.swift in Sources */,
 				795091072426A44100EA3BFB /* Profile.swift in Sources */,
 				7974FD472428B6C100E62A9B /* ProfileService.swift in Sources */,
 				7974FD4C24297AB700E62A9B /* AuthService.swift in Sources */,
+				08DB7E9624486295005B7A7D /* Info.swift in Sources */,
 				7953E9B7242D430C00489394 /* ProfileViewController.swift in Sources */,
+				08DB7EAB24487905005B7A7D /* InfoTableViewCell.swift in Sources */,
+				08DB7EA72448726C005B7A7D /* InfoViewController.swift in Sources */,
 				795091082426A44100EA3BFB /* Credentials.swift in Sources */,
 				7950911C2426B04500EA3BFB /* AuthViewController.swift in Sources */,
 				79C80F0E242E55E6000B0285 /* ProfilePageViewController.swift in Sources */,
