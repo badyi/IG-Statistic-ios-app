@@ -18,9 +18,9 @@ final class Profile {
     var profilePictureURLString: String?
     var bio: String?
     var website: String?
-    init () {
-        userID = ""
-    }
+    var link: String?
+    var category: String?
+    var fbName: String?
     
     init(with id: String) {
         userID = id

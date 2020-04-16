@@ -16,6 +16,7 @@
 		08DB7EAB24487905005B7A7D /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7EA924487905005B7A7D /* InfoTableViewCell.swift */; };
 		08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */; };
 		08DB7EB12448B7CE005B7A7D /* InfoViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7EB02448B7CE005B7A7D /* InfoViewPresenter.swift */; };
+		08DB7EC324490251005B7A7D /* InfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08DB7EC224490251005B7A7D /* InfoHeaderView.xib */; };
 		7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */; };
 		792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DBF5824265EE0003E39C5 /* AppDelegate.swift */; };
 		792DBF6024265EE0003E39C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792DBF5E24265EE0003E39C5 /* Main.storyboard */; };
@@ -88,6 +89,7 @@
 		08DB7EA924487905005B7A7D /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
 		08DB7EB02448B7CE005B7A7D /* InfoViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewPresenter.swift; sourceTree = "<group>"; };
+		08DB7EC224490251005B7A7D /* InfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoHeaderView.xib; sourceTree = "<group>"; };
 		117BD61E07C240843DFE7898 /* Pods_IG_Statistic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG_Statistic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionPresenter.swift; sourceTree = "<group>"; };
 		792DBF5524265EE0003E39C5 /* IG-Statistic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IG-Statistic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,20 +174,21 @@
 			isa = PBXGroup;
 			children = (
 				08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */,
+				08DB7EC224490251005B7A7D /* InfoHeaderView.xib */,
 				08DB7EB02448B7CE005B7A7D /* InfoViewPresenter.swift */,
 				08DB7EA62448726C005B7A7D /* InfoViewController.swift */,
-				08DB7EA8244878E8005B7A7D /* Cell */,
+				08DB7EA8244878E8005B7A7D /* Cells */,
 			);
 			path = Info;
 			sourceTree = "<group>";
 		};
-		08DB7EA8244878E8005B7A7D /* Cell */ = {
+		08DB7EA8244878E8005B7A7D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				08DB7EA924487905005B7A7D /* InfoTableViewCell.swift */,
 				08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */,
 			);
-			path = Cell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		792DBF4C24265EE0003E39C5 = {
@@ -356,6 +359,7 @@
 				7974FD55242A4B8E00E62A9B /* Pods_IG_Statistic.framework in Resources */,
 				08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */,
 				792DBF6524265EE3003E39C5 /* LaunchScreen.storyboard in Resources */,
+				08DB7EC324490251005B7A7D /* InfoHeaderView.xib in Resources */,
 				792DBF6224265EE3003E39C5 /* Assets.xcassets in Resources */,
 				792DBF6024265EE0003E39C5 /* Main.storyboard in Resources */,
 				7998640224313A43005BABD4 /* PostCollectionViewCell.xib in Resources */,

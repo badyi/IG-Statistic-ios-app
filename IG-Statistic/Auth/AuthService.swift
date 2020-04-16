@@ -39,10 +39,18 @@ fileprivate struct usersPagesResponse: Codable {
 
 fileprivate struct InstBusinessAccountResponse: Codable {
     let instagram_business_account: InstagramBusinessAccount
+    let category: String?
+    let link: String?
+    let website: String?
     let id: String
 }
 
 fileprivate struct InstagramBusinessAccount: Codable {
+    let id: String
+}
+
+fileprivate struct NameResponse: Codable {
+    let name: String
     let id: String
 }
 
@@ -70,7 +78,7 @@ fileprivate final class AuthResourceFactory {
             return nil
         }
         urlComponents.queryItems = [
-            URLQueryItem(name: "fields", value: "instagram_business_account"),
+            URLQueryItem(name: "fields", value: "instagram_business_account,category,link,website"),
             URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
         ]
         guard let url = urlComponents.url else {
@@ -79,10 +87,40 @@ fileprivate final class AuthResourceFactory {
         }
         return Resource(url: url, headers: nil)
     }
+    
+    func createFBnameResource(with credentials: Credentials) -> Resource<NameResponse>? {
+        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/v6.0/me") else {
+            print("Wrong url. couldnt create user page resource")
+            return nil
+        }
+        urlComponents.queryItems = [ URLQueryItem(name: "access_token", value: credentials.fbAccessToken) ]
+        guard let url = urlComponents.url else {
+            print("Wrong url. couldnt create correct FB name resource")
+            return nil
+        }
+        return Resource(url: url, headers: nil)
+    }
 }
 
 final class AuthService {
     let networkHelper = NetworkHelper(reachability: FakeReachability())
+    
+    func getFBname(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<String>) -> ()) {
+        guard let resource = AuthResourceFactory().createFBnameResource(with: credentials) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) {result in
+            switch result {
+            case let .success(nameResponse):
+                let response: NameResponse = nameResponse
+                completionBlock(.success(response.name))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
     
     func getUserPages(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<[String:String]>) -> ()) {
         guard let resource = AuthResourceFactory().createUserPagesResource(with: credentials) else {
@@ -117,6 +155,9 @@ final class AuthService {
             case let .success(pagesIBA):
                 let pagesIBA: InstBusinessAccountResponse = pagesIBA
                 credentials.instUserID = pagesIBA.instagram_business_account.id
+                credentials.category = pagesIBA.category
+                credentials.link = pagesIBA.link
+                credentials.website = pagesIBA.website
                 completionBlock(.success(credentials))
             case let .failure(error):
                 completionBlock(.failure(error))

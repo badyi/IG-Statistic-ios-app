@@ -17,6 +17,7 @@ class InfoViewController: UIViewController {
     }()
     
     private let cellID = "infoCell"
+    private let headerID = "headerID"
     private var presenter: InfoPresenter?
     
     override func viewDidLoad() {
@@ -40,11 +41,13 @@ extension InfoViewController {
     func setupTableView() {
         tableview.delegate = self
         tableview.dataSource = self
+        tableview.allowsSelection = false
+        tableview.tableFooterView = UIView()
         tableview.register(UINib(nibName: "InfoTableViewCell", bundle: nil), forCellReuseIdentifier: cellID)
-        tableview.register(InfoHeaderView.self, forHeaderFooterViewReuseIdentifier: InfoHeaderView.reuseIdentifier)
+        let nib = UINib(nibName: "InfoHeaderView", bundle: nil)
+        tableview.register(nib, forHeaderFooterViewReuseIdentifier: headerID)
         
         view.addSubview(tableview)
-        
         NSLayoutConstraint.activate([
             tableview.topAnchor.constraint(equalTo: self.view.topAnchor),
             tableview.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -83,14 +86,12 @@ extension InfoViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = tableview.dequeueReusableHeaderFooterView(withIdentifier: InfoHeaderView.reuseIdentifier) as? InfoHeaderView else {
-            return nil
-        }
+        let header = self.tableview.dequeueReusableHeaderFooterView(withIdentifier: headerID) as! InfoHeaderView
         guard let nick = presenter?.getNickname(),let image = presenter?.getProfileImage() else {
             return nil
         }
-        view.setNickname(with: nick)
-        view.setImage(with: image)
-        return view
+        header.setNickname(with: nick)
+        header.setImage(with: image)
+        return header
     }
 }

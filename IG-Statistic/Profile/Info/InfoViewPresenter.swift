@@ -25,7 +25,7 @@ final class InfoPresenter: InfoPresenterProtocol {
     weak var view: InfoViewController?
     var profile: Profile!
     var image: UIImage!
-    private var info: [String] = ["name", "bio", "website","posts","followers","followings"]
+    private var info: [String] = ["name", "bio", "website","posts","followers","followings" ,"FB name", "FB Link", "Category"]
     
     init(profile: Profile, image: UIImage) {
         self.profile = profile
@@ -62,6 +62,12 @@ final class InfoPresenter: InfoPresenterProtocol {
             return String(profile.followersCount!)
         case 5:
             return String(profile.followingsCount!)
+        case 6:
+            return profile.fbName
+        case 7:
+            return profile.link
+        case 8:
+            return profile.category
         default:
             return nil
         }

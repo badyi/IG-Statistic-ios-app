@@ -41,11 +41,17 @@ final class ProfilePresenter: ProfilePresenterProtocol {
             }
             getProfileImage()
         }
+        willSet {
+            newValue?.link = credentials.link
+            newValue?.website = credentials.website
+            newValue?.fbName = credentials.fbName
+            newValue?.category = credentials.category
+        }
     }
 
     init(with credentials: Credentials, view: ProfileViewProtocol) {
         profileService = ProfileService()
-        profile = Profile()
+        profile = Profile(with: "")
         self.view = view
         self.credentials = credentials
     }

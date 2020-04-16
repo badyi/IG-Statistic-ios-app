@@ -28,6 +28,7 @@ protocol AuthPresenterProtocol: AnyObject {
     func doesDefaultUserPageExist() -> Bool
     func setDefaultUserPage()
     func useDefaultUserPage(flag: Bool)
+    func getFBname()
 }
 
 final class AuthPresenter: AuthPresenterProtocol {
@@ -38,7 +39,9 @@ final class AuthPresenter: AuthPresenterProtocol {
     var useDefaultPageID = false
     private var credentials: Credentials? {
         didSet {
-            if credentials?.pageID == nil {
+            if credentials?.fbName == nil {
+                getFBname()
+            } else if credentials?.pageID == nil {
                 setUserPages()
             } else if credentials?.instUserID == nil {
                 setPageIBA()
@@ -79,6 +82,21 @@ final class AuthPresenter: AuthPresenterProtocol {
     
     func useDefaultUserPage(flag: Bool) {
         useDefaultPageID = flag
+    }
+    
+    func getFBname(){
+        authService.getFBname(credentials!) { result in
+            switch result {
+            case let .success(name):
+                let cred = self.credentials!
+                cred.fbName = name
+                self.credentials = cred
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    self.view?.smtWrongAlert(reason: "cant get a FB name")
+                }
+            }
+        }
     }
     
     func doesDefaultUserPageExist() -> Bool {
