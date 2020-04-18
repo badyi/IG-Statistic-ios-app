@@ -41,7 +41,9 @@ extension PostsCollectionViewController {
         self.collectionView!.register(UINib.init(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView!.refreshControl = refreshControl
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.estimatedItemSize = .zero    }
+        layout.estimatedItemSize = .zero
+    }
+    
     func insightsTapped(with flag: Bool) {
         presenter.setInsightsState(with: flag)
         reloadData()

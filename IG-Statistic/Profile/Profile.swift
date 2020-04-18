@@ -39,7 +39,7 @@ final class Profile {
 
 final class ProfileView {
     let username: String
-    let name: String
+    let name: String?
     let postsCount: String
     let followersCount: String
     let followingsCount: String
@@ -47,7 +47,7 @@ final class ProfileView {
     
     init(with profile: Profile) {
         username = profile.username!
-        name = profile.name!
+        name = profile.name 
         postsCount = String(profile.postsCount!)
         followersCount = String(profile.followersCount!)
         followingsCount = String(profile.followingsCount!)

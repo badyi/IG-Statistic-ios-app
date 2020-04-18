@@ -13,11 +13,11 @@ struct MainInfoResponse: Codable {
     let biography: String?
     let id: String
     let username: String
-    let name: String
+    let name: String?
     let media_count: Int
     let followers_count: Int
     let follows_count: Int
-    let profile_picture_url: String
+    let profile_picture_url: String?
 }
 
 fileprivate final class ProfileResourceFactory {
