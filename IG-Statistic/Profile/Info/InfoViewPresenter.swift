@@ -49,7 +49,7 @@ final class InfoPresenter: InfoPresenterProtocol {
         }
     }
     
-    private var info: [String] = ["name", "bio", "website","posts","followers","followings" ,"FB name", "FB Link", "Category"]
+    private var info: [String] = ["name", "bio", "website","posts","followers","followings" ,"Page name", "FB Link", "Category"]
     
     init(credentials: Credentials, view: InfoViewProtocol) {
         self.credentials = credentials
