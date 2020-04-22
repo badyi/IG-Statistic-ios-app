@@ -15,9 +15,6 @@ class Credentials {
     var token_type: String?
     var pageID: String?
     var category: String?
-    var link: String?
-    var website: String?
-    var fbName: String?
     
     init(_ fbAccessToken: String) {
         self.fbAccessToken = fbAccessToken

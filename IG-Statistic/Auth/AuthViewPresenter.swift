@@ -28,7 +28,6 @@ protocol AuthPresenterProtocol: AnyObject {
     func doesDefaultUserPageExist() -> Bool
     func setDefaultUserPage()
     func useDefaultUserPage(flag: Bool)
-    func getFBname()
 }
 
 final class AuthPresenter: AuthPresenterProtocol {
@@ -39,8 +38,8 @@ final class AuthPresenter: AuthPresenterProtocol {
     var useDefaultPageID = false
     private var credentials: Credentials? {
         didSet {
-            if credentials?.fbName == nil {
-                getFBname()
+            if credentials?.fbUserId == nil {
+                setFBID()
             } else if credentials?.pageID == nil {
                 setUserPages()
             } else if credentials?.instUserID == nil {
@@ -84,21 +83,6 @@ final class AuthPresenter: AuthPresenterProtocol {
         useDefaultPageID = flag
     }
     
-    func getFBname(){
-        authService.getFBname(credentials!) { result in
-            switch result {
-            case let .success(name):
-                let cred = self.credentials!
-                cred.fbName = name
-                self.credentials = cred
-            case let .failure(error):
-                DispatchQueue.main.async {
-                    self.view?.smtWrongAlert(reason: "cant get a FB name")
-                }
-            }
-        }
-    }
-    
     func doesDefaultUserPageExist() -> Bool {
         let status = UserDefaults.standard.bool(forKey: "userPageIsExisting")
         guard let _ = UserDefaults.standard.string(forKey: "pageID") else {
@@ -130,6 +114,19 @@ final class AuthPresenter: AuthPresenterProtocol {
                 DispatchQueue.main.async {
                     self.view?.smtWrongAlert(reason: "cant get user pages")
                 }
+                print (error)
+            }
+        }
+    }
+    
+    func setFBID() {
+        authService.getFBID_(credentials!) { result in
+            switch result {
+            case let .success(id):
+                let cred = self.credentials
+                cred?.fbUserId = id.id
+                self.credentials = cred
+            case let .failure(error):
                 print (error)
             }
         }

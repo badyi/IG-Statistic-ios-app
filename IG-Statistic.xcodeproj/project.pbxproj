@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852D8E024438362008F2F7F /* UIColorExtension.swift */; };
 		085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */; };
+		08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE3BE7244F4661005FCE2D /* InfoService.swift */; };
 		08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5824462955005B7A7D /* SettingsViewController.swift */; };
 		08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5E2446564D005B7A7D /* GradientView.swift */; };
 		08DB7E9D24486D39005B7A7D /* InfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */; };
@@ -82,6 +83,7 @@
 /* Begin PBXFileReference section */
 		0852D8E024438362008F2F7F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
+		08CE3BE7244F4661005FCE2D /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		08DB7E5824462955005B7A7D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		08DB7E5E2446564D005B7A7D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoHeaderView.swift; sourceTree = "<group>"; };
@@ -173,8 +175,7 @@
 		08DB7E992448629E005B7A7D /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */,
-				08DB7EC224490251005B7A7D /* InfoHeaderView.xib */,
+				08CE3BE7244F4661005FCE2D /* InfoService.swift */,
 				08DB7EB02448B7CE005B7A7D /* InfoViewPresenter.swift */,
 				08DB7EA62448726C005B7A7D /* InfoViewController.swift */,
 				08DB7EA8244878E8005B7A7D /* Cells */,
@@ -185,6 +186,8 @@
 		08DB7EA8244878E8005B7A7D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				08DB7E9C24486D39005B7A7D /* InfoHeaderView.swift */,
+				08DB7EC224490251005B7A7D /* InfoHeaderView.xib */,
 				08DB7EA924487905005B7A7D /* InfoTableViewCell.swift */,
 				08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */,
 			);
@@ -416,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79C80F16242E6EBB000B0285 /* CollectionViewController.swift in Sources */,
+				08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */,
 				08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */,
 				7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */,
 				79C80F14242E6E9B000B0285 /* SecondViewController.swift in Sources */,
@@ -586,6 +590,7 @@
 			baseConfigurationReference = A549B25DEC0B99D1CA3787F5 /* Pods-IG-Statistic.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A66RHWUZQK;
 				INFOPLIST_FILE = "IG-Statistic/Info.plist";
@@ -596,6 +601,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "badyi.IG-Statistic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -606,6 +612,7 @@
 			baseConfigurationReference = C557D0AD2DC00A3D18DFA00D /* Pods-IG-Statistic.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A66RHWUZQK;
 				INFOPLIST_FILE = "IG-Statistic/Info.plist";
@@ -616,6 +623,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "badyi.IG-Statistic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

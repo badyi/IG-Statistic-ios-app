@@ -1,27 +1,59 @@
 //
-//  ProfileService.swift
+//  InfoService.swift
 //  IG-Statistic
 //
-//  Created by Бадый Шагаалан on 23.03.2020.
+//  Created by и on 21.04.2020.
 //  Copyright © 2020 Бадый Шагаалан. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import ResourceNetworking
+import UIKit
 
-struct MainInfoResponse: Codable {
-    let biography: String?
+fileprivate struct NameResponse: Codable {
+    let name: String
     let id: String
-    let username: String
-    let name: String?
-    let website: String?
-    let media_count: Int
-    let followers_count: Int
-    let follows_count: Int
-    let profile_picture_url: String?
 }
 
-final class ProfileResourceFactory {
+fileprivate struct FBLinkResponse: Codable {
+    let link: String?
+    let id: String
+}
+
+fileprivate final class InfoResourceFactory {
+    func createFBLinkResoutce(with credentials: Credentials) -> Resource<FBLinkResponse>? {
+        guard let fbID = credentials.fbUserId else {
+            print("id is missing.")
+            return nil
+        }
+        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/v6.0/\(fbID)/") else {
+            print("Wrong url. couldnt create resource")
+            return nil
+        }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "fields", value: "link"),
+            URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
+        ]
+        guard let url = urlComponents.url else {
+            print("Wrong url. couldnt create resource")
+            return nil
+        }
+        return Resource(url: url, headers: nil)
+    }
+    
+    func createFBnameResource(with credentials: Credentials) -> Resource<NameResponse>? {
+        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/v6.0/me") else {
+            print("Wrong url. couldnt create user page resource")
+            return nil
+        }
+        urlComponents.queryItems = [ URLQueryItem(name: "access_token", value: credentials.fbAccessToken) ]
+        guard let url = urlComponents.url else {
+            print("Wrong url. couldnt create correct FB name resource")
+            return nil
+        }
+        return Resource(url: url, headers: nil)
+    }
+    
     func createMainProfileInfoResource(with credentials: Credentials) -> Resource<MainInfoResponse>? {
         guard let instID = credentials.instUserID else {
             print("smt went wrong. invalid inst user id")
@@ -54,9 +86,43 @@ final class ProfileResourceFactory {
     }
 }
 
-final class ProfileService {
+final class InfoService {
     let networkHelper = NetworkHelper(reachability: FakeReachability())
-
+    
+    func getFBLink(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<String?>) -> ()) {
+        guard let resource = InfoResourceFactory().createFBLinkResoutce(with: credentials) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) { result in
+            switch result {
+            case let .success(response):
+                let resp: FBLinkResponse = response
+                completionBlock(.success(resp.link))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
+    
+    func getFBname(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<String>) -> ()) {
+        guard let resource = InfoResourceFactory().createFBnameResource(with: credentials) else {
+            let error = Error.self
+            completionBlock(.failure(error as! Error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) {result in
+            switch result {
+            case let .success(nameResponse):
+                let response: NameResponse = nameResponse
+                completionBlock(.success(response.name))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
+    
     func getMainProfileInfo (_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Profile>) -> ()) {
         guard let resource = ProfileResourceFactory().createMainProfileInfoResource(with: credentials) else {
             let error = Error.self
@@ -91,6 +157,4 @@ final class ProfileService {
                     completionBlock(.failure(error))
             }
         }
-    }
-}
-
+    }}

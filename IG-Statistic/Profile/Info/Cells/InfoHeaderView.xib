@@ -31,6 +31,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ZFq-Gh-CdW">
+                    <rect key="frame" x="268" y="57.5" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="5Ds-ow-sNx"/>
+                        <constraint firstAttribute="height" constant="20" id="igP-mq-5rE"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
@@ -40,8 +47,10 @@
                 <constraint firstItem="1P1-iS-keS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="b6Q-Yq-IaA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rWr-XI-NAb" secondAttribute="trailing" id="dLX-yL-qhH"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rWr-XI-NAb" secondAttribute="bottom" id="dbY-bB-sjY"/>
+                <constraint firstItem="ZFq-Gh-CdW" firstAttribute="centerY" secondItem="1P1-iS-keS" secondAttribute="centerY" id="ndQ-ns-mPB"/>
                 <constraint firstItem="aoR-pp-Ye0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="odV-Za-E4D"/>
                 <constraint firstItem="aoR-pp-Ye0" firstAttribute="top" secondItem="1P1-iS-keS" secondAttribute="bottom" constant="8" id="wau-1v-LXs"/>
+                <constraint firstItem="ZFq-Gh-CdW" firstAttribute="centerX" secondItem="1P1-iS-keS" secondAttribute="centerX" id="zVm-Zb-gnA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

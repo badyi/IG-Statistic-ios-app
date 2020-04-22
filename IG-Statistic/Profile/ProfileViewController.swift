@@ -19,7 +19,8 @@ final class ProfileViewController: UIViewController {
     @IBOutlet weak var followersCount: UILabel!
     @IBOutlet weak var followingsCount: UILabel!
     @IBOutlet weak var name: UILabel!
-    
+    @IBOutlet weak var sortsPostsButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
 
     override func viewDidLoad() {
@@ -35,13 +36,12 @@ final class ProfileViewController: UIViewController {
         showInsightsFlag = !showInsightsFlag
         pageVC.insightsTapped(with: showInsightsFlag)
         if showInsightsFlag == true {
-            shInsights.setTitle("Hide insights", for: .normal)
+            shInsights.setTitle("Insights", for: .normal)
             shInsights.setTitleColor(UIColor(hexString: "FF6347"), for: .normal)
             shInsights.layer.borderWidth = 0.8
             shInsights.layer.borderColor = UIColor(hexString: "#FF6347").cgColor
 
         } else {
-            shInsights.setTitle("Show insights", for: .normal)
             shInsights.setTitleColor(.systemBlue, for: .normal)
             shInsights.setTitleShadowColor(.systemBlue, for: .normal)
             self.shInsights.layer.borderWidth = 0.5
@@ -62,7 +62,13 @@ extension ProfileViewController: ProfileViewProtocol {
     func setUpView() {
         self.shInsights.layer.cornerRadius = 3
         self.shInsights.layer.borderWidth = 0.5
-        self.shInsights.layer.borderColor = UIColor(hexString: "#D3D3D3").cgColor
+        self.shInsights.layer.borderColor = UIColor.darkGray.cgColor//UIColor(hexString: "#D3D3D3").cgColor
+        self.sortsPostsButton.layer.cornerRadius = 3
+        self.sortsPostsButton.layer.borderWidth = 0.5
+        self.sortsPostsButton.layer.borderColor = UIColor.darkGray.cgColor//(hexString: "#D3D3D3").cgColor
+        self.infoButton.layer.cornerRadius = 3
+        self.infoButton.layer.borderWidth = 0.5
+        self.infoButton.layer.borderColor = UIColor.darkGray.cgColor//(hexString: "#D3D3D3").cgColor
     }
     
     func setManiInfo(_ profile: ProfileView) {
@@ -91,10 +97,7 @@ extension ProfileViewController {
         } else if segue.identifier == "infoSegue" {
             guard let infoVC = segue.destination as? InfoViewController else {
                 return }
-            guard let profile = self.profilePresenter.profile,let image = self.profileImage.image else {
-                return
-            }
-            infoVC.setInfo(with: profile, image)
+            infoVC.cred = profilePresenter.credentials!
         }
     }
 }

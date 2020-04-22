@@ -10,6 +10,8 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
+    var cred: Credentials?
+    
     private let tableview: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -23,13 +25,24 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        presenter = InfoPresenter(credentials: cred!, view: self)
+        presenter?.getMainProfileInfo()
     }
 }
 
 extension InfoViewController: InfoViewProtocol {
-    func setInfo(with profile: Profile, _ image: UIImage) {
-        presenter = InfoPresenter(profile: profile, image: image)
+    func reloadItem(at index: Int) {
+        let indexPath = [IndexPath(row: index, section: 0)]
+        self.tableview.reloadRows(at: indexPath, with: .automatic)
+    }
+    
+    func imageDidLoaded(_ image: UIImage) {
         reloadData()
+    }
+
+    func setInfo(with credentials: Credentials) {
+        presenter = InfoPresenter(credentials: credentials, view: self)
+        presenter?.getMainProfileInfo()
     }
     
     func reloadData() {
@@ -87,11 +100,14 @@ extension InfoViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = self.tableview.dequeueReusableHeaderFooterView(withIdentifier: headerID) as! InfoHeaderView
-        guard let nick = presenter?.getNickname(),let image = presenter?.getProfileImage() else {
-            return nil
+        if let nick = presenter?.getNickname() {
+            header.setNickname(with: nick)
         }
-        header.setNickname(with: nick)
-        header.setImage(with: image)
+        
+        if let image = presenter?.getImage() {
+            header.setImage(with: image)
+        }
+        
         return header
     }
 }

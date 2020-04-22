@@ -42,9 +42,6 @@ final class ProfilePresenter: ProfilePresenterProtocol {
             getProfileImage()
         }
         willSet {
-            newValue?.link = credentials.link
-            newValue?.website = credentials.website
-            newValue?.fbName = credentials.fbName
             newValue?.category = credentials.category
         }
     }

@@ -30,6 +30,7 @@ final class Profile {
         bio = info.biography
         username = info.username
         name = info.name
+        website = info.website
         postsCount = info.media_count
         followersCount =  info.followers_count
         followingsCount = info.follows_count

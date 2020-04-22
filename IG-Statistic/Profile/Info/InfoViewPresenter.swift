@@ -9,65 +9,153 @@
 import UIKit
 
 protocol InfoViewProtocol: AnyObject {
-    func setInfo(with profile: Profile, _ image: UIImage)
+    func setInfo(with _: Credentials)
     func reloadData()
+    func reloadItem(at index: Int)
+    func imageDidLoaded(_ image: UIImage)
 }
 
 protocol InfoPresenterProtocol: AnyObject {
     func infoCount() -> Int
     func getInfo(at index: Int) -> String?
     func getInfoName(at index: Int) -> String
-    func getProfileImage() -> UIImage
-    func getNickname() -> String
+    func getImage() -> UIImage?
+    func getNickname() -> String?
+    func getProfileImage()
 }
 
 final class InfoPresenter: InfoPresenterProtocol {
-    weak var view: InfoViewController?
-    var profile: Profile!
-    var image: UIImage!
+    weak var view: InfoViewProtocol?
+    var infoService: InfoService!
+    var credentials: Credentials!
+    
+    var profile: Profile? = Profile(with: "") {
+        didSet {
+            DispatchQueue.main.async {
+                self.view?.reloadData()
+            }
+            getProfileImage()
+            getFBname()
+            getLink()
+        }
+    }
+    
+    var image: UIImage? {
+        didSet {
+            DispatchQueue.main.async {
+                self.view?.imageDidLoaded(self.image!)
+                self.view?.reloadData()
+            }
+        }
+    }
+    
     private var info: [String] = ["name", "bio", "website","posts","followers","followings" ,"FB name", "FB Link", "Category"]
     
-    init(profile: Profile, image: UIImage) {
-        self.profile = profile
-        self.image = image
+    init(credentials: Credentials, view: InfoViewProtocol) {
+        self.credentials = credentials
+        self.infoService = InfoService()
+        self.view = view
     }
     
     func infoCount() -> Int {
         return info.count
     }
-    
+
     func getInfoName(at index: Int) -> String {
         return info[index]
     }
     
-    func getNickname() -> String {
-        return profile.username!
+    func getNickname() -> String? {
+        return profile?.username
     }
     
-    func getProfileImage() -> UIImage {
+    func getImage() -> UIImage? {
         return image
+    }
+    
+    func getFBname(){
+        infoService.getFBname(credentials!) { result in
+            switch result {
+            case let .success(name):
+                self.profile?.fbName = name
+                DispatchQueue.main.async {
+                    self.view?.reloadData()
+                }
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    #warning("do")//self.view?.smtWrongAlert(reason: "cant get a FB name")
+                }
+            }
+        }
+    }
+    
+    func getLink() {
+        infoService.getFBLink(credentials) { result in
+            switch result {
+            case let .success(link):
+                self.profile?.link = link
+                DispatchQueue.main.async {
+                    self.view?.reloadItem(at: 7)
+                }
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    #warning("do")//self.view?.smtWrongAlert(reason: "cant get a FB name")
+                }
+            }
+        }
+    }
+    
+    func getMainProfileInfo() {
+        infoService.getMainProfileInfo(credentials) { result in
+            switch result {
+            case let .success(profile):
+                let profile: Profile = profile
+                profile.category = self.credentials.category
+                self.profile = profile
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
+    func getProfileImage() {
+        guard let imageUrl = profile?.profilePictureURLString else {
+            image = UIImage(named: "defaultAvatar")
+            return
+        }
+        infoService.getImage(imageUrl) { result in
+            switch result {
+            case let .success(image):
+                self.image = image
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
     
     func getInfo(at index: Int) -> String? {
         switch index {
         case 0:
-            return profile.name
+            return self.profile?.name
         case 1:
-            return profile.bio
+            return self.profile?.bio
         case 2:
-            return profile.website
+            return self.profile?.website
         case 3:
-            return String(profile.postsCount!)
+            guard let count = self.profile?.postsCount else { return nil }
+            return String(count)
         case 4:
-            return String(profile.followersCount!)
+            guard let count = self.profile?.followersCount else { return nil }
+            return String(count)
         case 5:
-            return String(profile.followingsCount!)
+            guard let count = self.profile?.followingsCount else { return nil }
+            return String(count)
         case 6:
-            return profile.fbName
+            return profile?.fbName
         case 7:
-            return profile.link
+            return profile?.link
         case 8:
-            return profile.category
+            return profile?.category
         default:
             return nil
         }
