@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852D8E024438362008F2F7F /* UIColorExtension.swift */; };
 		085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */; };
+		086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994EA24536D04008587F0 /* InsightsViewController.swift */; };
+		086994EE24536E46008587F0 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994ED24536E46008587F0 /* MenuBar.swift */; };
 		08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE3BE7244F4661005FCE2D /* InfoService.swift */; };
 		08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5824462955005B7A7D /* SettingsViewController.swift */; };
 		08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5E2446564D005B7A7D /* GradientView.swift */; };
@@ -83,6 +85,8 @@
 /* Begin PBXFileReference section */
 		0852D8E024438362008F2F7F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
+		086994EA24536D04008587F0 /* InsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewController.swift; sourceTree = "<group>"; };
+		086994ED24536E46008587F0 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		08CE3BE7244F4661005FCE2D /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		08DB7E5824462955005B7A7D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		08DB7E5E2446564D005B7A7D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -172,6 +176,15 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		086994E924536CCD008587F0 /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				086994EA24536D04008587F0 /* InsightsViewController.swift */,
+				086994ED24536E46008587F0 /* MenuBar.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
 		08DB7E992448629E005B7A7D /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +233,7 @@
 				08DB7E5E2446564D005B7A7D /* GradientView.swift */,
 				0852D8E024438362008F2F7F /* UIColorExtension.swift */,
 				7974FD402426C0F900E62A9B /* BaseUITabBarViewController.swift */,
+				086994E924536CCD008587F0 /* Insights */,
 				7953E9B3242D426200489394 /* PostsCollectionView */,
 				085B2117243D163500D4A1DF /* Profile */,
 				085B2118243D169600D4A1DF /* Auth */,
@@ -432,9 +446,11 @@
 				7953E9B7242D430C00489394 /* ProfileViewController.swift in Sources */,
 				08DB7EAB24487905005B7A7D /* InfoTableViewCell.swift in Sources */,
 				08DB7EA72448726C005B7A7D /* InfoViewController.swift in Sources */,
+				086994EE24536E46008587F0 /* MenuBar.swift in Sources */,
 				795091082426A44100EA3BFB /* Credentials.swift in Sources */,
 				7950911C2426B04500EA3BFB /* AuthViewController.swift in Sources */,
 				79C80F0E242E55E6000B0285 /* ProfilePageViewController.swift in Sources */,
+				086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */,
 				08DB7EB12448B7CE005B7A7D /* InfoViewPresenter.swift in Sources */,
 				79C80F12242E6E8B000B0285 /* FirtsViewController.swift in Sources */,
 				792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */,
