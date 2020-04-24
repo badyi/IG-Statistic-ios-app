@@ -30,7 +30,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with postV: PostView, _ flag: Bool) {
-        guard let imge = postV.image  else {
+        guard let _ = postV.image  else {
             return
         }
         iamge.image = postV.image

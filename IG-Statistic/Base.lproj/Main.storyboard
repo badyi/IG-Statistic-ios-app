@@ -357,7 +357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XuN-8Q-WZZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2841" y="-2232"/>
+            <point key="canvasLocation" x="2843" y="-2190"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="kLl-GG-fxa">
@@ -373,7 +373,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vav-AK-y3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2846" y="-1563"/>
+            <point key="canvasLocation" x="2843" y="-1505"/>
         </scene>
         <!--Profile Page View Controller-->
         <scene sceneID="o68-Kt-oye">
@@ -386,7 +386,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0o8-xa-6Gd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2847" y="-968"/>
+            <point key="canvasLocation" x="2844" y="-972"/>
         </scene>
         <!--Posts Collection View Controller-->
         <scene sceneID="bWN-9F-WCw">
@@ -422,7 +422,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mnq-4R-bdf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3705" y="-1388"/>
+            <point key="canvasLocation" x="3705" y="-1396"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="cv9-3K-d8d">
@@ -453,11 +453,11 @@
             </objects>
             <point key="canvasLocation" x="1928" y="-370"/>
         </scene>
-        <!--hashtagSearch-->
+        <!--Insights-->
         <scene sceneID="VhJ-z2-eyS">
             <objects>
                 <navigationController id="JpQ-nT-1Fx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="hashtagSearch" id="by7-28-MuG"/>
+                    <tabBarItem key="tabBarItem" title="Insights" id="by7-28-MuG"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dWS-0k-reD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -519,7 +519,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7p-uj-LgK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3705" y="-951"/>
+            <point key="canvasLocation" x="3705" y="-972"/>
         </scene>
     </scenes>
     <resources>

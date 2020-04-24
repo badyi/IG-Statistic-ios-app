@@ -159,7 +159,7 @@ final class PostService {
                 insights.reach = postInsights.data[2].values[0].value
                 insights.saved = postInsights.data[3].values[0].value
                 completionBlock(.success(insights))
-            case let .failure(error):
+            case .failure(_):
                 let insights = Insights()
                 completionBlock(.success(insights))
             }

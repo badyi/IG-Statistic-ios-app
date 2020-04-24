@@ -9,4 +9,5 @@ target 'IG-Statistic' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  pod 'Charts'
 end

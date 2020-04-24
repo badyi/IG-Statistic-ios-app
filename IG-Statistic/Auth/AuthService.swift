@@ -51,6 +51,7 @@ struct FBID: Codable {
     let name: String;
     let id: String;
 }
+
 fileprivate final class AuthResourceFactory {
     func createFBIDResource(with credentials: Credentials) -> Resource<FBID>? {
         guard var urlComponents = URLComponents(string: "https://graph.facebook.com/v6.0/me") else {

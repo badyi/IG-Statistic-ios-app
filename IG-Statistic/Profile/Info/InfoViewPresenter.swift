@@ -81,9 +81,9 @@ final class InfoPresenter: InfoPresenterProtocol {
                 DispatchQueue.main.async {
                     self.view?.reloadData()
                 }
-            case let .failure(error):
+            case .failure(_):
                 DispatchQueue.main.async {
-                    #warning("do")//self.view?.smtWrongAlert(reason: "cant get a FB name")
+                    #warning("here")//self.view?.smtWrongAlert(reason: "cant get a FB name")
                 }
             }
         }
@@ -97,9 +97,9 @@ final class InfoPresenter: InfoPresenterProtocol {
                 DispatchQueue.main.async {
                     self.view?.reloadItem(at: 7)
                 }
-            case let .failure(error):
+            case .failure(_):
                 DispatchQueue.main.async {
-                    #warning("do")//self.view?.smtWrongAlert(reason: "cant get a FB name")
+                    #warning("here")//self.view?.smtWrongAlert(reason: "cant get a FB name")
                 }
             }
         }

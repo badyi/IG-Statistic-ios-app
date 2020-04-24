@@ -1,4 +1,7 @@
 PODS:
+  - Charts (3.5.0):
+    - Charts/Core (= 3.5.0)
+  - Charts/Core (3.5.0)
   - FacebookCore (0.9.0):
     - FBSDKCoreKit (~> 5.0)
   - FacebookLogin (0.9.0):
@@ -25,12 +28,14 @@ PODS:
     - FBSDKCoreKit (~> 5.0)
 
 DEPENDENCIES:
+  - Charts
   - FacebookCore
   - FacebookLogin
   - FacebookShare
 
 SPEC REPOS:
   trunk:
+    - Charts
     - FacebookCore
     - FacebookLogin
     - FacebookShare
@@ -39,6 +44,7 @@ SPEC REPOS:
     - FBSDKShareKit
 
 SPEC CHECKSUMS:
+  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
   FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
   FacebookShare: 85968ad1b1606c4944fb154924e425fd29184ea5
@@ -46,6 +52,6 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   FBSDKShareKit: 259737eab3cc807087374553abdf588b3096ba55
 
-PODFILE CHECKSUM: 52ab87c67bdad418707d762705e4ac6ef09f1e39
+PODFILE CHECKSUM: bb7562acd15a6d169d0843ba29589dd50d63ca9c
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

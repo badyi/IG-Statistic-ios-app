@@ -10,7 +10,6 @@ import UIKit
 
 
 class InfoHeaderView: UITableViewHeaderFooterView {
-    //static let reuseIdentifier: String = String(describing: self)
     @IBOutlet weak var prfoilePicture: UIImageView!
     @IBOutlet weak var label: UILabel!
     
