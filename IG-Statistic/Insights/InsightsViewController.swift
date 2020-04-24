@@ -11,22 +11,6 @@ import UIKit
 class InsightsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
         let cellId = "cellId"
     
-        private func setupMenuBar() {
-            navigationController?.hidesBarsOnSwipe = true
-            
-            let redView = UIView()
-            redView.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
-            view.addSubview(redView)
-            view.addConstraintsWithFormat("H:|[v0]|", views: redView)
-            view.addConstraintsWithFormat("V:[v0(50)]", views: redView)
-            
-            view.addSubview(menuBar)
-            view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
-            view.addConstraintsWithFormat("V:[v0(50)]", views: menuBar)
-            
-            menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        }
-
         override func viewDidLoad() {
             super.viewDidLoad()
             
@@ -45,7 +29,23 @@ class InsightsViewController: UICollectionViewController, UICollectionViewDelega
             
             setupCollectionView()
         }
-        
+    
+        private func setupMenuBar() {
+            navigationController?.hidesBarsOnSwipe = true
+            
+            let redView = UIView()
+            redView.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+            view.addSubview(redView)
+            view.addConstraintsWithFormat("H:|[v0]|", views: redView)
+            view.addConstraintsWithFormat("V:[v0(50)]", views: redView)
+            
+            view.addSubview(menuBar)
+            view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
+            view.addConstraintsWithFormat("V:[v0(50)]", views: menuBar)
+            
+            menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        }
+    
         func setupCollectionView() {
             if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
                 flowLayout.scrollDirection = .horizontal
@@ -53,8 +53,6 @@ class InsightsViewController: UICollectionViewController, UICollectionViewDelega
             }
             
             collectionView?.backgroundColor = UIColor.white
-            
-            //        collectionView?.registerClass(VideoCell.self, forCellWithReuseIdentifier: "cellId")
             collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
             
             collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)

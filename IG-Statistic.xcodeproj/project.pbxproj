@@ -11,6 +11,8 @@
 		085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */; };
 		086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994EA24536D04008587F0 /* InsightsViewController.swift */; };
 		086994EE24536E46008587F0 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994ED24536E46008587F0 /* MenuBar.swift */; };
+		086994F124538E0C008587F0 /* ActivitiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994EF24538E0B008587F0 /* ActivitiCollectionViewCell.swift */; };
+		086994F224538E0C008587F0 /* ActivitiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 086994F024538E0B008587F0 /* ActivitiCollectionViewCell.xib */; };
 		08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE3BE7244F4661005FCE2D /* InfoService.swift */; };
 		08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5824462955005B7A7D /* SettingsViewController.swift */; };
 		08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5E2446564D005B7A7D /* GradientView.swift */; };
@@ -87,6 +89,8 @@
 		085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
 		086994EA24536D04008587F0 /* InsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewController.swift; sourceTree = "<group>"; };
 		086994ED24536E46008587F0 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		086994EF24538E0B008587F0 /* ActivitiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiCollectionViewCell.swift; sourceTree = "<group>"; };
+		086994F024538E0B008587F0 /* ActivitiCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivitiCollectionViewCell.xib; sourceTree = "<group>"; };
 		08CE3BE7244F4661005FCE2D /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		08DB7E5824462955005B7A7D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		08DB7E5E2446564D005B7A7D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 			children = (
 				086994EA24536D04008587F0 /* InsightsViewController.swift */,
 				086994ED24536E46008587F0 /* MenuBar.swift */,
+				086994EF24538E0B008587F0 /* ActivitiCollectionViewCell.swift */,
+				086994F024538E0B008587F0 /* ActivitiCollectionViewCell.xib */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -376,6 +382,7 @@
 				7974FD55242A4B8E00E62A9B /* Pods_IG_Statistic.framework in Resources */,
 				08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */,
 				792DBF6524265EE3003E39C5 /* LaunchScreen.storyboard in Resources */,
+				086994F224538E0C008587F0 /* ActivitiCollectionViewCell.xib in Resources */,
 				08DB7EC324490251005B7A7D /* InfoHeaderView.xib in Resources */,
 				792DBF6224265EE3003E39C5 /* Assets.xcassets in Resources */,
 				792DBF6024265EE0003E39C5 /* Main.storyboard in Resources */,
@@ -448,6 +455,7 @@
 				08DB7EA72448726C005B7A7D /* InfoViewController.swift in Sources */,
 				086994EE24536E46008587F0 /* MenuBar.swift in Sources */,
 				795091082426A44100EA3BFB /* Credentials.swift in Sources */,
+				086994F124538E0C008587F0 /* ActivitiCollectionViewCell.swift in Sources */,
 				7950911C2426B04500EA3BFB /* AuthViewController.swift in Sources */,
 				79C80F0E242E55E6000B0285 /* ProfilePageViewController.swift in Sources */,
 				086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */,
