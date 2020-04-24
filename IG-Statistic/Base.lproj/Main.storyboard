@@ -129,7 +129,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb7-8Y-kLw">
-                                                        <rect key="frame" x="29" y="1" width="10" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="1" width="68" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -139,7 +139,7 @@
                                                     <constraint firstItem="gb7-8Y-kLw" firstAttribute="centerX" secondItem="t0o-tz-Hkq" secondAttribute="centerX" id="af3-Fw-4cs"/>
                                                     <constraint firstItem="t0o-tz-Hkq" firstAttribute="top" secondItem="gb7-8Y-kLw" secondAttribute="bottom" id="cI0-ZP-c33"/>
                                                     <constraint firstItem="gb7-8Y-kLw" firstAttribute="top" secondItem="3Yy-YB-6QE" secondAttribute="top" constant="1" id="ljv-da-e4D"/>
-                                                    <constraint firstItem="gb7-8Y-kLw" firstAttribute="leading" secondItem="3Yy-YB-6QE" secondAttribute="leading" constant="29" id="tXp-eY-Ywz"/>
+                                                    <constraint firstItem="gb7-8Y-kLw" firstAttribute="leading" secondItem="3Yy-YB-6QE" secondAttribute="leading" id="tXp-eY-Ywz"/>
                                                     <constraint firstItem="t0o-tz-Hkq" firstAttribute="centerX" secondItem="3Yy-YB-6QE" secondAttribute="centerX" id="vs6-Ou-SuK"/>
                                                 </constraints>
                                             </view>
@@ -153,14 +153,14 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tep-ou-i7Q">
-                                                        <rect key="frame" x="29" y="1" width="10" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="1" width="68" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </label>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="Tep-ou-i7Q" firstAttribute="leading" secondItem="uLK-gt-G9G" secondAttribute="leading" constant="29" id="1T6-kI-vrc"/>
+                                                    <constraint firstItem="Tep-ou-i7Q" firstAttribute="leading" secondItem="uLK-gt-G9G" secondAttribute="leading" id="1T6-kI-vrc"/>
                                                     <constraint firstItem="khg-tT-mTd" firstAttribute="top" secondItem="Tep-ou-i7Q" secondAttribute="bottom" id="Dwc-RK-6Tl"/>
                                                     <constraint firstItem="Tep-ou-i7Q" firstAttribute="centerX" secondItem="khg-tT-mTd" secondAttribute="centerX" id="Obp-8H-I3J"/>
                                                     <constraint firstItem="Tep-ou-i7Q" firstAttribute="top" secondItem="uLK-gt-G9G" secondAttribute="top" constant="1" id="VpG-hN-ieQ"/>
@@ -177,7 +177,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FB7-s0-VE5">
-                                                        <rect key="frame" x="29" y="1" width="10" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="1" width="68" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -188,7 +188,7 @@
                                                     <constraint firstItem="oXe-I5-rNQ" firstAttribute="top" secondItem="FB7-s0-VE5" secondAttribute="bottom" id="6pp-aH-FJQ"/>
                                                     <constraint firstItem="FB7-s0-VE5" firstAttribute="top" secondItem="Mgg-Qj-VHZ" secondAttribute="top" constant="1" id="Aff-aW-L4c"/>
                                                     <constraint firstItem="FB7-s0-VE5" firstAttribute="centerX" secondItem="oXe-I5-rNQ" secondAttribute="centerX" id="epr-hX-eu3"/>
-                                                    <constraint firstItem="FB7-s0-VE5" firstAttribute="leading" secondItem="Mgg-Qj-VHZ" secondAttribute="leading" constant="29" id="qNN-LO-HBj"/>
+                                                    <constraint firstItem="FB7-s0-VE5" firstAttribute="leading" secondItem="Mgg-Qj-VHZ" secondAttribute="leading" id="qNN-LO-HBj"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -474,7 +474,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azg-N1-QfW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2153" y="-391"/>
+            <point key="canvasLocation" x="1928" y="-378"/>
         </scene>
         <!--Statistic-->
         <scene sceneID="rGA-G6-8el">
