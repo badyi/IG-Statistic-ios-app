@@ -1,5 +1,5 @@
 //
-//  ActivitiCollectionViewCell.swift
+//  IsightsActivityCell.swift
 //  IG-Statistic
 //
 //  Created by и on 25.04.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivitiCollectionViewCell: UICollectionViewCell {
+class InsightsActivityCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
