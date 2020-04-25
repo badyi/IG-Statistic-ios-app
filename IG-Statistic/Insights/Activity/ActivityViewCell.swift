@@ -26,7 +26,7 @@ class ActivityCollectionViewCell: BaseCell, UICollectionViewDelegate, UICollecti
         
         backgroundColor = .brown
         
-        collectionView.contentInset = .init(top: 50, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = .init(top: 100, left: 0, bottom: 0, right: 0)
         collectionView.scrollIndicatorInsets = .init(top: 50, left: 0, bottom: 0, right: 0)
         
         addSubview(collectionView)
