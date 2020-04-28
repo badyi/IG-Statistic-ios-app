@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0850320E2457927A006BD40D /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850320D2457927A006BD40D /* DateExtension.swift */; };
+		0850321024587E6E006BD40D /* InsightsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850320F24587E6E006BD40D /* InsightsNavigationController.swift */; };
 		0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852D8E024438362008F2F7F /* UIColorExtension.swift */; };
 		0852EF0F245468B40084A4F7 /* InsightsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852EF0E245468B40084A4F7 /* InsightsPresenter.swift */; };
 		0852EF13245468CB0084A4F7 /* InsightsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852EF12245468CB0084A4F7 /* InsightsService.swift */; };
@@ -89,6 +91,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0850320D2457927A006BD40D /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		0850320F24587E6E006BD40D /* InsightsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsNavigationController.swift; sourceTree = "<group>"; };
 		0852D8E024438362008F2F7F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		0852EF0E245468B40084A4F7 /* InsightsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsPresenter.swift; sourceTree = "<group>"; };
 		0852EF12245468CB0084A4F7 /* InsightsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsService.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				0852EF12245468CB0084A4F7 /* InsightsService.swift */,
 				0852EF0E245468B40084A4F7 /* InsightsPresenter.swift */,
 				086994EA24536D04008587F0 /* InsightsViewController.swift */,
+				0850320F24587E6E006BD40D /* InsightsNavigationController.swift */,
 				086994ED24536E46008587F0 /* MenuBar.swift */,
 				0852EF162454697F0084A4F7 /* Activity */,
 			);
@@ -259,6 +264,7 @@
 				08DB7E5E2446564D005B7A7D /* GradientView.swift */,
 				0852D8E024438362008F2F7F /* UIColorExtension.swift */,
 				7974FD402426C0F900E62A9B /* BaseUITabBarViewController.swift */,
+				0850320D2457927A006BD40D /* DateExtension.swift */,
 				086994E924536CCD008587F0 /* Insights */,
 				7953E9B3242D426200489394 /* PostsCollectionView */,
 				085B2117243D163500D4A1DF /* Profile */,
@@ -465,6 +471,7 @@
 				08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */,
 				0852EF13245468CB0084A4F7 /* InsightsService.swift in Sources */,
 				7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */,
+				0850321024587E6E006BD40D /* InsightsNavigationController.swift in Sources */,
 				79C80F14242E6E9B000B0285 /* SecondViewController.swift in Sources */,
 				7953E9BF242DAA1D00489394 /* ProfileNavigationController.swift in Sources */,
 				7998640124313A43005BABD4 /* PostCollectionViewCell.swift in Sources */,
@@ -493,6 +500,7 @@
 				799863FA2431229A005BABD4 /* ProfilePresenter.swift in Sources */,
 				7974FD412426C0F900E62A9B /* BaseUITabBarViewController.swift in Sources */,
 				0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */,
+				0850320E2457927A006BD40D /* DateExtension.swift in Sources */,
 				79C80F1D242FACEA000B0285 /* PostsCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -427,7 +427,7 @@
         <!--Insights-->
         <scene sceneID="VhJ-z2-eyS">
             <objects>
-                <navigationController id="JpQ-nT-1Fx" sceneMemberID="viewController">
+                <navigationController id="JpQ-nT-1Fx" customClass="InsightsNavigationController" customModule="IG_Statistic" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Insights" id="by7-28-MuG"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dWS-0k-reD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

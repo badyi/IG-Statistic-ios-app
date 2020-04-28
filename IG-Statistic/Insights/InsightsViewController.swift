@@ -9,7 +9,8 @@
 import UIKit
 import Charts
 
-class InsightsViewController: UICollectionViewController {
+class InsightsViewController: UICollectionViewController{
+    var presenter: InsightsPresenter!
     let cellId = "cellId"
     let activityCellId = "activityCellId"
     
@@ -21,9 +22,31 @@ class InsightsViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        let navigationVC = self.navigationController as! InsightsNavigationController
+        guard let credentials = navigationVC.credentials else { return }
+        presenter = InsightsPresenter(view: self, credentials: credentials)
+        getActivity()
         setupMenuBar()
         setupCollectionView()
+    }
+}
+
+extension InsightsViewController {
+    func getActivity() {
+        let beginDate = Date().nDaysAgoInSec(8)
+        let endDate = Date().nDaysAgoInSec(1)
+        presenter.getActivityInsights(beginDate, endDate, "day")
+    }
+}
+
+extension InsightsViewController: InsightsViewProtocol {
+    func insightsDidLoaded(_ activity: Activity) {
+        reloadItem(at: 0)
+    }
+    
+    func reloadItem(at index: Int) {
+        let index = IndexPath(row: index, section: 0)
+        self.collectionView.reloadItems(at: [index])
     }
 }
 
@@ -66,7 +89,7 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 3
+        menuBar.horizontalBarLeftAnchorConstraint?.constant = scrollView.contentOffset.x / 2
     }
     
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -76,15 +99,16 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         
         let colors: [UIColor] = [.blue, .green, UIColor.gray, .purple]
-        if indexPath.row == 1 {
+        if indexPath.row == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellId, for: indexPath) as! ActivityCollectionViewCell
+            cell.config(with: presenter.activity)
             return cell
         }
         cell.backgroundColor = colors[indexPath.item]

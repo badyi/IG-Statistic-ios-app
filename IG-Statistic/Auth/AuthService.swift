@@ -105,8 +105,8 @@ final class AuthService {
     
     func getFBID_(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<FBID>) -> ()){
         guard let resource = AuthResourceFactory().createFBIDResource(with: credentials) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get FBID", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) {result in
@@ -122,8 +122,8 @@ final class AuthService {
     
     func getUserPages(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<[String:String]>) -> ()) {
         guard let resource = AuthResourceFactory().createUserPagesResource(with: credentials) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get user pages", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in
@@ -135,7 +135,6 @@ final class AuthService {
                     dict[item.id] = item.name
                     return dict
                 }
-                //credentials.fbUserId = pagesResponse.data.
                 completionBlock(.success(pages))
             case let .failure(error):
                 completionBlock(.failure(error))
@@ -145,8 +144,8 @@ final class AuthService {
     
     func getPagesInstagramBusinessAccount(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Credentials>) -> ()) {
         guard let resource = AuthResourceFactory().createPagesInstagramBusinessAccountResource(with: credentials) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get instBAcc", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in

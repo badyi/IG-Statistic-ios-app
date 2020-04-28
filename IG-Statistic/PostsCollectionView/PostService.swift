@@ -100,8 +100,8 @@ final class PostService {
 
     func getAllPostsIDList(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<[Post]>) -> ()) {
         guard let resource = PostResourceFactory().createPostsListResource(with: credentials) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get all posts list with id", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in
@@ -118,8 +118,8 @@ final class PostService {
     
     func getPostInfo(_ credentials: Credentials,_ post: Post ,completionBlock: @escaping(OperationCompletion<Post>) -> ()) {
         guard let resource = PostResourceFactory().createPostInfoResource(with: credentials, post) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get post info", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in
@@ -145,8 +145,8 @@ final class PostService {
     
     func getPostInsights(_ credentials: Credentials, _ post: PostView, completionBlock: @escaping(OperationCompletion<Insights>) -> ()) {
         guard let resource = PostResourceFactory().createInsightsResource(with: credentials, post) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get posts Insights", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in

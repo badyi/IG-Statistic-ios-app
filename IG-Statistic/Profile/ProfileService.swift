@@ -59,8 +59,8 @@ final class ProfileService {
 
     func getMainProfileInfo (_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Profile>) -> ()) {
         guard let resource = ProfileResourceFactory().createMainProfileInfoResource(with: credentials) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get main profile info", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in
@@ -78,8 +78,8 @@ final class ProfileService {
     
     func getImage(_ imageURL: String, completionBlock: @escaping(OperationCompletion<UIImage>) -> ()) {
         guard let resource = ProfileResourceFactory().createImageResource(for: imageURL) else {
-            let error = Error.self
-            completionBlock(.failure(error as! Error))
+            let error = NSError(domain: "cant get image", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
             return
         }
         _ = networkHelper.load(resource: resource) { result in

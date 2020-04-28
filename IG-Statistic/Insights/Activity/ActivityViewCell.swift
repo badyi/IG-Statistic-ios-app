@@ -20,7 +20,8 @@ class ActivityCollectionViewCell: BaseCell, UICollectionViewDelegate, UICollecti
     }()
     
     let cellId = "cellId"
-    
+    var activity: Activity?
+
     override func setupViews() {
         super.setupViews()
         
@@ -36,22 +37,35 @@ class ActivityCollectionViewCell: BaseCell, UICollectionViewDelegate, UICollecti
         collectionView.register(UINib(nibName: "InsightsActivityCell", bundle: nil), forCellWithReuseIdentifier: cellId)
     }
     
+    func config(with activity: Activity?) {
+        self.activity = activity
+        self.collectionView.reloadData()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InsightsActivityCell
         cell.backgroundColor = UIColor.purple
-        if indexPath.row == 2 {
+
+        switch indexPath.row {
+        case 0:
+            guard let ac = activity else { break }
+            cell.config(type: "follows count", data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
+        default:
+            break
+        }
+        if indexPath.row == 4 {
             cell.isHidden = true
         }
         return cell
     }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var height = (frame.width - 16 - 16) * 9 / 16
-        if indexPath.row == 2 {
+        var height = (frame.width ) * 9 / 16
+        if indexPath.row == 4 {
             return .init(width: frame.width, height: 125)
         }
         return .init(width: frame.width, height: height + 16 + 88)
