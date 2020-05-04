@@ -251,7 +251,6 @@
 				0852EF0E245468B40084A4F7 /* InsightsPresenter.swift */,
 				086994EA24536D04008587F0 /* InsightsViewController.swift */,
 				0850320F24587E6E006BD40D /* InsightsNavigationController.swift */,
-				08503213245C5416006BD40D /* MenuBar */,
 				0852EF162454697F0084A4F7 /* Activity */,
 			);
 			path = Insights;
@@ -303,6 +302,7 @@
 			children = (
 				792DBF5824265EE0003E39C5 /* AppDelegate.swift */,
 				7974FD402426C0F900E62A9B /* BaseUITabBarViewController.swift */,
+				08503213245C5416006BD40D /* MenuBar */,
 				0850321A245F89A1006BD40D /* ThemeManager */,
 				08503218245F8948006BD40D /* Extensions */,
 				086994E924536CCD008587F0 /* Insights */,

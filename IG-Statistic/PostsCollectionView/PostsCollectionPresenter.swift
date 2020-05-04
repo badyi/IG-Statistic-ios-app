@@ -16,16 +16,17 @@ protocol PostListViewProtocol: AnyObject {
 
 protocol PostCollectionPresenterProtocol {
     func getPosts()
-    func setInsights(with flag: Bool)
+    func setInsightsState(with flag: Bool)
     func showInsights() -> Bool
     func postsCount() -> Int
     func post(at index: Int) -> Post
     func postView(at index: Int) -> PostView
-    func getPostsInfo(at index: Int)
+    func getPostInfo(at index: Int)
     func getInsights (at index: Int)
+    func didEndDisplaying(at index: Int)
 }
 
-final class PostsCollectionPresenter {
+final class PostsCollectionPresenter: PostCollectionPresenterProtocol {
     weak var view: PostListViewProtocol?
     private var postListModel: PostListModel!
     

@@ -14,32 +14,61 @@ protocol InsightsViewProtocol: AnyObject {
 }
 
 protocol InsightsPresenterProtocol {
-    func getActivityInsights(_ beginDate: Int64,_ endDate: Int64, _ period: String)
+    func loadActivityInsights(_ beginDate: Int64,_ endDate: Int64, _ period: String)
+    func getActivityInsights() -> Activity?
+    func getAudienceInsights() -> Audience?
+    func getSectionNames() -> [String]
 }
 
 final class InsightsPresenter: InsightsPresenterProtocol {
     weak var view: InsightsViewProtocol?
     private var insightsService: InsightsService!
-    let credentials: Credentials!
-    var activity: Activity?
+    var insights: InsightsList!
     
     init(view: InsightsViewProtocol, credentials: Credentials) {
         self.view = view
         insightsService = InsightsService()
-        self.credentials = credentials
+        insights = InsightsList(with: credentials, self)
     }
     
-    func getActivityInsights(_ beginDate: Int64,_ endDate: Int64,_ period: String) {
-        insightsService.getActivity(credentials, beginDate, endDate, period ) { [weak self] result in
+    func loadActivityInsights(_ beginDate: Int64,_ endDate: Int64,_ period: String) {
+        insightsService.getActivity(insights.getCredentials(), beginDate, endDate, period ) { [weak self] result in
             switch (result) {
             case let .success(activity):
-                DispatchQueue.main.async {
-                    self?.activity = activity
-                    self?.view?.insightsDidLoaded(activity)
-                }
+                self?.insights.setActivity(activity)
             case let .failure(error):
                 print(error)
             }
+        }
+    }
+    
+    func getActivityInsights() -> Activity? {
+        insights.getActivity()
+    }
+    
+    func getAudienceInsights() -> Audience? {
+        insights.getAudience()
+    }
+    
+    func insightsCount() -> Int {
+        insights.insightsNames.count
+    }
+    
+    func getSectionNames() -> [String] {
+        insights.insightsNames
+    }
+}
+
+extension InsightsPresenter: InsightsListDelegate {
+    func acivityUPD() {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.reloadItem(at: 0)
+        }
+    }
+    
+    func audienceUPD() {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.reloadItem(at: 1)
         }
     }
 }

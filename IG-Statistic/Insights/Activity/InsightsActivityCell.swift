@@ -18,9 +18,12 @@ class InsightsActivityCell: UICollectionViewCell {
     @IBOutlet weak var graphic: BarChartView!
     @IBOutlet weak var averageLabel: UILabel!
     @IBOutlet weak var descriptionLabel2: UILabel!
+    var beginDate: Int64?
+    var endDate: Int64?
     
     var graphData: [Int]?
     var days = ["mon", "tues", "wed", "thurs","fri","sat","sun"]
+    var insightsType: typeInsights?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,7 +36,7 @@ class InsightsActivityCell: UICollectionViewCell {
         backView.backgroundColor = backgroundColor
         typeLabel.textColor = titleTextColor
         countLabel.textColor = titleTextColor
-        descriptionLabel1.textColor = titleTextColor
+        descriptionLabel1.textColor = UIColor.systemGray
         graphic.backgroundColor = backgroundColor
         averageLabel.textColor = titleTextColor
         descriptionLabel2.textColor = titleTextColor
@@ -41,8 +44,19 @@ class InsightsActivityCell: UICollectionViewCell {
         graphic.xAxis.labelTextColor = titleTextColor
     }
     
-    func config(type: String, data: [Int], beginDate: Int64, endDate: Int64) {
+    func config(type: typeInsights, data: [Int], beginDate: Int64, endDate: Int64) {
         configViewOfChart()
+        insightsType = type
+        self.beginDate = beginDate
+        self.endDate = endDate
+        switch insightsType {
+        case .followerCount:
+            configFC(data)
+        case .profileViews:
+            configPV(data)
+        default:
+            print(1)
+        }
         customizeChart(dataPoints: days, values: data.map { Double($0)})
     }
     
@@ -56,7 +70,7 @@ class InsightsActivityCell: UICollectionViewCell {
         chartDataSet.colors = [ThemeManager.currentTheme().barsColor.withAlphaComponent(0.8)]
         chartDataSet.valueTextColor = ThemeManager.currentTheme().titleTextColor
         let chartData = BarChartData(dataSet: chartDataSet)
-        graphic.xAxis.valueFormatter = IndexAxisValueFormatter(values: days)
+        graphic.xAxis.valueFormatter = IndexAxisValueFormatter(values: days) ;#warning("fix weekday layout")
         graphic.data = chartData
     }
     
@@ -71,7 +85,31 @@ class InsightsActivityCell: UICollectionViewCell {
         graphic.rightAxis.drawLabelsEnabled = false
         graphic.xAxis.labelPosition = XAxis.LabelPosition.bottomInside
         graphic.legend.enabled = false
-        
         graphic.isUserInteractionEnabled = false
     }
+    
+    func configFC(_ data: [Int]) {
+        typeLabel.text = "Follower Count"
+        let sum = data.reduce(0, +)
+        countLabel.text = "\(sum)"
+        let bDate = Date(seconds: beginDate!).getDDMMMformatStr()
+        let eDate = Date(seconds: endDate!).getDDMMMformatStr()
+        
+        descriptionLabel1.text = "Accounts following profile from \(bDate) - \(eDate)"
+        descriptionLabel2.text = "Average per day"
+        averageLabel.text = "\(sum/7)"
+    }
+    
+    func configPV(_ data: [Int]) {
+        typeLabel.text = "Profile Views"
+        let sum = data.reduce(0, +)
+        countLabel.text = "\(sum)"
+        let bDate = Date(seconds: beginDate!).getDDMMMformatStr()
+        let eDate = Date(seconds: endDate!).getDDMMMformatStr()
+        
+        descriptionLabel1.text = "Users who have viewed profile from \(bDate) - \(eDate)"
+        descriptionLabel2.text = "Average per day"
+        averageLabel.text = "\(sum/7)"
+    }
+    #warning("config impressions and reaches")
 }

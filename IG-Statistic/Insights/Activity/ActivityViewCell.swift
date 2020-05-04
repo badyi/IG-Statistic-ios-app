@@ -30,7 +30,7 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     
     let cellId = "cellId"
     var activity: Activity?
-
+    
     func setupViews() {
         backgroundColor = .brown
         collectionView.contentInset = .init(top: 100, left: 0, bottom: 0, right: 0)
@@ -48,17 +48,19 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        guard let ac = activity else { return 0 }
+        return ac.cellsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InsightsActivityCell
         cell.backgroundColor = UIColor.purple
-
+        guard let ac = activity else { return cell }
         switch indexPath.row {
         case 0:
-            guard let ac = activity else { break }
-            cell.config(type: "follows count", data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
+            cell.config(type: .followerCount, data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
+        case 1:
+            cell.config(type: .profileViews, data: ac.profileViews, beginDate: ac.beginDate, endDate: ac.endDate)
         default:
             break
         }

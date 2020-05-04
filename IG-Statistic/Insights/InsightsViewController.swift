@@ -25,6 +25,7 @@ class InsightsViewController: UICollectionViewController {
         let navigationVC = self.navigationController as! InsightsNavigationController
         guard let credentials = navigationVC.credentials else { return }
         presenter = InsightsPresenter(view: self, credentials: credentials)
+        menuBar.setSectionNames(presenter.getSectionNames())
         getActivity()
         setupMenuBar()
         setupCollectionView()
@@ -44,7 +45,7 @@ extension InsightsViewController {
     func getActivity() {
         let beginDate = Date().nDaysAgoInSec(8)
         let endDate = Date().nDaysAgoInSec(1)
-        presenter.getActivityInsights(beginDate, endDate, "day")
+        presenter.loadActivityInsights(beginDate, endDate, "day")
     }
 }
 
@@ -56,6 +57,13 @@ extension InsightsViewController: InsightsViewProtocol {
     func reloadItem(at index: Int) {
         let index = IndexPath(row: index, section: 0)
         self.collectionView.reloadItems(at: [index])
+    }
+}
+
+extension InsightsViewController: menuBarVCprotocol {
+    func scrollToMenuIndex(menuIndex: Int) {
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }
 
@@ -85,16 +93,9 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
         collectionView?.register(ActivityCollectionViewCell.self, forCellWithReuseIdentifier: activityCellId)
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
-        // collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.frame.height, right: 0)
-        //collectionView?.scrollIndicatorInsets = UIEdgeInsets(top:, left: 0, bottom: self.tabBarController!.tabBar.frame.height, right: 0)
         let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.frame.height, right: 0)
         self.collectionView.contentInset = adjustForTabbarInsets
         self.collectionView.scrollIndicatorInsets = adjustForTabbarInsets
-    }
-    
-    func scrollToMenuIndex(menuIndex: Int) {
-        let indexPath = IndexPath(item: menuIndex, section: 0)
-        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -108,16 +109,17 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return presenter.insightsCount()
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         
         let colors: [UIColor] = [.blue, .green, UIColor.gray, .purple]
+
         if indexPath.row == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellId, for: indexPath) as! ActivityCollectionViewCell
-            cell.config(with: presenter.activity)
+            cell.config(with: presenter.getActivityInsights())
             return cell
         }
         cell.backgroundColor = colors[indexPath.item]

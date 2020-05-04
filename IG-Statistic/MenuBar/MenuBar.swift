@@ -8,10 +8,14 @@
 
 import UIKit
 
+protocol menuBarVCprotocol: AnyObject {
+    func scrollToMenuIndex(menuIndex: Int)
+}
+
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
-    var homeController: InsightsViewController?
+    var homeController: menuBarVCprotocol?
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
@@ -28,7 +32,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        homeController?.scrollToMenuIndex(menuIndex: indexPath.item)
+        homeController?.scrollToMenuIndex(menuIndex: indexPath.row)
     }
     
     lazy var collectionView: UICollectionView = {
@@ -41,7 +45,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }()
     
     let cellId = "cellId"
-    let sectionName = ["activity", "audience"]
+    var sectionName: [String] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,6 +59,12 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .bottom)
         
         setupHorizontalBar()
+    }
+    
+    func setSectionNames(_ sectionNames: [String]) {
+        self.sectionName = sectionNames
+        collectionView.reloadData()
+        collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

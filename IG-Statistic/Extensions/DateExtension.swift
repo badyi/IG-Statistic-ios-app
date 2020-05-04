@@ -9,6 +9,10 @@
 import Foundation
 
 extension Date {
+    init (seconds: Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(seconds))
+    }
+    
     func toSec() ->Int64! {
         return Int64(self.timeIntervalSince1970 )
     }
@@ -21,5 +25,12 @@ extension Date {
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: self)
         return weekday
+    }
+    
+    func getDDMMMformatStr() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMM"
+        let dateStr = formatter.string(from: self)
+        return dateStr
     }
 }
