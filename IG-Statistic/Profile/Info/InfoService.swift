@@ -133,7 +133,7 @@ final class InfoService {
             switch result {
             case let .success(mainInfo):
                 let mainInfo: MainInfoResponse = mainInfo
-                let profile = Profile(with: mainInfo.id)
+                let profile = Profile(with: credentials,and: mainInfo.id)
                 profile.setInfo(mainInfo)
                 completionBlock(.success(profile))
             case let .failure(error):

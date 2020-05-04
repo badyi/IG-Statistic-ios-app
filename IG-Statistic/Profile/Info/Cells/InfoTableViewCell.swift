@@ -15,11 +15,19 @@ class InfoTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setupView()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func setupView() {
+        let titleColor = ThemeManager.currentTheme().titleTextColor
+        let backgroundColor = ThemeManager.currentTheme().backgroundColor
+        self.backgroundColor = backgroundColor
+        name.textColor = titleColor
+        descr.textColor = titleColor
     }
     
     func config(with name: String,_ descr: String?) {

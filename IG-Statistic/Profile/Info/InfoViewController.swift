@@ -9,6 +9,9 @@
 import UIKit
 
 class InfoViewController: UIViewController {
+    
+    private let cellID = "infoCell"
+    private let headerID = "headerID"
 
     var cred: Credentials?
     
@@ -17,16 +20,25 @@ class InfoViewController: UIViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
-    
-    private let cellID = "infoCell"
-    private let headerID = "headerID"
+
     private var presenter: InfoPresenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         setupTableView()
         presenter = InfoPresenter(credentials: cred!, view: self)
         presenter?.getMainProfileInfo()
+    }
+}
+
+extension InfoViewController {
+    func setupView() {
+        let titleColor = ThemeManager.currentTheme().titleTextColor
+        //let backgroundColor = ThemeManager.currentTheme().backgroundColor
+        let textAttributes = [NSAttributedString.Key.foregroundColor:titleColor]
+        self.navigationController?.navigationBar.titleTextAttributes = textAttributes
+        self.navigationController?.navigationBar.tintColor = titleColor
     }
 }
 
@@ -52,6 +64,7 @@ extension InfoViewController: InfoViewProtocol {
 
 extension InfoViewController {
     func setupTableView() {
+        let backgroundColor = ThemeManager.currentTheme().backgroundColor
         tableview.delegate = self
         tableview.dataSource = self
         tableview.allowsSelection = false
@@ -67,6 +80,7 @@ extension InfoViewController {
             tableview.rightAnchor.constraint(equalTo: self.view.rightAnchor),
             tableview.leftAnchor.constraint(equalTo: self.view.leftAnchor)
         ])
+        tableview.backgroundColor = backgroundColor
     }
 }
 
@@ -100,6 +114,7 @@ extension InfoViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = self.tableview.dequeueReusableHeaderFooterView(withIdentifier: headerID) as! InfoHeaderView
+        header.setupView()
         if let nick = presenter?.getNickname() {
             header.setNickname(with: nick)
         }

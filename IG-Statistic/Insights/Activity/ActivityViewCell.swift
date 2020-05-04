@@ -8,7 +8,16 @@
 
 import UIKit
 
-class ActivityCollectionViewCell: BaseCell, UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
+class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
+        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,14 +31,10 @@ class ActivityCollectionViewCell: BaseCell, UICollectionViewDelegate, UICollecti
     let cellId = "cellId"
     var activity: Activity?
 
-    override func setupViews() {
-        super.setupViews()
-        
+    func setupViews() {
         backgroundColor = .brown
-        
         collectionView.contentInset = .init(top: 100, left: 0, bottom: 0, right: 0)
         collectionView.scrollIndicatorInsets = .init(top: 50, left: 0, bottom: 0, right: 0)
-        
         addSubview(collectionView)
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
@@ -43,7 +48,7 @@ class ActivityCollectionViewCell: BaseCell, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,18 +62,15 @@ class ActivityCollectionViewCell: BaseCell, UICollectionViewDelegate, UICollecti
         default:
             break
         }
-        if indexPath.row == 4 {
-            cell.isHidden = true
-        }
         return cell
     }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var height = (frame.width ) * 9 / 16
+        let height = (frame.width ) * 9 / 16 + 120
         if indexPath.row == 4 {
             return .init(width: frame.width, height: 125)
         }
-        return .init(width: frame.width, height: height + 16 + 88)
+        return .init(width: frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

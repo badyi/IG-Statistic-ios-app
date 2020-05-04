@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0850320E2457927A006BD40D /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850320D2457927A006BD40D /* DateExtension.swift */; };
 		0850321024587E6E006BD40D /* InsightsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850320F24587E6E006BD40D /* InsightsNavigationController.swift */; };
+		08503212245AF65E006BD40D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08503211245AF65D006BD40D /* ThemeManager.swift */; };
+		08503215245C5444006BD40D /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08503214245C5444006BD40D /* MenuCell.swift */; };
+		08503217245C58E3006BD40D /* UIVIewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08503216245C58E3006BD40D /* UIVIewExtension.swift */; };
+		0850321D245F91A7006BD40D /* PostListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850321C245F91A7006BD40D /* PostListModel.swift */; };
 		0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852D8E024438362008F2F7F /* UIColorExtension.swift */; };
 		0852EF0F245468B40084A4F7 /* InsightsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852EF0E245468B40084A4F7 /* InsightsPresenter.swift */; };
 		0852EF13245468CB0084A4F7 /* InsightsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0852EF12245468CB0084A4F7 /* InsightsService.swift */; };
@@ -50,8 +54,6 @@
 		7998640D24318CD8005BABD4 /* ResourceNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7998640A24318C91005BABD4 /* ResourceNetworking.framework */; };
 		7998640E24318CD8005BABD4 /* ResourceNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7998640A24318C91005BABD4 /* ResourceNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79C80F0E242E55E6000B0285 /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C80F0D242E55E6000B0285 /* ProfilePageViewController.swift */; };
-		79C80F12242E6E8B000B0285 /* FirtsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C80F11242E6E8B000B0285 /* FirtsViewController.swift */; };
-		79C80F14242E6E9B000B0285 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C80F13242E6E9B000B0285 /* SecondViewController.swift */; };
 		79C80F16242E6EBB000B0285 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C80F15242E6EBB000B0285 /* CollectionViewController.swift */; };
 		79C80F19242F9959000B0285 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C80F18242F9959000B0285 /* Post.swift */; };
 		79C80F1D242FACEA000B0285 /* PostsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C80F1C242FACEA000B0285 /* PostsCollectionViewController.swift */; };
@@ -93,6 +95,10 @@
 /* Begin PBXFileReference section */
 		0850320D2457927A006BD40D /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		0850320F24587E6E006BD40D /* InsightsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsNavigationController.swift; sourceTree = "<group>"; };
+		08503211245AF65D006BD40D /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		08503214245C5444006BD40D /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		08503216245C58E3006BD40D /* UIVIewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVIewExtension.swift; sourceTree = "<group>"; };
+		0850321C245F91A7006BD40D /* PostListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListModel.swift; sourceTree = "<group>"; };
 		0852D8E024438362008F2F7F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		0852EF0E245468B40084A4F7 /* InsightsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsPresenter.swift; sourceTree = "<group>"; };
 		0852EF12245468CB0084A4F7 /* InsightsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsService.swift; sourceTree = "<group>"; };
@@ -135,8 +141,6 @@
 		7998640024313A43005BABD4 /* PostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCollectionViewCell.xib; sourceTree = "<group>"; };
 		7998640424318C91005BABD4 /* ResourceNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResourceNetworking.xcodeproj; path = "IG-Statistic/ResourceNetworking/ResourceNetworking.xcodeproj"; sourceTree = "<group>"; };
 		79C80F0D242E55E6000B0285 /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
-		79C80F11242E6E8B000B0285 /* FirtsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirtsViewController.swift; sourceTree = "<group>"; };
-		79C80F13242E6E9B000B0285 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		79C80F15242E6EBB000B0285 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		79C80F18242F9959000B0285 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		79C80F1C242FACEA000B0285 /* PostsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +162,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08503213245C5416006BD40D /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				086994ED24536E46008587F0 /* MenuBar.swift */,
+				08503214245C5444006BD40D /* MenuCell.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		08503218245F8948006BD40D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0850320D2457927A006BD40D /* DateExtension.swift */,
+				08DB7E5E2446564D005B7A7D /* GradientView.swift */,
+				08503216245C58E3006BD40D /* UIVIewExtension.swift */,
+				0852D8E024438362008F2F7F /* UIColorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		08503219245F8983006BD40D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				08DB7E5824462955005B7A7D /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		0850321A245F89A1006BD40D /* ThemeManager */ = {
+			isa = PBXGroup;
+			children = (
+				08503211245AF65D006BD40D /* ThemeManager.swift */,
+			);
+			path = ThemeManager;
+			sourceTree = "<group>";
+		};
 		0852D8E424438388008F2F7F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +226,7 @@
 				7953E9B6242D430C00489394 /* ProfileViewController.swift */,
 				79C80F0D242E55E6000B0285 /* ProfilePageViewController.swift */,
 				7953E9BE242DAA1D00489394 /* ProfileNavigationController.swift */,
+				08503219245F8983006BD40D /* Settings */,
 				08DB7E992448629E005B7A7D /* Info */,
 			);
 			path = Profile;
@@ -210,7 +251,7 @@
 				0852EF0E245468B40084A4F7 /* InsightsPresenter.swift */,
 				086994EA24536D04008587F0 /* InsightsViewController.swift */,
 				0850320F24587E6E006BD40D /* InsightsNavigationController.swift */,
-				086994ED24536E46008587F0 /* MenuBar.swift */,
+				08503213245C5416006BD40D /* MenuBar */,
 				0852EF162454697F0084A4F7 /* Activity */,
 			);
 			path = Insights;
@@ -261,18 +302,14 @@
 			isa = PBXGroup;
 			children = (
 				792DBF5824265EE0003E39C5 /* AppDelegate.swift */,
-				08DB7E5E2446564D005B7A7D /* GradientView.swift */,
-				0852D8E024438362008F2F7F /* UIColorExtension.swift */,
 				7974FD402426C0F900E62A9B /* BaseUITabBarViewController.swift */,
-				0850320D2457927A006BD40D /* DateExtension.swift */,
+				0850321A245F89A1006BD40D /* ThemeManager */,
+				08503218245F8948006BD40D /* Extensions */,
 				086994E924536CCD008587F0 /* Insights */,
 				7953E9B3242D426200489394 /* PostsCollectionView */,
 				085B2117243D163500D4A1DF /* Profile */,
 				085B2118243D169600D4A1DF /* Auth */,
 				79C80F15242E6EBB000B0285 /* CollectionViewController.swift */,
-				79C80F11242E6E8B000B0285 /* FirtsViewController.swift */,
-				79C80F13242E6E9B000B0285 /* SecondViewController.swift */,
-				08DB7E5824462955005B7A7D /* SettingsViewController.swift */,
 				792DBF5E24265EE0003E39C5 /* Main.storyboard */,
 				792DBF6124265EE3003E39C5 /* Assets.xcassets */,
 				792DBF6324265EE3003E39C5 /* LaunchScreen.storyboard */,
@@ -285,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				79C80F18242F9959000B0285 /* Post.swift */,
+				0850321C245F91A7006BD40D /* PostListModel.swift */,
 				79C80F20242FBB3E000B0285 /* PostService.swift */,
 				7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */,
 				79C80F1C242FACEA000B0285 /* PostsCollectionViewController.swift */,
@@ -467,17 +505,19 @@
 			files = (
 				0852EF1F2454A0480084A4F7 /* InsightsActivityCell.swift in Sources */,
 				79C80F16242E6EBB000B0285 /* CollectionViewController.swift in Sources */,
+				08503212245AF65E006BD40D /* ThemeManager.swift in Sources */,
 				08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */,
 				08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */,
 				0852EF13245468CB0084A4F7 /* InsightsService.swift in Sources */,
 				7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */,
 				0850321024587E6E006BD40D /* InsightsNavigationController.swift in Sources */,
-				79C80F14242E6E9B000B0285 /* SecondViewController.swift in Sources */,
 				7953E9BF242DAA1D00489394 /* ProfileNavigationController.swift in Sources */,
 				7998640124313A43005BABD4 /* PostCollectionViewCell.swift in Sources */,
+				08503215245C5444006BD40D /* MenuCell.swift in Sources */,
 				08DB7E9D24486D39005B7A7D /* InfoHeaderView.swift in Sources */,
 				0852EF1C24549E7A0084A4F7 /* ActivityViewCell.swift in Sources */,
 				795091072426A44100EA3BFB /* Profile.swift in Sources */,
+				0850321D245F91A7006BD40D /* PostListModel.swift in Sources */,
 				7974FD472428B6C100E62A9B /* ProfileService.swift in Sources */,
 				7974FD4C24297AB700E62A9B /* AuthService.swift in Sources */,
 				7953E9B7242D430C00489394 /* ProfileViewController.swift in Sources */,
@@ -491,7 +531,6 @@
 				086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */,
 				0852EF15245468ED0084A4F7 /* InsightsModels.swift in Sources */,
 				08DB7EB12448B7CE005B7A7D /* InfoViewPresenter.swift in Sources */,
-				79C80F12242E6E8B000B0285 /* FirtsViewController.swift in Sources */,
 				792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */,
 				79C80F21242FBB3E000B0285 /* PostService.swift in Sources */,
 				08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */,
@@ -501,6 +540,7 @@
 				7974FD412426C0F900E62A9B /* BaseUITabBarViewController.swift in Sources */,
 				0852D8E124438362008F2F7F /* UIColorExtension.swift in Sources */,
 				0850320E2457927A006BD40D /* DateExtension.swift in Sources */,
+				08503217245C58E3006BD40D /* UIVIewExtension.swift in Sources */,
 				79C80F1D242FACEA000B0285 /* PostsCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

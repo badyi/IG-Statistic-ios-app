@@ -55,6 +55,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="activity" destination="ZFq-Gh-CdW" id="hpt-IH-KOZ"/>
+                <outlet property="backView" destination="rWr-XI-NAb" id="OBv-pp-hXO"/>
                 <outlet property="label" destination="aoR-pp-Ye0" id="P3O-T6-4o0"/>
                 <outlet property="prfoilePicture" destination="1P1-iS-keS" id="Gvq-Fd-wel"/>
             </connections>

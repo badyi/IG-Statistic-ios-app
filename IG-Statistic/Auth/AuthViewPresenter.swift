@@ -31,11 +31,11 @@ protocol AuthPresenterProtocol: AnyObject {
 }
 
 final class AuthPresenter: AuthPresenterProtocol {
-    
+
     weak var view: AuthViewProtocol?
     private var authService: AuthService!
-    var pages: [String: String] = [:]
     var useDefaultPageID = false
+    
     private var credentials: Credentials? {
         didSet {
             if credentials?.fbUserId == nil {
@@ -103,16 +103,16 @@ final class AuthPresenter: AuthPresenterProtocol {
             setDefaultUserPage()
             return
         }
-        authService.getUserPages(credentials!) { result in
+        authService.getUserPages(credentials!) { [weak self] result in
             switch result {
             case let .success(pages):
-                self.pages = pages
+                self?.credentials?.pages = pages
                 DispatchQueue.main.async {
-                    self.view?.selectPage(pages: pages)
+                    self?.view?.selectPage(pages: pages)
                 }
             case let .failure(error):
                 DispatchQueue.main.async {
-                    self.view?.smtWrongAlert(reason: "cant get user pages")
+                    self?.view?.smtWrongAlert(reason: "cant get user pages")
                 }
                 print (error)
             }
@@ -120,12 +120,12 @@ final class AuthPresenter: AuthPresenterProtocol {
     }
     
     func setFBID() {
-        authService.getFBID_(credentials!) { result in
+        authService.getFBID_(credentials!) { [weak self] result in
             switch result {
             case let .success(id):
-                let cred = self.credentials
+                let cred = self?.credentials
                 cred?.fbUserId = id.id
-                self.credentials = cred
+                self?.credentials = cred
             case let .failure(error):
                 print (error)
             }
@@ -133,27 +133,28 @@ final class AuthPresenter: AuthPresenterProtocol {
     }
     
     func setPageId(pageName: String){
-        let cred = credentials
+        guard let cred = credentials else { view?.smtWrongAlert(reason: "credentials error"); return }
+        guard let pages = cred.pages else { view?.smtWrongAlert(reason: "pages error"); return }
         for i in pages {
             if i.value == pageName {
-                cred?.pageID = i.key
-                setToUserDefaultsPageID((cred?.pageID)!)
+                cred.pageID = i.key
+                setToUserDefaultsPageID((cred.pageID)!)
             }
         }
-        if cred?.pageID == nil {
+        if cred.pageID == nil {
             view?.smtWrongAlert(reason: "cant set page id")
         }
         credentials = cred
     }
 
     func setPageIBA() {
-        authService.getPagesInstagramBusinessAccount(self.credentials!) { result in
+        authService.getPagesInstagramBusinessAccount(self.credentials!) { [weak self] result in
             switch result {
             case let .success(credentials):
-                self.credentials = credentials
+                self?.credentials = credentials
             case let .failure(error):
                 DispatchQueue.main.async {
-                    self.view?.smtWrongAlert(reason: "cant get instagram business account")
+                    self?.view?.smtWrongAlert(reason: "cant get instagram business account")
                 }
                 print(error)
             }

@@ -13,7 +13,6 @@ import ResourceNetworking
 final class AuthViewController: UIViewController {
     private var presenter: AuthPresenter!
     private var loginButton : FBLoginButton = FBLoginButton(permissions: [ .publicProfile, .email, .userFriends, "instagram_basic", "pages_show_list", "instagram_manage_insights", "instagram_manage_comments"])
-    var pages : [String: String] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +35,7 @@ extension AuthViewController: AuthViewProtocol {
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         present(alert,animated: true, completion: nil)
         loginButton.isHidden = false
+        LoginManager().logOut()
     }
     
     func selected(alertAction: UIAlertAction) {
@@ -45,7 +45,9 @@ extension AuthViewController: AuthViewProtocol {
     func selectPage(pages: [String: String]) {
         let pageMenu = UIAlertController(title: nil, message: "Choose page", preferredStyle: .actionSheet)
         for i in pages {
-            pageMenu.addAction(UIAlertAction(title: i.value, style: .default, handler: selected))
+            let action = UIAlertAction(title: i.value, style: .default, handler: selected)
+            action.setValue(ThemeManager.currentTheme().titleTextColor, forKey: "titleTextColor")
+            pageMenu.addAction(action)
         }
         self.present(pageMenu, animated: true, completion: nil)
     }
@@ -65,7 +67,8 @@ extension AuthViewController: AuthViewProtocol {
 
 extension AuthViewController: LoginButtonDelegate {
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
-        
+        UserDefaults.standard.set(false, forKey: "userPageIsExisting")
+        UserDefaults.standard.set(false, forKey: "pageID")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

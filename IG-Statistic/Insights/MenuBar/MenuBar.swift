@@ -15,7 +15,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
-        horizontalBarView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        horizontalBarView.backgroundColor = UIColor.systemBlue
         horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(horizontalBarView)
         
@@ -24,7 +24,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/2).isActive = true
-        horizontalBarView.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        horizontalBarView.heightAnchor.constraint(equalToConstant: 2).isActive = true
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -34,20 +34,19 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .black//UIColor.rgb(red: 230, green: 32, blue: 31)
+        cv.backgroundColor = ThemeManager.currentTheme().backgroundColor
         cv.dataSource = self
         cv.delegate = self
         return cv
     }()
     
     let cellId = "cellId"
-    let imageNames = ["activity", "audience"]
+    let sectionName = ["activity", "audience"]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         collectionView.register(MenuCell.self, forCellWithReuseIdentifier: cellId)
-        
         addSubview(collectionView)
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
@@ -59,14 +58,13 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return sectionName.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
-        
-        cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13)
+        cell.imageView.image = UIImage(named: sectionName[indexPath.item])?.withRenderingMode(.alwaysTemplate)
+        cell.tintColor = ThemeManager.currentTheme().menuBarTintColor
         
         return cell
     }
@@ -83,53 +81,4 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         fatalError("init(coder:) has not been implemented")
     }
     
-}
-
-class MenuCell: BaseCell {
-    
-    let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13)
-        return iv
-    }()
-    
-    override var isHighlighted: Bool {
-        didSet {
-            imageView.tintColor = isHighlighted ? UIColor.white : UIColor.rgb(red: 91, green: 14, blue: 13)
-        }
-    }
-    
-    override var isSelected: Bool {
-        didSet {
-            imageView.tintColor = isSelected ? UIColor.white : UIColor.rgb(red: 91, green: 14, blue: 13)
-        }
-    }
-    
-    override func setupViews() {
-        super.setupViews()
-        
-        addSubview(imageView)
-        addConstraintsWithFormat("H:[v0(28)]", views: imageView)
-        addConstraintsWithFormat("V:[v0(28)]", views: imageView)
-        
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
-    }
-    
-}
-
-class BaseCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    func setupViews() {
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

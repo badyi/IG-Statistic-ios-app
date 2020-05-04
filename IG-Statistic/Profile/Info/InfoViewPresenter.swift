@@ -27,9 +27,8 @@ protocol InfoPresenterProtocol: AnyObject {
 final class InfoPresenter: InfoPresenterProtocol {
     weak var view: InfoViewProtocol?
     var infoService: InfoService!
-    var credentials: Credentials!
-    
-    var profile: Profile? = Profile(with: "") {
+
+    var profile: Profile {
         didSet {
             DispatchQueue.main.async {
                 self.view?.reloadData()
@@ -52,7 +51,7 @@ final class InfoPresenter: InfoPresenterProtocol {
     private var info: [String] = ["name", "bio", "website","posts","followers","followings" ,"Page name", "FB Link", "Category"]
     
     init(credentials: Credentials, view: InfoViewProtocol) {
-        self.credentials = credentials
+        profile = Profile(with: credentials)
         self.infoService = InfoService()
         self.view = view
     }
@@ -66,7 +65,7 @@ final class InfoPresenter: InfoPresenterProtocol {
     }
     
     func getNickname() -> String? {
-        return profile?.username
+        return profile.username
     }
     
     func getImage() -> UIImage? {
@@ -74,12 +73,12 @@ final class InfoPresenter: InfoPresenterProtocol {
     }
     
     func getFBname(){
-        infoService.getFBname(credentials!) { result in
+        infoService.getFBname(profile.credentials) { [weak self] result in
             switch result {
             case let .success(name):
-                self.profile?.fbName = name
+                self?.profile.fbName = name
                 DispatchQueue.main.async {
-                    self.view?.reloadData()
+                    self?.view?.reloadData()
                 }
             case .failure(_):
                 DispatchQueue.main.async {
@@ -90,12 +89,12 @@ final class InfoPresenter: InfoPresenterProtocol {
     }
     
     func getLink() {
-        infoService.getFBLink(credentials) { result in
+        infoService.getFBLink(profile.credentials) { [weak self] result in
             switch result {
             case let .success(link):
-                self.profile?.link = link
+                self?.profile.link = link
                 DispatchQueue.main.async {
-                    self.view?.reloadItem(at: 7)
+                    self?.view?.reloadItem(at: 7)
                 }
             case .failure(_):
                 DispatchQueue.main.async {
@@ -106,12 +105,12 @@ final class InfoPresenter: InfoPresenterProtocol {
     }
     
     func getMainProfileInfo() {
-        infoService.getMainProfileInfo(credentials) { result in
+        infoService.getMainProfileInfo(profile.credentials) { [weak self] result in
             switch result {
             case let .success(profile):
                 let profile: Profile = profile
-                profile.category = self.credentials.category
-                self.profile = profile
+                profile.category = self?.profile.category
+                self?.profile = profile
             case let .failure(error):
                 print(error)
             }
@@ -119,7 +118,7 @@ final class InfoPresenter: InfoPresenterProtocol {
     }
     
     func getProfileImage() {
-        guard let imageUrl = profile?.profilePictureURLString else {
+        guard let imageUrl = profile.profilePictureURLString else {
             image = UIImage(named: "defaultAvatar")
             return
         }
@@ -136,26 +135,26 @@ final class InfoPresenter: InfoPresenterProtocol {
     func getInfo(at index: Int) -> String? {
         switch index {
         case 0:
-            return self.profile?.name
+            return self.profile.name
         case 1:
-            return self.profile?.bio
+            return self.profile.bio
         case 2:
-            return self.profile?.website
+            return self.profile.website
         case 3:
-            guard let count = self.profile?.postsCount else { return nil }
+            guard let count = self.profile.postsCount else { return nil }
             return String(count)
         case 4:
-            guard let count = self.profile?.followersCount else { return nil }
+            guard let count = self.profile.followersCount else { return nil }
             return String(count)
         case 5:
-            guard let count = self.profile?.followingsCount else { return nil }
+            guard let count = self.profile.followingsCount else { return nil }
             return String(count)
         case 6:
-            return profile?.fbName
+            return profile.fbName
         case 7:
-            return profile?.link
+            return profile.link
         case 8:
-            return profile?.category
+            return profile.category
         default:
             return nil
         }

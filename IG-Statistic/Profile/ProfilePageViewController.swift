@@ -30,9 +30,15 @@ final class ProfilePageViewController: UIPageViewController {
         
         dataSource = self
         delegate = self
+        for view in self.view.subviews {
+          if let scrollView = view as? UIScrollView {
+            scrollView.delegate = self
+          }
+        }
         setViewControllerFromIndex(index: 0)
         PPVCdelegate?.profilePageViewController(ProfilePageViewController: self, didUpdatePageCount: subViewControllers.count)
     }
+    
 }
 
 extension ProfilePageViewController {
@@ -40,8 +46,8 @@ extension ProfilePageViewController {
         postsCVC.insightsTapped(with: flag)
     }
     
-    func transferData(_ profile: Profile, _ credentials: Credentials) {
-        postsCVC.transferData(profile, credentials)
+    func transferData(_ profile: Profile) {
+        postsCVC.transferData(profile)
     }
     
     func setViewControllerFromIndex(index: Int) {
@@ -78,5 +84,18 @@ extension ProfilePageViewController: UIPageViewControllerDataSource {
 extension ProfilePageViewController: UIPageViewControllerDelegate {
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return subViewControllers.count
+    }
+}
+
+extension ProfilePageViewController: UIScrollViewDelegate {
+    func scrollToMenuIndex(menuIndex: Int) {
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
     }
 }

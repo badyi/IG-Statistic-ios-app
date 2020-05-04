@@ -34,6 +34,7 @@ class PostsCollectionViewController: UICollectionViewController {
 
 extension PostsCollectionViewController {
     func setupView() {
+        let backgroundColor = ThemeManager.currentTheme().backgroundColor
         collectionView.dataSource = self
         collectionView.delegate = self
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -42,6 +43,7 @@ extension PostsCollectionViewController {
         self.collectionView!.refreshControl = refreshControl
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.estimatedItemSize = .zero
+        self.collectionView.backgroundColor = backgroundColor
     }
     
     func insightsTapped(with flag: Bool) {
@@ -63,11 +65,14 @@ extension PostsCollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let post = presenter.post(at: indexPath.row)
         let postView = presenter.postView(at: indexPath.row)
-        presenter.getPostInfo(post, index: indexPath.row)
-        presenter.loadInsights(for: postView)
+        presenter.getPostInfo(at: indexPath.row)
+        presenter.getInsights(at: indexPath.row)
         (cell as! PostCollectionViewCell).configure(with: postView, presenter.showInsights())
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        presenter.didEndDisplaying(at: indexPath.row)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,8 +83,8 @@ extension PostsCollectionViewController {
 }
 
 extension PostsCollectionViewController {
-    func transferData(_ profile: Profile, _ credentials: Credentials) {
-        presenter = PostsCollectionPresenter(profile, credentials,self)
+    func transferData(_ profile: Profile) {
+        presenter = PostsCollectionPresenter(profile, self)
         presenter.getPosts()
     }
 }
@@ -102,12 +107,8 @@ extension PostsCollectionViewController: PostListViewProtocol {
         self.collectionView.reloadData()
     }
     
-    func reloadItem(with index: Int) {
+    func reloadItem(at index: Int) {
         let index: IndexPath = IndexPath(row: index, section: 0)
         self.collectionView.reloadItems(at: [index])
-    }
-    
-    func postsWithIDdidLoaded() {
-        self.reloadData()
     }
 }

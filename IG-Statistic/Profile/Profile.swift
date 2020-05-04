@@ -6,10 +6,10 @@
 //  Copyright © 2020 Бадый Шагаалан. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class Profile {
-    var userID: String
+    var userID: String?
     var username: String?
     var name: String?
     var postsCount: Int?
@@ -21,9 +21,12 @@ final class Profile {
     var link: String?
     var category: String?
     var fbName: String?
+    var credentials: Credentials
+    var showInsightsOnPosts = false
     
-    init(with id: String) {
-        userID = id
+    init(with credentials: Credentials, and id: String = "") {
+        self.credentials = credentials
+        category = credentials.category
     }
     
     func setInfo(_ info: MainInfoResponse) {

@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class InsightsViewController: UICollectionViewController{
+class InsightsViewController: UICollectionViewController {
     var presenter: InsightsPresenter!
     let cellId = "cellId"
     let activityCellId = "activityCellId"
@@ -28,10 +28,19 @@ class InsightsViewController: UICollectionViewController{
         getActivity()
         setupMenuBar()
         setupCollectionView()
+        setupView()
     }
 }
 
 extension InsightsViewController {
+    func setupView() {
+        let backgroundColor = ThemeManager.currentTheme().backgroundColor
+        self.navigationController?.navigationBar.barTintColor = backgroundColor
+        self.navigationController?.navigationBar.tintColor = backgroundColor
+        self.navigationController?.navigationBar.backgroundColor = backgroundColor
+        self.navigationController?.navigationBar.isTranslucent = false
+    }
+    
     func getActivity() {
         let beginDate = Date().nDaysAgoInSec(8)
         let endDate = Date().nDaysAgoInSec(1)
@@ -52,17 +61,14 @@ extension InsightsViewController: InsightsViewProtocol {
 
 extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     private func setupMenuBar() {
-        
-        let redView = UIView()
-        redView.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
-        view.addSubview(redView)
-        view.addConstraintsWithFormat("H:|[v0]|", views: redView)
-        view.addConstraintsWithFormat("V:[v0(50)]", views: redView)
-        
+        let backview = UIView()
+        backview.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        view.addSubview(backview)
+        view.addConstraintsWithFormat("H:|[v0]|", views: backview)
+        view.addConstraintsWithFormat("V:[v0(50)]", views: backview)
         view.addSubview(menuBar)
         view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
         view.addConstraintsWithFormat("V:[v0(50)]", views: menuBar)
-        
         menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     }
     
@@ -73,14 +79,17 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
             flowLayout.estimatedItemSize = .zero
         }
         
-        collectionView?.backgroundColor = UIColor.white
+        collectionView?.showsHorizontalScrollIndicator = false
+        collectionView?.showsVerticalScrollIndicator = false
+        collectionView?.backgroundColor = ThemeManager.currentTheme().backgroundColor
         collectionView?.register(ActivityCollectionViewCell.self, forCellWithReuseIdentifier: activityCellId)
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
-        collectionView?.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-
-        collectionView?.isPagingEnabled = true
+        // collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.frame.height, right: 0)
+        //collectionView?.scrollIndicatorInsets = UIEdgeInsets(top:, left: 0, bottom: self.tabBarController!.tabBar.frame.height, right: 0)
+        let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.frame.height, right: 0)
+        self.collectionView.contentInset = adjustForTabbarInsets
+        self.collectionView.scrollIndicatorInsets = adjustForTabbarInsets
     }
     
     func scrollToMenuIndex(menuIndex: Int) {
@@ -126,25 +135,5 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-    
-}
-
-extension UIColor {
-    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
-        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
-    }
-}
-
-extension UIView {
-    func addConstraintsWithFormat(_ format: String, views: UIView...) {
-        var viewsDictionary = [String: UIView]()
-        for (index, view) in views.enumerated() {
-            let key = "v\(index)"
-            view.translatesAutoresizingMaskIntoConstraints = false
-            viewsDictionary[key] = view
-        }
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
     }
 }

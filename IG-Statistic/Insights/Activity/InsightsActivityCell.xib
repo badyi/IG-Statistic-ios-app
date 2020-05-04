@@ -88,6 +88,7 @@
             <size key="customSize" width="242" height="224"/>
             <connections>
                 <outlet property="averageLabel" destination="Bm1-Ch-IEt" id="Sp5-VD-LZ9"/>
+                <outlet property="backView" destination="9vP-HF-miM" id="aNI-Dg-AUp"/>
                 <outlet property="countLabel" destination="hd3-30-q7w" id="tbZ-0k-efC"/>
                 <outlet property="descriptionLabel1" destination="yhc-Sp-FZb" id="zwQ-Lp-Q3m"/>
                 <outlet property="descriptionLabel2" destination="0ss-mj-Qsa" id="Tu9-aq-ll0"/>

@@ -13,7 +13,6 @@ import ResourceNetworking
 protocol PostViewDelegate: AnyObject {
     func iconDidLoaded(for post: PostView)
     func insightsDidLoaded(for post: PostView)
-    func loadInsights(for post: PostView)
 }
 
 struct Insights {
@@ -36,6 +35,7 @@ class PostView {
     var location: String?
     var username: String?
     var ownerID: String?
+    var showInsights: Bool = false
     
     var insights: Insights? {
         didSet {
@@ -56,6 +56,7 @@ class PostView {
             loadImageIfNeeded()
         }
     }
+    
     private(set) var image: UIImage? {
         didSet {
             delegate?.iconDidLoaded(for: self)
@@ -103,14 +104,19 @@ extension PostView {
         guard let resourse = ResourseFactory().createImageResource(for: urlString) else {
             return
         }
-        _ = networkHelper.load(resource: resourse) { result in
+        _ = networkHelper.load(resource: resourse) { [weak self] result in
             switch result {
             case let .success(image):
-                self.image = image
+                self?.image = image
             case let .failure(error):
                 print(error)
             }
         }
+    }
+    
+    func cancelLoadImage() {
+        cancel?.cancel()
+        cancel = nil
     }
 }
 

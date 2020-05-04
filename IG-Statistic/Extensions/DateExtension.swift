@@ -16,4 +16,10 @@ extension Date {
     func nDaysAgoInSec(_ n: Int) -> Int64 {
         return toSec() - 86400 * Int64(n);
     }
+    
+    func weekday() -> Int {
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: self)
+        return weekday
+    }
 }

@@ -12,6 +12,7 @@ protocol InsightsViewProtocol: AnyObject {
     func insightsDidLoaded(_ activity: Activity)
     func reloadItem(at index: Int)
 }
+
 protocol InsightsPresenterProtocol {
     func getActivityInsights(_ beginDate: Int64,_ endDate: Int64, _ period: String)
 }
@@ -29,12 +30,12 @@ final class InsightsPresenter: InsightsPresenterProtocol {
     }
     
     func getActivityInsights(_ beginDate: Int64,_ endDate: Int64,_ period: String) {
-        insightsService.getActivity(credentials, beginDate, endDate, period ) { result in
+        insightsService.getActivity(credentials, beginDate, endDate, period ) { [weak self] result in
             switch (result) {
             case let .success(activity):
-                DispatchQueue.main.async {                    
-                    self.activity = activity
-                    self.view?.insightsDidLoaded(activity)
+                DispatchQueue.main.async {
+                    self?.activity = activity
+                    self?.view?.insightsDidLoaded(activity)
                 }
             case let .failure(error):
                 print(error)

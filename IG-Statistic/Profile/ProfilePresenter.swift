@@ -23,7 +23,6 @@ protocol ProfilePresenterProtocol: AnyObject {
 final class ProfilePresenter: ProfilePresenterProtocol {
     weak var view: ProfileViewProtocol?
     private let profileService: ProfileService!
-    var credentials: Credentials!
 
     var image: UIImage? {
         didSet {
@@ -33,32 +32,28 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         }
     }
     
-    var profile: Profile? {
+    var profile: Profile {
         didSet {
-            let profileView = ProfileView(with: profile!)
+            let profileView = ProfileView(with: profile)
             DispatchQueue.main.async {
                 self.view?.setManiInfo(profileView)
             }
             getProfileImage()
         }
-        willSet {
-            newValue?.category = credentials.category
-        }
     }
 
     init(with credentials: Credentials, view: ProfileViewProtocol) {
         profileService = ProfileService()
-        profile = Profile(with: "")
+        profile = Profile(with: credentials)
         self.view = view
-        self.credentials = credentials
     }
     
     func getMainProfileInfo() {
-        profileService.getMainProfileInfo(credentials) { result in
+        profileService.getMainProfileInfo(profile.credentials) { [weak self] result in
             switch result {
             case let .success(profile):
                 let profile: Profile = profile
-                self.profile = profile
+                self?.profile = profile
             case let .failure(error):
                 print(error)
             }
@@ -66,13 +61,13 @@ final class ProfilePresenter: ProfilePresenterProtocol {
      }
     
     func getProfileImage() {
-        guard let imageUrl = profile?.profilePictureURLString else {
+        guard let imageUrl = profile.profilePictureURLString else {
             return
         }
-        profileService.getImage(imageUrl) { result in
+        profileService.getImage(imageUrl) { [weak self] result in
             switch result {
             case let .success(image):
-                self.image = image
+                self?.image = image
             case let .failure(error):
                 print(error)
             }
@@ -80,6 +75,18 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     }
     
     func getCredentials() -> Credentials {
-        return credentials
+        return profile.credentials
+    }
+    
+    func reverseShowInsightsState() {
+        profile.showInsightsOnPosts = !profile.showInsightsOnPosts
+    }
+    
+    func changeShowInsightsState(with flag: Bool) {
+        profile.showInsightsOnPosts = flag
+    }
+    
+    func getShowInsightsState() -> Bool {
+        profile.showInsightsOnPosts
     }
 }

@@ -109,7 +109,7 @@ final class AuthService {
             completionBlock(.failure(error))
             return
         }
-        _ = networkHelper.load(resource: resource) {result in
+        _ = networkHelper.load(resource: resource) { result in
             switch result {
             case let .success(Response):
                 let response: FBID = Response

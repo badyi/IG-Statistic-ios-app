@@ -12,6 +12,18 @@ import UIKit
 class InfoHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var prfoilePicture: UIImageView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var backView: UIView!
+    
+    func setupView() {
+        let titleColor = ThemeManager.currentTheme().titleTextColor
+        let backgroundColor = ThemeManager.currentTheme().backgroundColor
+        let tintColor = ThemeManager.currentTheme().tintColor
+        label.textColor = titleColor
+        backView.backgroundColor = backgroundColor
+        backView.tintColor = tintColor
+        backView.alpha = 0.75
+    }
     
     func setImage(with img: UIImage?) {
         prfoilePicture.image = img

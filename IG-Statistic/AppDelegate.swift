@@ -19,11 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        ThemeManager.applyTheme(theme: .light)
         ApplicationDelegate.shared.application (
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
-
         return true
     }
           
