@@ -61,6 +61,10 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
             cell.config(type: .followerCount, data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
         case 1:
             cell.config(type: .profileViews, data: ac.profileViews, beginDate: ac.beginDate, endDate: ac.endDate)
+        case 2:
+            cell.config(type: .impressions, data: ac.impressions, beginDate: ac.beginDate, endDate: ac.endDate)
+        case 3:
+            cell.config(type: .reach, data: ac.reaches, beginDate: ac.beginDate, endDate: ac.endDate)
         default:
             break
         }

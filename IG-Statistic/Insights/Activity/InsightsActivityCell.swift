@@ -54,8 +54,12 @@ class InsightsActivityCell: UICollectionViewCell {
             configFC(data)
         case .profileViews:
             configPV(data)
+        case .impressions:
+            configImps(data)
+        case .reach:
+            configReach(data)
         default:
-            print(1)
+            print("unsupported type")
         }
         customizeChart(dataPoints: days, values: data.map { Double($0)})
     }
@@ -96,7 +100,7 @@ class InsightsActivityCell: UICollectionViewCell {
         let eDate = Date(seconds: endDate!).getDDMMMformatStr()
         
         descriptionLabel1.text = "Accounts following profile from \(bDate) - \(eDate)"
-        descriptionLabel2.text = "Average per day"
+        descriptionLabel2.text = "Average"
         averageLabel.text = "\(sum/7)"
     }
     
@@ -108,8 +112,31 @@ class InsightsActivityCell: UICollectionViewCell {
         let eDate = Date(seconds: endDate!).getDDMMMformatStr()
         
         descriptionLabel1.text = "Users who have viewed profile from \(bDate) - \(eDate)"
-        descriptionLabel2.text = "Average per day"
+        descriptionLabel2.text = "Average"
         averageLabel.text = "\(sum/7)"
     }
-    #warning("config impressions and reaches")
+    
+    func configImps(_ data: [Int]) {
+        typeLabel.text = "Impressions"
+        let sum = data.reduce(0, +)
+        countLabel.text = "\(sum)"
+        let bDate = Date(seconds: beginDate!).getDDMMMformatStr()
+        let eDate = Date(seconds: endDate!).getDDMMMformatStr()
+        
+        descriptionLabel1.text = "The total number of times that all of your posts have been seen from \(bDate) - \(eDate)"
+        descriptionLabel2.text = "Average"
+        averageLabel.text = "\(sum/7)"
+    }
+    
+    func configReach(_ data: [Int]) {
+        typeLabel.text = "Reach"
+        let sum = data.reduce(0, +)
+        countLabel.text = "\(sum)"
+        let bDate = Date(seconds: beginDate!).getDDMMMformatStr()
+        let eDate = Date(seconds: endDate!).getDDMMMformatStr()
+        
+        descriptionLabel1.text = "The total number of unique accounts that have seen any of your posts from \(bDate) - \(eDate)"
+        descriptionLabel2.text = "Average"
+        averageLabel.text = "\(sum/7)"
+    }
 }
