@@ -32,7 +32,7 @@ fileprivate struct PostResponse: Codable {
     let caption: String?
     let is_comment_enabled: Bool
     let like_count: Int
-    let username: String
+    let username: String?
     let thumbnail_url: String?
     let comments_count: Int
 }

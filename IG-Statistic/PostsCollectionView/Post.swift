@@ -37,7 +37,7 @@ class PostView {
     var ownerID: String?
     var showInsights: Bool = false
     
-    var insights: Insights? {
+    var insights: Insights?  {
         didSet {
             delegate?.insightsDidLoaded(for: self)
         }

@@ -50,6 +50,10 @@ extension PostsCollectionViewController {
         presenter.setInsightsState(with: flag)
         reloadData()
     }
+    
+    func sortBy(_ creiterion: sortCriterion, _ direction: sortDirection) {
+        presenter.sortBy(creiterion, direction)
+    }
 }
 
 extension PostsCollectionViewController {

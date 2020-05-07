@@ -71,6 +71,10 @@ final class PostsCollectionPresenter: PostCollectionPresenterProtocol {
         let postV = postListModel.postView(at: index)
         postV.cancelLoadImage()
     }
+    
+    func sortBy(_ criterion: sortCriterion, _ direction: sortDirection) {
+        postListModel.sortBy(criterion, direction)
+    }
 }
 
 extension PostsCollectionPresenter: PostListModelDelegate {

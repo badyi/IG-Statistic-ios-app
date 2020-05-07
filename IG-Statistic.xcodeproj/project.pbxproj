@@ -23,6 +23,11 @@
 		085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */; };
 		086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994EA24536D04008587F0 /* InsightsViewController.swift */; };
 		086994EE24536E46008587F0 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994ED24536E46008587F0 /* MenuBar.swift */; };
+		08932BCD2460C6F100D9BA7D /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08932BCC2460C6F100D9BA7D /* SettingsPresenter.swift */; };
+		08932BD22460CE1C00D9BA7D /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08932BD02460CE1C00D9BA7D /* SettingsTableViewCell.swift */; };
+		08932BD32460CE1C00D9BA7D /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08932BD12460CE1C00D9BA7D /* SettingsTableViewCell.xib */; };
+		08932BD92460D1B300D9BA7D /* WithSegControlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08932BD72460D1B300D9BA7D /* WithSegControlTableViewCell.swift */; };
+		08932BDA2460D1B300D9BA7D /* WithSegControlTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08932BD82460D1B300D9BA7D /* WithSegControlTableViewCell.xib */; };
 		08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE3BE7244F4661005FCE2D /* InfoService.swift */; };
 		08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5824462955005B7A7D /* SettingsViewController.swift */; };
 		08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7E5E2446564D005B7A7D /* GradientView.swift */; };
@@ -109,6 +114,11 @@
 		085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
 		086994EA24536D04008587F0 /* InsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewController.swift; sourceTree = "<group>"; };
 		086994ED24536E46008587F0 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		08932BCC2460C6F100D9BA7D /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		08932BD02460CE1C00D9BA7D /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		08932BD12460CE1C00D9BA7D /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
+		08932BD72460D1B300D9BA7D /* WithSegControlTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithSegControlTableViewCell.swift; sourceTree = "<group>"; };
+		08932BD82460D1B300D9BA7D /* WithSegControlTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithSegControlTableViewCell.xib; sourceTree = "<group>"; };
 		08CE3BE7244F4661005FCE2D /* InfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoService.swift; sourceTree = "<group>"; };
 		08DB7E5824462955005B7A7D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		08DB7E5E2446564D005B7A7D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -185,7 +195,9 @@
 		08503219245F8983006BD40D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				08932BCC2460C6F100D9BA7D /* SettingsPresenter.swift */,
 				08DB7E5824462955005B7A7D /* SettingsViewController.swift */,
+				08932BD42460D01900D9BA7D /* Cells */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -254,6 +266,17 @@
 				0852EF162454697F0084A4F7 /* Activity */,
 			);
 			path = Insights;
+			sourceTree = "<group>";
+		};
+		08932BD42460D01900D9BA7D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				08932BD02460CE1C00D9BA7D /* SettingsTableViewCell.swift */,
+				08932BD72460D1B300D9BA7D /* WithSegControlTableViewCell.swift */,
+				08932BD82460D1B300D9BA7D /* WithSegControlTableViewCell.xib */,
+				08932BD12460CE1C00D9BA7D /* SettingsTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		08DB7E992448629E005B7A7D /* Info */ = {
@@ -444,8 +467,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0852EF202454A0480084A4F7 /* InsightsActivityCell.xib in Resources */,
+				08932BDA2460D1B300D9BA7D /* WithSegControlTableViewCell.xib in Resources */,
 				7974FD55242A4B8E00E62A9B /* Pods_IG_Statistic.framework in Resources */,
 				08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */,
+				08932BD32460CE1C00D9BA7D /* SettingsTableViewCell.xib in Resources */,
 				792DBF6524265EE3003E39C5 /* LaunchScreen.storyboard in Resources */,
 				08DB7EC324490251005B7A7D /* InfoHeaderView.xib in Resources */,
 				792DBF6224265EE3003E39C5 /* Assets.xcassets in Resources */,
@@ -508,6 +533,7 @@
 				08503212245AF65E006BD40D /* ThemeManager.swift in Sources */,
 				08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */,
 				08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */,
+				08932BD92460D1B300D9BA7D /* WithSegControlTableViewCell.swift in Sources */,
 				0852EF13245468CB0084A4F7 /* InsightsService.swift in Sources */,
 				7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */,
 				0850321024587E6E006BD40D /* InsightsNavigationController.swift in Sources */,
@@ -522,6 +548,7 @@
 				7974FD4C24297AB700E62A9B /* AuthService.swift in Sources */,
 				7953E9B7242D430C00489394 /* ProfileViewController.swift in Sources */,
 				08DB7EAB24487905005B7A7D /* InfoTableViewCell.swift in Sources */,
+				08932BCD2460C6F100D9BA7D /* SettingsPresenter.swift in Sources */,
 				08DB7EA72448726C005B7A7D /* InfoViewController.swift in Sources */,
 				086994EE24536E46008587F0 /* MenuBar.swift in Sources */,
 				795091082426A44100EA3BFB /* Credentials.swift in Sources */,
@@ -535,6 +562,7 @@
 				79C80F21242FBB3E000B0285 /* PostService.swift in Sources */,
 				08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */,
 				79C80F19242F9959000B0285 /* Post.swift in Sources */,
+				08932BD22460CE1C00D9BA7D /* SettingsTableViewCell.swift in Sources */,
 				085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */,
 				799863FA2431229A005BABD4 /* ProfilePresenter.swift in Sources */,
 				7974FD412426C0F900E62A9B /* BaseUITabBarViewController.swift in Sources */,

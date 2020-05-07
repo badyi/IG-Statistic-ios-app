@@ -13,6 +13,12 @@ extension Date {
         self = Date(timeIntervalSince1970: TimeInterval(seconds))
     }
     
+    init(with str: String) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
+        self = formatter.date(from: str)!
+    }
+    
     func toSec() ->Int64! {
         return Int64(self.timeIntervalSince1970 )
     }

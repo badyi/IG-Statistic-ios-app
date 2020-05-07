@@ -67,8 +67,8 @@ extension AuthViewController: AuthViewProtocol {
 
 extension AuthViewController: LoginButtonDelegate {
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
-        UserDefaults.standard.set(false, forKey: "userPageIsExisting")
-        UserDefaults.standard.set(false, forKey: "pageID")
+        UserDefaults.standard.removeObject(forKey: "userPageIsExisting")
+        UserDefaults.standard.removeObject(forKey: "pageID")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

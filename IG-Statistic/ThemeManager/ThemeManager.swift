@@ -82,6 +82,10 @@ enum Theme: Int {
         return .systemBlue
     }
     
+    var tableViewCellSelectedColor: UIColor {
+        return .lightGray
+    }
+    
     var tintColor: UIColor {
         switch self {
         case .light:

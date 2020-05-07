@@ -12,12 +12,19 @@ protocol ProfileViewProtocol: AnyObject {
     func setUpView()
     func setManiInfo(_ profileView: ProfileView)
     func imageDidLoaded(_ image: UIImage)
+    func showAlert(_ alert: UIAlertController)
+    func sortPosts(by criterion: sortCriterion, direction: sortDirection)
 }
 
 protocol ProfilePresenterProtocol: AnyObject {
     func getMainProfileInfo()
     func getProfileImage()
     func getCredentials() -> Credentials
+    func reverseShowInsightsState()
+    func changeShowInsightsState(with flag: Bool)
+    func getShowInsightsState() -> Bool
+    func chooseSort()
+    func sortPostsAction(alertAction: UIAlertAction)
 }
 
 final class ProfilePresenter: ProfilePresenterProtocol {
@@ -88,5 +95,30 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func getShowInsightsState() -> Bool {
         profile.showInsightsOnPosts
+    }
+    
+    func chooseSort() {
+        let alert = UIAlertController(title: "Sort by", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Date (newest)", style: .default, handler: sortPostsAction))
+        alert.addAction(UIAlertAction(title: "Date (oldest)", style: .default, handler: sortPostsAction))
+        alert.addAction(UIAlertAction(title: "Likes (descending)", style: .default, handler: sortPostsAction))
+        alert.addAction(UIAlertAction(title: "Likes (ascending)", style: .default, handler: sortPostsAction))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: sortPostsAction))
+        self.view?.showAlert(alert)
+    }
+    
+    func sortPostsAction(alertAction: UIAlertAction) {
+        switch alertAction.title {
+        case "Date (newest)":
+            self.view?.sortPosts(by: .date, direction: .descending)
+        case "Date (oldest)":
+            self.view?.sortPosts(by: .date, direction: .ascending)
+        case "Likes (descending)":
+            self.view?.sortPosts(by: .likes, direction: .descending)
+        case "Likes (ascending)":
+            self.view?.sortPosts(by: .likes, direction: .ascending)
+        default:
+            print("no action")
+        }
     }
 }

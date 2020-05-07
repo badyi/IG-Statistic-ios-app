@@ -46,6 +46,10 @@ extension ProfilePageViewController {
         postsCVC.insightsTapped(with: flag)
     }
     
+    func sortBy(_ creiterion: sortCriterion, _ direction: sortDirection) {
+        postsCVC.sortBy(creiterion, direction)
+    }
+    
     func transferData(_ profile: Profile) {
         postsCVC.transferData(profile)
     }

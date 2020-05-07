@@ -36,6 +36,10 @@ final class ProfileViewController: UIViewController {
         setUpView()
     }
     
+    @IBAction func sortPosts(_ sender: Any) {
+        profilePresenter.chooseSort()
+    }
+    
     @IBAction func showInsights(_ sender: UIButton) {
         profilePresenter.reverseShowInsightsState()
         let state = profilePresenter.getShowInsightsState()
@@ -57,6 +61,13 @@ final class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: ProfileViewProtocol {
+    func sortPosts(by criterion: sortCriterion, direction: sortDirection) {
+        pageVC.sortBy(criterion, direction)
+    }
+    func showAlert(_ alert: UIAlertController) {
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func setUpView() {
         let titleColor = ThemeManager.currentTheme().titleTextColor
         let borderColor = ThemeManager.currentTheme().borderColor
@@ -78,21 +89,24 @@ extension ProfileViewController: ProfileViewProtocol {
         self.followersLabel.textColor = titleColor
         self.followingsCount.textColor = titleColor
         self.followingsLabel.textColor = titleColor
+        
+        self.profileBackView.backgroundColor = ThemeManager.currentTheme().backgroundColor
         self.pageControl.backgroundColor = backgroundColor
         
         self.shInsights.layer.cornerRadius = 3
         self.shInsights.layer.borderWidth = 0.5
         self.shInsights.setTitleColor(titleColor, for: .normal)
         self.shInsights.layer.borderColor = borderColor.cgColor
+        
         self.sortsPostsButton.layer.cornerRadius = 3
         self.sortsPostsButton.layer.borderWidth = 0.5
         self.sortsPostsButton.layer.borderColor = borderColor.cgColor
         self.sortsPostsButton.setTitleColor(titleColor, for: .normal)
+        
         self.infoButton.layer.cornerRadius = 3
         self.infoButton.layer.borderWidth = 0.5
         self.infoButton.layer.borderColor = borderColor.cgColor
         self.infoButton.setTitleColor(titleColor, for: .normal)
-        self.profileBackView.backgroundColor = ThemeManager.currentTheme().backgroundColor
     }
     
     func setManiInfo(_ profile: ProfileView) {
