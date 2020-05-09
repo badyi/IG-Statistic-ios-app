@@ -16,7 +16,7 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        themeSetup()
         presenter = AuthPresenter(view: self)
         setUpView()
         loginButton.delegate = self
@@ -42,6 +42,27 @@ extension AuthViewController: AuthViewProtocol {
         self.presenter.setPageId(pageName: alertAction.title!)
     }
     
+    func themeSetup() {
+        if let themeN = UserDefaults.standard.value(forKey: "SelectedTheme") as? String {
+            if themeN == "0" {
+                ThemeManager.applyTheme(theme: .light)
+                return
+            } else if themeN == "1" {
+                ThemeManager.applyTheme(theme: .dark)
+                return
+            }
+        }
+        if #available(iOS 13, *) {
+            switch self.traitCollection.userInterfaceStyle {
+            case .dark:
+                ThemeManager.applyTheme(theme: .dark)
+            default:
+                ThemeManager.applyTheme(theme: .light)
+            }
+        } else {
+            ThemeManager.applyTheme(theme: .light)
+        }
+    }
     func selectPage(pages: [String: String]) {
         let pageMenu = UIAlertController(title: nil, message: "Choose page", preferredStyle: .actionSheet)
         for i in pages {
@@ -53,11 +74,33 @@ extension AuthViewController: AuthViewProtocol {
     }
 
     func setUpView() {
-        loginButton.center = view.center
+        let label = UILabel()
+        label.text = "IG-Statistic"
+        label.textAlignment = .center
+        
+        label.textColor = ThemeManager.currentTheme().titleTextColor
+        self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        //loginButton.center =  view.center
         if presenter.isAccessTokenExisting()  == true {
             loginButton.isHidden = true
         }
+        
+        view.addSubview(label)
         view.addSubview(loginButton)
+    
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
+        label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
+        label.font = label.font.withSize(100)
+        
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor,constant: 10).isActive = true
+        loginButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 0).isActive = true
+        loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
+        loginButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
     }
     
     func performSeg(withIdentifier id: String, sender: Any) {

@@ -1,14 +1,14 @@
 //
-//  ActivityViewCell.swift
+//  AudienceViewCell.swift
 //  IG-Statistic
 //
-//  Created by и on 25.04.2020.
+//  Created by и on 08.05.2020.
 //  Copyright © 2020 Бадый Шагаалан. All rights reserved.
 //
 
 import UIKit
 
-class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,7 +29,7 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     }()
     
     let cellId = "cellId"
-    var activity: Activity?
+    var audience: Audience?
     
     func setupViews() {
         backgroundColor = ThemeManager.currentTheme().backgroundColor
@@ -38,24 +38,25 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         addSubview(collectionView)
         addConstraintsWithFormat("H:|[v0]|", views: collectionView)
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
+        
         collectionView.register(UINib(nibName: "InsightsActivityCell", bundle: nil), forCellWithReuseIdentifier: cellId)
     }
     
-    func config(with activity: Activity?) {
-        self.activity = activity
+    func config(with audience: Audience?) {
+        self.audience = audience
         self.collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let ac = activity else { return 0 }
-        return ac.cellsCount
+        guard let ad = audience else { return 0 }
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InsightsActivityCell
         cell.backgroundColor = UIColor.purple
-        guard let ac = activity else { return cell }
-        switch indexPath.row {
+        guard let ac = audience else { return cell }
+   /*     switch indexPath.row {
         case 0:
             cell.config(type: .followerCount, data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
         case 1:
@@ -66,7 +67,7 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
             cell.config(type: .reach, data: ac.reaches, beginDate: ac.beginDate, endDate: ac.endDate)
         default:
             break
-        }
+        } */
         return cell
     }
         

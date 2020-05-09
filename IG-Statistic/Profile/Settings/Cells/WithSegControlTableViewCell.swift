@@ -30,6 +30,10 @@ class WithSegControlTableViewCell: UITableViewCell {
         label.text = title
     }
     
+    @IBAction func changessegment(_ sender: Any) {
+
+    }
+    
     func setupView() {
         segmentControl.setTitle("Light", forSegmentAt: 0)
         segmentControl.setTitle("Dark", forSegmentAt: 1)
@@ -37,5 +41,14 @@ class WithSegControlTableViewCell: UITableViewCell {
         self.icon.backgroundColor = ThemeManager.currentTheme().backgroundColor
         self.backgroundColor = ThemeManager.currentTheme().backgroundColor
         self.label.textColor = ThemeManager.currentTheme().titleTextColor
+        
+        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: ThemeManager.currentTheme().selectedSegmentColor]
+        //self.segmentControl.setTitleTextAttributes(titleTextAttributes, for: .selected)
+        ///self.segmentControl.tintColor = .red
+        
+        //self.segmentControl.selectedSegmentTintColor = .red
+        //self.segmentControl.setTitleTextAttributes(       , for: )
+        //self.segmentControl.selectedSegmentTintColor = ThemeManager.currentTheme().selectedSegmentColor
+      //  self.segmentControl.backgroundColor = ThemeManager.currentTheme().secondaryColor
     }
 }

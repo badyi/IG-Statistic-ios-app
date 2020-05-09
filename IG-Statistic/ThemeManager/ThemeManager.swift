@@ -41,25 +41,25 @@ enum Theme: Int {
     var backgroundColor: UIColor {
         switch self {
         case .light:
-            return UIColor(hexString: "ffffff")
+            return .black
         case .dark:
-            return UIColor(hexString: "000000")
+            return .white
         }
     }
 
     var secondaryColor: UIColor {
         switch self {
         case .light:
-            return UIColor(hexString: "ffffff")
+            return .black
         case .dark:
-            return UIColor(hexString: "000000")
+            return .white
         }
     }
     
     var titleTextColor: UIColor {
         switch self {
         case .light:
-            return .red
+            return .black
         case .dark:
             return .white
         }
@@ -111,9 +111,18 @@ enum Theme: Int {
     var subtitleTextColor: UIColor {
         switch self {
         case .light:
-            return UIColor(hexString: "ffffff")
+            return .black
         case .dark:
-            return UIColor(hexString: "000000")
+            return .white
+        }
+    }
+    
+    var selectedSegmentColor: UIColor {
+        switch self {
+        case .light:
+            return .systemBlue
+        case .dark:
+            return .lightGray
         }
     }
     

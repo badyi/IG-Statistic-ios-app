@@ -75,8 +75,6 @@ final class SettingsViewController: UITableViewController {
 
 extension SettingsViewController {
     func setupView() {
-        //changePageButton.setTitleColor(ThemeManager.currentTheme().titleTextColor, for: .normal)
-        //logOutButton.setTitleColor(ThemeManager.currentTheme().titleTextColor, for: .normal)
         let titleColor = ThemeManager.currentTheme().titleTextColor
         let textAttributes = [NSAttributedString.Key.foregroundColor:titleColor]
         self.navigationController?.navigationBar.titleTextAttributes = textAttributes

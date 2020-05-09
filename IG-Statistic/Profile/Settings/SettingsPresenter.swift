@@ -88,8 +88,6 @@ final class SettingsPresenter: SettingsPresenterProtocol {
     
     func action(at indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
-            changeTheme()
         case 1:
             actionAlert(type: .changePage)
         case 2:

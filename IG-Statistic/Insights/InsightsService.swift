@@ -30,6 +30,27 @@ fileprivate struct PagingR: Codable{
     let next: String
 }
 
+fileprivate struct AudienceResponse: Codable {
+    let data: [Data]
+}
+
+fileprivate struct Data: Codable {
+    let name, period: String
+    let values: [dataValue]
+    let title, datumDescription, id: String
+
+    enum CodingKeys: String, CodingKey {
+        case name, period, values, title
+        case datumDescription = "description"
+        case id
+    }
+}
+
+fileprivate struct dataValue: Codable {
+    let value: [String: Int]
+    let endTime: Date
+}
+
 fileprivate final class InsightsResourceFactory {
     func createActivityResource(with credentials: Credentials, _ beginDate: Int64, _ endDate: Int64, _ period: String) -> Resource<ActivityResponse>? {
         guard let instID = credentials.instUserID else {
@@ -53,6 +74,27 @@ fileprivate final class InsightsResourceFactory {
         }
         return Resource(url: url, headers: nil)
     }
+    
+    func createAudienceResource(with credentials: Credentials, _ beginDate: Int64, _ endDate: Int64) -> Resource<AudienceResponse>? {
+         guard let instID = credentials.instUserID else {
+             print("smt went wrong. invalid inst user id")
+             return nil
+         }
+         guard var urlComponents = URLComponents(string: "https://graph.facebook.com/v6.0/\(instID)/insights") else {
+             print("smt went wrong. invalid url components")
+             return nil
+         }
+         urlComponents.queryItems = [
+             URLQueryItem(name: "period", value: "lifetime"),
+             URLQueryItem(name: "metric", value: "audience_city,audience_country ,audience_gender_age,audience_locale"),
+             URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
+         ]
+         guard let url = urlComponents.url else {
+             print("smt went wrong. invalid url")
+             return nil
+         }
+         return Resource(url: url, headers: nil)
+     }
 }
 
 final class InsightsService {
@@ -74,6 +116,23 @@ final class InsightsService {
                 let followerCount = response.data[3].values.map { $0.value }
                 let activity = Activity(impressions, reaches, postViews, followerCount, beginDate, endDate)
                 completionBlock(.success(activity))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
+    
+    func getAudience (_ credentials: Credentials,_ beginDate: Int64, _ endDate: Int64, completionBlock: @escaping(OperationCompletion<Audience>) -> ()) {
+        guard let resource = InsightsResourceFactory().createAudienceResource(with: credentials, beginDate, endDate) else {
+            let error = NSError(domain: "cant get audience data", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) { result in
+            switch result {
+            case let .success(response):
+                print(0)
+                //completionBlock(.success(activity))
             case let .failure(error):
                 completionBlock(.failure(error))
             }

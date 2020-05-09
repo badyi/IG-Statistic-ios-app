@@ -113,7 +113,7 @@ class InsightsActivityCell: UICollectionViewCell {
         
         descriptionLabel1.text = "Users who have viewed profile from \(bDate) - \(eDate)"
         descriptionLabel2.text = "Average"
-        averageLabel.text = "\(sum/7)"
+        averageLabel.text = "\(Float(sum)/Float(7))"
     }
     
     func configImps(_ data: [Int]) {
@@ -125,7 +125,7 @@ class InsightsActivityCell: UICollectionViewCell {
         
         descriptionLabel1.text = "The total number of times that all of your posts have been seen from \(bDate) - \(eDate)"
         descriptionLabel2.text = "Average"
-        averageLabel.text = "\(sum/7)"
+        averageLabel.text = "\(Float(sum)/Float(7))"
     }
     
     func configReach(_ data: [Int]) {
@@ -137,6 +137,6 @@ class InsightsActivityCell: UICollectionViewCell {
         
         descriptionLabel1.text = "The total number of unique accounts that have seen any of your posts from \(bDate) - \(eDate)"
         descriptionLabel2.text = "Average"
-        averageLabel.text = "\(sum/7)"
+        averageLabel.text = "\(Float(sum)/Float(7))"
     }
 }

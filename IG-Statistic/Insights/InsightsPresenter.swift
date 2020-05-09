@@ -18,12 +18,15 @@ protocol InsightsPresenterProtocol {
     func getActivityInsights() -> Activity?
     func getAudienceInsights() -> Audience?
     func getSectionNames() -> [String]
+    func cellType(at index: IndexPath) -> insightsCellType?
+    func cellID(at index: IndexPath) -> String
 }
 
 final class InsightsPresenter: InsightsPresenterProtocol {
     weak var view: InsightsViewProtocol?
     private var insightsService: InsightsService!
     var insights: InsightsList!
+    var cellIDs = ["activityCellId", "audienceCellId"]
     
     init(view: InsightsViewProtocol, credentials: Credentials) {
         self.view = view
@@ -32,13 +35,23 @@ final class InsightsPresenter: InsightsPresenterProtocol {
     }
     
     func loadActivityInsights(_ beginDate: Int64,_ endDate: Int64,_ period: String) {
-        insightsService.getActivity(insights.getCredentials(), beginDate, endDate, period ) { [weak self] result in
+        insightsService.getActivity(insights.getCredentials(), beginDate, endDate, period) { [weak self] result in
             switch (result) {
             case let .success(activity):
                 self?.insights.setActivity(activity)
             case let .failure(error):
                 print(error)
             }
+        }
+    }
+    
+    func loadAudienceInsights(_ beginDate: Int64,_ endDate: Int64) {
+        insightsService.getAudience(insights.getCredentials(), beginDate, endDate) { [weak self] result in
+//switch (result) {
+  //          case let .success(audience):
+                //sefl?.insights.
+    //        }
+            
         }
     }
     
@@ -57,6 +70,28 @@ final class InsightsPresenter: InsightsPresenterProtocol {
     func getSectionNames() -> [String] {
         insights.insightsNames
     }
+    
+    func cellID(at index: IndexPath) -> String {
+        switch index.row {
+        case 0:
+            return cellIDs[0]
+        case 1:
+            return cellIDs[1]
+        default:
+            return "cellId"
+        }
+    }
+    
+    func cellType(at index: IndexPath) -> insightsCellType? {
+        switch index.row {
+        case 0:
+            return .activity
+        case 1:
+            return .audience
+        default:
+            return nil
+        }
+    }
 }
 
 extension InsightsPresenter: InsightsListDelegate {
@@ -72,3 +107,6 @@ extension InsightsPresenter: InsightsListDelegate {
         }
     }
 }
+
+
+

@@ -26,6 +26,9 @@
                             <segment title="First"/>
                             <segment title="Second"/>
                         </segments>
+                        <connections>
+                            <action selector="changessegment:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Wj7-vJ-CGl"/>
+                        </connections>
                     </segmentedControl>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a8b-sV-qFS">
                         <rect key="frame" x="10" y="5" width="67" height="67"/>

@@ -35,7 +35,6 @@ class InfoViewController: UIViewController {
 extension InfoViewController {
     func setupView() {
         let titleColor = ThemeManager.currentTheme().titleTextColor
-        //let backgroundColor = ThemeManager.currentTheme().backgroundColor
         let textAttributes = [NSAttributedString.Key.foregroundColor:titleColor]
         self.navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationController?.navigationBar.tintColor = titleColor

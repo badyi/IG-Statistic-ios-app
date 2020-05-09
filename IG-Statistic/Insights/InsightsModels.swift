@@ -15,6 +15,10 @@ enum typeInsights {
     case profileViews
 }
 
+enum insightsCellType {
+    case audience, activity
+}
+
 protocol InsightsListDelegate: AnyObject {
     func acivityUPD()
     func audienceUPD()
@@ -83,5 +87,10 @@ final class Activity {
 
 final class Audience {
     //let beginDate: Int64
-    //let endDate: Int64
+   // let endDate: Int64
+    //let cellsCount?
+    
+    init() {
+        
+    }
 }

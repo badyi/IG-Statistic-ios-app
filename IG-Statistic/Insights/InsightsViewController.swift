@@ -11,8 +11,6 @@ import Charts
 
 class InsightsViewController: UICollectionViewController {
     var presenter: InsightsPresenter!
-    let cellId = "cellId"
-    let activityCellId = "activityCellId"
     
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
@@ -46,6 +44,11 @@ extension InsightsViewController {
         let beginDate = Date().nDaysAgoInSec(8)
         let endDate = Date().nDaysAgoInSec(1)
         presenter.loadActivityInsights(beginDate, endDate, "day")
+        presenter.loadAudienceInsights(beginDate, endDate)
+    }
+    
+    func getAudience() {
+        
     }
 }
 
@@ -90,8 +93,9 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
         collectionView?.showsHorizontalScrollIndicator = false
         collectionView?.showsVerticalScrollIndicator = false
         collectionView?.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        collectionView?.register(ActivityCollectionViewCell.self, forCellWithReuseIdentifier: activityCellId)
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.register(ActivityCollectionViewCell.self, forCellWithReuseIdentifier: presenter.cellID(at: IndexPath(item: 0, section: 0)))
+        collectionView?.register(AudienceCollectionViewCell.self, forCellWithReuseIdentifier: presenter.cellID(at: IndexPath(item: 1, section: 0)))
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: presenter.cellID(at: IndexPath(item: 2, section: 0)))
         
         let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: self.tabBarController!.tabBar.frame.height, right: 0)
         self.collectionView.contentInset = adjustForTabbarInsets
@@ -113,17 +117,20 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let insightsCellType = presenter.cellType(at: indexPath)
         
-        let colors: [UIColor] = [.blue, .green, UIColor.gray, .purple]
-
-        if indexPath.row == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: activityCellId, for: indexPath) as! ActivityCollectionViewCell
+        switch insightsCellType {
+        case .activity:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: presenter.cellID(at: indexPath), for: indexPath) as! ActivityCollectionViewCell
             cell.config(with: presenter.getActivityInsights())
             return cell
+        case .audience:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: presenter.cellID(at: indexPath), for: indexPath) as! AudienceCollectionViewCell
+            cell.config(with: presenter.getAudienceInsights())
+        default:
+            break;
         }
-        cell.backgroundColor = colors[indexPath.item]
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: presenter.cellID(at: indexPath), for: indexPath)
         return cell
     }
     

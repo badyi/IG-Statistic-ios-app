@@ -127,7 +127,9 @@ final class AuthPresenter: AuthPresenterProtocol {
                 cred?.fbUserId = id.id
                 self?.credentials = cred
             case let .failure(error):
-                print (error)
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.smtWrongAlert(reason: "Something went worng. Cant get Facebook Page ID")
+                }
             }
         }
     }
@@ -153,7 +155,7 @@ final class AuthPresenter: AuthPresenterProtocol {
             case let .success(credentials):
                 self?.credentials = credentials
             case let .failure(error):
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     self?.view?.smtWrongAlert(reason: "cant get instagram business account")
                 }
                 print(error)

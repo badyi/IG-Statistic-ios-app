@@ -25,7 +25,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HqW-So-GQS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-585" y="-370"/>
+            <point key="canvasLocation" x="-585" y="-370.77464788732397"/>
         </scene>
         <!--BaseUI Tab Bar View Controller-->
         <scene sceneID="lZl-Os-xpQ">
@@ -399,7 +399,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mnq-4R-bdf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3705" y="-1396"/>
+            <point key="canvasLocation" x="3705" y="-1368"/>
         </scene>
         <!--Insights-->
         <scene sceneID="VhJ-z2-eyS">
