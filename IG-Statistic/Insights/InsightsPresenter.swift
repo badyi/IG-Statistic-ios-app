@@ -45,13 +45,23 @@ final class InsightsPresenter: InsightsPresenterProtocol {
         }
     }
     
-    func loadAudienceInsights(_ beginDate: Int64,_ endDate: Int64) {
-        insightsService.getAudience(insights.getCredentials(), beginDate, endDate) { [weak self] result in
-//switch (result) {
-  //          case let .success(audience):
-                //sefl?.insights.
-    //        }
-            
+    func loadAudienceInsights() {
+        insightsService.getAudience(insights.getCredentials()) { [weak self] result in
+            switch (result) {
+            case let .success(audience):
+                self?.insights.setAudience(audience)
+            case let .failure(error):
+                print(error)
+            }
+        }
+        
+        insightsService.getFollowersCount(insights.getCredentials()) { [weak self] result in
+            switch (result) {
+            case let .success(count):
+                self?.insights.setFollowersCount(count)
+            case let .failure(error):
+                print(error)
+            }
         }
     }
     

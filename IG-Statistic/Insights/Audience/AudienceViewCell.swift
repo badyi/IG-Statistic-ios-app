@@ -29,6 +29,8 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     }()
     
     let cellId = "cellId"
+    let cellIdHorizontal = "AudienceHorizontalChartTableViewCell"
+    let cellIdLabel = "AudienceCellWithLabelTableViewCell"
     var audience: Audience?
     
     func setupViews() {
@@ -40,6 +42,8 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         addConstraintsWithFormat("V:|[v0]|", views: collectionView)
         
         collectionView.register(UINib(nibName: "InsightsActivityCell", bundle: nil), forCellWithReuseIdentifier: cellId)
+        collectionView.register(UINib(nibName: "AudienceHorizontalChartViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdHorizontal)
+        collectionView.register(UINib(nibName: "AudienceCellWithLabelViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdLabel)
     }
     
     func config(with audience: Audience?) {
@@ -48,33 +52,38 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let ad = audience else { return 0 }
-        return 1
+        guard let audience = audience else { return 0 }
+        return audience.cellsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InsightsActivityCell
-        cell.backgroundColor = UIColor.purple
-        guard let ac = audience else { return cell }
-   /*     switch indexPath.row {
+        cell.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        guard let audience = audience else { return cell }
+        switch indexPath.row {
         case 0:
-            cell.config(type: .followerCount, data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdLabel, for: indexPath) as! AudienceCellWithLabelViewCell
+            cell.config("\(String(describing: audience.followersCount!)) followers")
+            return cell
         case 1:
-            cell.config(type: .profileViews, data: ac.profileViews, beginDate: ac.beginDate, endDate: ac.endDate)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdHorizontal, for: indexPath) as! AudienceHorizontalChartViewCell
+            //cell.config()
         case 2:
-            cell.config(type: .impressions, data: ac.impressions, beginDate: ac.beginDate, endDate: ac.endDate)
+            print(2)
+            //cell.config(type: .impressions, data: ac.impressions, beginDate: ac.beginDate, endDate: ac.endDate)
         case 3:
-            cell.config(type: .reach, data: ac.reaches, beginDate: ac.beginDate, endDate: ac.endDate)
+            print(3)
+            //cell.config(type: .reach, data: ac.reaches, beginDate: ac.beginDate, endDate: ac.endDate)
         default:
             break
-        } */
+        } 
         return cell
     }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (frame.width ) * 9 / 16 + 120
-        if indexPath.row == 4 {
-            return .init(width: frame.width, height: 125)
+        var height = (frame.width ) * 9 / 16 + 120
+        if indexPath.row == 0 {
+            height /= 4;
         }
         return .init(width: frame.width, height: height)
     }

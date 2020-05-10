@@ -15,9 +15,9 @@ enum Theme: Int {
     var mainColor: UIColor {
         switch self {
         case .light:
-            return UIColor(hexString: "ffffff")
+            return .white
         case .dark:
-            return UIColor(hexString: "000000")
+            return .black
         }
     }
 
@@ -41,18 +41,18 @@ enum Theme: Int {
     var backgroundColor: UIColor {
         switch self {
         case .light:
-            return .black
-        case .dark:
             return .white
+        case .dark:
+            return .black
         }
     }
 
     var secondaryColor: UIColor {
         switch self {
         case .light:
-            return .black
+            return .systemBlue
         case .dark:
-            return .white
+            return .systemBlue
         }
     }
     
@@ -78,6 +78,14 @@ enum Theme: Int {
         return .darkGray
     }
     
+    var buttonColor: UIColor {
+        switch self {
+        case .light:
+            return .black
+        default:
+            return .white
+        }
+    }
     var buttonSelectedColor: UIColor {
         return .systemBlue
     }
@@ -128,6 +136,10 @@ enum Theme: Int {
     
     var barsColor: UIColor {
         return .systemBlue
+    }
+    
+    var collectionCellBorderColor: UIColor {
+        return .lightGray
     }
 }
 

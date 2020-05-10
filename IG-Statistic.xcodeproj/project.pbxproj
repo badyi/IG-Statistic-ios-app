@@ -22,6 +22,10 @@
 		0852EF202454A0480084A4F7 /* InsightsActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0852EF1E2454A0480084A4F7 /* InsightsActivityCell.xib */; };
 		085B211D243D64EE00D4A1DF /* AuthViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */; };
 		085EAABC2465FF7E00E0A8FE /* AudienceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085EAABB2465FF7E00E0A8FE /* AudienceViewCell.swift */; };
+		085EAABF2468714600E0A8FE /* AudienceHorizontalChartViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085EAABD2468714600E0A8FE /* AudienceHorizontalChartViewCell.swift */; };
+		085EAAC02468714600E0A8FE /* AudienceHorizontalChartViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 085EAABE2468714600E0A8FE /* AudienceHorizontalChartViewCell.xib */; };
+		085EAAC32468989000E0A8FE /* AudienceCellWithLabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085EAAC12468989000E0A8FE /* AudienceCellWithLabelViewCell.swift */; };
+		085EAAC42468989000E0A8FE /* AudienceCellWithLabelViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 085EAAC22468989000E0A8FE /* AudienceCellWithLabelViewCell.xib */; };
 		086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994EA24536D04008587F0 /* InsightsViewController.swift */; };
 		086994EE24536E46008587F0 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086994ED24536E46008587F0 /* MenuBar.swift */; };
 		08932BCD2460C6F100D9BA7D /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08932BCC2460C6F100D9BA7D /* SettingsPresenter.swift */; };
@@ -114,6 +118,10 @@
 		0852EF1E2454A0480084A4F7 /* InsightsActivityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsightsActivityCell.xib; sourceTree = "<group>"; };
 		085B211C243D64EE00D4A1DF /* AuthViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewPresenter.swift; sourceTree = "<group>"; };
 		085EAABB2465FF7E00E0A8FE /* AudienceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudienceViewCell.swift; sourceTree = "<group>"; };
+		085EAABD2468714600E0A8FE /* AudienceHorizontalChartViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudienceHorizontalChartViewCell.swift; sourceTree = "<group>"; };
+		085EAABE2468714600E0A8FE /* AudienceHorizontalChartViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudienceHorizontalChartViewCell.xib; sourceTree = "<group>"; };
+		085EAAC12468989000E0A8FE /* AudienceCellWithLabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudienceCellWithLabelViewCell.swift; sourceTree = "<group>"; };
+		085EAAC22468989000E0A8FE /* AudienceCellWithLabelViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudienceCellWithLabelViewCell.xib; sourceTree = "<group>"; };
 		086994EA24536D04008587F0 /* InsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewController.swift; sourceTree = "<group>"; };
 		086994ED24536E46008587F0 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		08932BCC2460C6F100D9BA7D /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
@@ -261,6 +269,10 @@
 			isa = PBXGroup;
 			children = (
 				085EAABB2465FF7E00E0A8FE /* AudienceViewCell.swift */,
+				085EAABD2468714600E0A8FE /* AudienceHorizontalChartViewCell.swift */,
+				085EAAC12468989000E0A8FE /* AudienceCellWithLabelViewCell.swift */,
+				085EAAC22468989000E0A8FE /* AudienceCellWithLabelViewCell.xib */,
+				085EAABE2468714600E0A8FE /* AudienceHorizontalChartViewCell.xib */,
 			);
 			path = Audience;
 			sourceTree = "<group>";
@@ -477,10 +489,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				085EAAC42468989000E0A8FE /* AudienceCellWithLabelViewCell.xib in Resources */,
 				0852EF202454A0480084A4F7 /* InsightsActivityCell.xib in Resources */,
 				08932BDA2460D1B300D9BA7D /* WithSegControlTableViewCell.xib in Resources */,
 				7974FD55242A4B8E00E62A9B /* Pods_IG_Statistic.framework in Resources */,
 				08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */,
+				085EAAC02468714600E0A8FE /* AudienceHorizontalChartViewCell.xib in Resources */,
 				08932BD32460CE1C00D9BA7D /* SettingsTableViewCell.xib in Resources */,
 				792DBF6524265EE3003E39C5 /* LaunchScreen.storyboard in Resources */,
 				08DB7EC324490251005B7A7D /* InfoHeaderView.xib in Resources */,
@@ -556,6 +570,7 @@
 				795091072426A44100EA3BFB /* Profile.swift in Sources */,
 				0850321D245F91A7006BD40D /* PostListModel.swift in Sources */,
 				7974FD472428B6C100E62A9B /* ProfileService.swift in Sources */,
+				085EAAC32468989000E0A8FE /* AudienceCellWithLabelViewCell.swift in Sources */,
 				7974FD4C24297AB700E62A9B /* AuthService.swift in Sources */,
 				7953E9B7242D430C00489394 /* ProfileViewController.swift in Sources */,
 				08DB7EAB24487905005B7A7D /* InfoTableViewCell.swift in Sources */,
@@ -569,6 +584,7 @@
 				086994EB24536D04008587F0 /* InsightsViewController.swift in Sources */,
 				0852EF15245468ED0084A4F7 /* InsightsModels.swift in Sources */,
 				08DB7EB12448B7CE005B7A7D /* InfoViewPresenter.swift in Sources */,
+				085EAABF2468714600E0A8FE /* AudienceHorizontalChartViewCell.swift in Sources */,
 				792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */,
 				79C80F21242FBB3E000B0285 /* PostService.swift in Sources */,
 				08DB7E5924462955005B7A7D /* SettingsViewController.swift in Sources */,

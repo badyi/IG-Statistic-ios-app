@@ -155,13 +155,18 @@
             <connections>
                 <outlet property="bookmarksCount" destination="Mtx-qk-UIw" id="m4Q-Yv-tn3"/>
                 <outlet property="commentsCount" destination="CH7-Mi-J6a" id="ZZm-vw-Qwi"/>
-                <outlet property="iamge" destination="ete-IG-kI4" id="c7s-tW-Rt7"/>
+                <outlet property="commentsImage" destination="Peq-GC-Oop" id="Wje-ra-DVV"/>
+                <outlet property="image" destination="ete-IG-kI4" id="7z2-ad-Mtq"/>
                 <outlet property="insightsView" destination="nEV-pj-fEg" id="2Yu-7I-mKJ"/>
                 <outlet property="likesCount" destination="LY3-hs-Y06" id="cqR-LE-zau"/>
+                <outlet property="likesImage" destination="FM9-ED-E1V" id="dST-Im-b8C"/>
+                <outlet property="savedImage" destination="My6-7z-oZF" id="tMO-l8-Jdy"/>
+                <outlet property="uaccountsImage" destination="AmI-Jq-jpQ" id="jNz-nk-Bxs"/>
                 <outlet property="uniqueAccountsCount" destination="9kV-pL-CGj" id="buS-zC-Ifo"/>
                 <outlet property="viewsCount" destination="kh6-sf-Zx7" id="2gs-ci-Fn4"/>
+                <outlet property="viewsImage" destination="WEH-r6-lmz" id="M1y-Gm-y8X"/>
             </connections>
-            <point key="canvasLocation" x="613.04347826086962" y="543.41517857142856"/>
+            <point key="canvasLocation" x="652" y="541"/>
         </collectionViewCell>
     </objects>
     <resources>

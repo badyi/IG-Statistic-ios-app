@@ -9,10 +9,7 @@
 import Foundation
 
 enum typeInsights {
-    case followerCount
-    case impressions
-    case reach
-    case profileViews
+    case followsCount, impressions, reach, profileViews, locations, followersCount
 }
 
 enum insightsCellType {
@@ -25,7 +22,6 @@ protocol InsightsListDelegate: AnyObject {
 }
 
 final class InsightsList {
-    
     let insightsNames = ["activity", "audience"]
     private var credentials: Credentials
     private var activity: Activity? {
@@ -33,11 +29,25 @@ final class InsightsList {
             delegate?.acivityUPD()
         }
     }
+    
     private var audience: Audience? {
         didSet {
-            delegate?.audienceUPD()
+            if let count = followersCount {
+                audience?.setFollowersCount(count)
+                delegate?.audienceUPD()
+            }
         }
     }
+    
+    var followersCount: Int? {
+        didSet {
+            if audience != nil, let count = followersCount {
+                audience?.setFollowersCount(count)
+                delegate?.audienceUPD()
+            }
+        }
+    }
+    
     weak var delegate: InsightsListDelegate?
     
     init(with credentials: Credentials,_ delegat: InsightsListDelegate) {
@@ -64,6 +74,10 @@ final class InsightsList {
     func getAudience() -> Audience? {
         audience
     }
+    
+    func setFollowersCount(_ count: Int) {
+        followersCount = count
+    }
 }
 
 final class Activity {
@@ -86,11 +100,21 @@ final class Activity {
 }
 
 final class Audience {
-    //let beginDate: Int64
-   // let endDate: Int64
-    //let cellsCount?
+    var cities: [String: Int]
+    var countries: [String: Int]
+    var genderAges: [String: Int]
+    var countryCodes: [String: Int]
+    var followersCount: Int?
+    let cellsCount = 4
     
-    init() {
-        
+    init(_ cities: [String: Int],_ countries: [String: Int],_ genderAges: [String: Int],_ countryCodes: [String: Int]) {
+        self.cities = cities
+        self.countries = countries
+        self.genderAges = genderAges
+        self.countryCodes = countryCodes
+    }
+    
+    func setFollowersCount(_ count: Int) {
+        followersCount = count
     }
 }

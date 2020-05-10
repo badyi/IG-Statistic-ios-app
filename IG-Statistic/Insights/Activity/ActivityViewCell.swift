@@ -53,11 +53,11 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InsightsActivityCell
-        cell.backgroundColor = UIColor.purple
+        cell.backgroundColor = ThemeManager.currentTheme().backgroundColor
         guard let ac = activity else { return cell }
         switch indexPath.row {
         case 0:
-            cell.config(type: .followerCount, data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
+            cell.config(type: .followsCount, data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
         case 1:
             cell.config(type: .profileViews, data: ac.profileViews, beginDate: ac.beginDate, endDate: ac.endDate)
         case 2:
@@ -70,11 +70,7 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         return cell
     }
         
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (frame.width ) * 9 / 16 + 120
-        if indexPath.row == 4 {
-            return .init(width: frame.width, height: 125)
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {   let height = (frame.width ) * 9 / 16 + 120
         return .init(width: frame.width, height: height)
     }
     

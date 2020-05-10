@@ -10,13 +10,18 @@ import UIKit
 
 class PostCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var iamge: UIImageView!
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var insightsView: UIView!
     @IBOutlet weak var viewsCount: UILabel!
+    @IBOutlet weak var viewsImage: UIImageView!
     @IBOutlet weak var uniqueAccountsCount: UILabel!
+    @IBOutlet weak var uaccountsImage: UIImageView!
     @IBOutlet weak var likesCount: UILabel!
+    @IBOutlet weak var likesImage: UIImageView!
     @IBOutlet weak var commentsCount: UILabel!
+    @IBOutlet weak var commentsImage: UIImageView!
     @IBOutlet weak var bookmarksCount: UILabel!
+    @IBOutlet weak var savedImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,13 +32,26 @@ class PostCollectionViewCell: UICollectionViewCell {
         insightsView.isHidden = true
         insightsView.layer.cornerRadius = 7
         setColors()
+        insightsView.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        let secondColor = ThemeManager.currentTheme().secondaryColor
+        image.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        viewsCount.textColor = secondColor
+        viewsImage.tintColor = secondColor
+        uniqueAccountsCount.textColor = secondColor
+        uaccountsImage.tintColor = secondColor
+        likesCount.textColor = secondColor
+        likesImage.tintColor = secondColor
+        commentsCount.textColor = secondColor
+        commentsImage.tintColor = secondColor
+        bookmarksCount.textColor = secondColor
+        savedImage.tintColor = secondColor
     }
     
     func configure(with postV: PostView, _ flag: Bool) {
         guard let _ = postV.image  else {
             return
         }
-        iamge.image = postV.image
+        image.image = postV.image
         if  flag == true {
             insightsView.isHidden = false
             likesCount.text = String(postV.likesCount!)
@@ -59,7 +77,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        iamge.image = nil
+        image.image = nil
     }
     
     func setColors() {

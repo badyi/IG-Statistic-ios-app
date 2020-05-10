@@ -37,18 +37,17 @@ fileprivate struct AudienceResponse: Codable {
 fileprivate struct Data: Codable {
     let name, period: String
     let values: [dataValue]
-    let title, datumDescription, id: String
-
-    enum CodingKeys: String, CodingKey {
-        case name, period, values, title
-        case datumDescription = "description"
-        case id
-    }
+    let title, description, id: String
 }
 
 fileprivate struct dataValue: Codable {
     let value: [String: Int]
-    let endTime: Date
+    let end_time: String
+}
+
+struct FollowersResponse: Codable {
+    let followers_count: Int
+    let id: String
 }
 
 fileprivate final class InsightsResourceFactory {
@@ -75,7 +74,7 @@ fileprivate final class InsightsResourceFactory {
         return Resource(url: url, headers: nil)
     }
     
-    func createAudienceResource(with credentials: Credentials, _ beginDate: Int64, _ endDate: Int64) -> Resource<AudienceResponse>? {
+    func createAudienceResource(with credentials: Credentials) -> Resource<AudienceResponse>? {
          guard let instID = credentials.instUserID else {
              print("smt went wrong. invalid inst user id")
              return nil
@@ -95,6 +94,26 @@ fileprivate final class InsightsResourceFactory {
          }
          return Resource(url: url, headers: nil)
      }
+    
+    func createFollowersResource(with credentials: Credentials) -> Resource<FollowersResponse>? {
+        guard let instID = credentials.instUserID else {
+            print("smt went wrong. invalid inst user id")
+            return nil
+        }
+        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/v3.2/\(instID)") else {
+            print("smt went wrong. invalid url components")
+            return nil
+        }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "fields", value: "followers_count"),
+            URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
+        ]
+        guard let url = urlComponents.url else {
+            print("smt went wrong. invalid url")
+            return nil
+        }
+        return Resource(url: url, headers: nil)
+    }
 }
 
 final class InsightsService {
@@ -109,7 +128,6 @@ final class InsightsService {
         _ = networkHelper.load(resource: resource) { result in
             switch result {
             case let .success(response):
-                let response = response
                 let impressions = response.data[0].values.map { $0.value }
                 let reaches = response.data[1].values.map { $0.value }
                 let postViews = response.data[2].values.map { $0.value }
@@ -122,8 +140,8 @@ final class InsightsService {
         }
     }
     
-    func getAudience (_ credentials: Credentials,_ beginDate: Int64, _ endDate: Int64, completionBlock: @escaping(OperationCompletion<Audience>) -> ()) {
-        guard let resource = InsightsResourceFactory().createAudienceResource(with: credentials, beginDate, endDate) else {
+    func getAudience (_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Audience>) -> ()) {
+        guard let resource = InsightsResourceFactory().createAudienceResource(with: credentials) else {
             let error = NSError(domain: "cant get audience data", code: 1, userInfo: nil)
             completionBlock(.failure(error))
             return
@@ -131,8 +149,28 @@ final class InsightsService {
         _ = networkHelper.load(resource: resource) { result in
             switch result {
             case let .success(response):
-                print(0)
-                //completionBlock(.success(activity))
+                let cities = response.data[0].values[0].value
+                let countries = response.data[1].values[0].value
+                let genderAge = response.data[2].values[0].value
+                let countryCodes = response.data[3].values[0].value
+                let audience = Audience(cities, countries, genderAge, countryCodes)
+                completionBlock(.success(audience))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
+    
+    func getFollowersCount(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<Int>) -> ()) {
+        guard let resource = InsightsResourceFactory().createFollowersResource(with: credentials) else {
+            let error = NSError(domain: "cant get followers count", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) { result in
+            switch result {
+            case let .success(response):
+                completionBlock(.success(response.followers_count))
             case let .failure(error):
                 completionBlock(.failure(error))
             }

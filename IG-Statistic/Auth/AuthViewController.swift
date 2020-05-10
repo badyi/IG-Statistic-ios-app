@@ -16,7 +16,6 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        themeSetup()
         presenter = AuthPresenter(view: self)
         setUpView()
         loginButton.delegate = self
@@ -42,27 +41,6 @@ extension AuthViewController: AuthViewProtocol {
         self.presenter.setPageId(pageName: alertAction.title!)
     }
     
-    func themeSetup() {
-        if let themeN = UserDefaults.standard.value(forKey: "SelectedTheme") as? String {
-            if themeN == "0" {
-                ThemeManager.applyTheme(theme: .light)
-                return
-            } else if themeN == "1" {
-                ThemeManager.applyTheme(theme: .dark)
-                return
-            }
-        }
-        if #available(iOS 13, *) {
-            switch self.traitCollection.userInterfaceStyle {
-            case .dark:
-                ThemeManager.applyTheme(theme: .dark)
-            default:
-                ThemeManager.applyTheme(theme: .light)
-            }
-        } else {
-            ThemeManager.applyTheme(theme: .light)
-        }
-    }
     func selectPage(pages: [String: String]) {
         let pageMenu = UIAlertController(title: nil, message: "Choose page", preferredStyle: .actionSheet)
         for i in pages {

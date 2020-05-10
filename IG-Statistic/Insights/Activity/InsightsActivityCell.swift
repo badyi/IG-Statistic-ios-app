@@ -28,6 +28,7 @@ class InsightsActivityCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
+        configViewOfChart()
     }
     
     func setupView() {
@@ -45,12 +46,11 @@ class InsightsActivityCell: UICollectionViewCell {
     }
     
     func config(type: typeInsights, data: [Int], beginDate: Int64, endDate: Int64) {
-        configViewOfChart()
         insightsType = type
         self.beginDate = beginDate
         self.endDate = endDate
         switch insightsType {
-        case .followerCount:
+        case .followsCount:
             configFC(data)
         case .profileViews:
             configPV(data)
@@ -79,6 +79,7 @@ class InsightsActivityCell: UICollectionViewCell {
     }
     
     func configViewOfChart() {
+        graphic.backgroundColor = ThemeManager.currentTheme().backgroundColor
         graphic.xAxis.drawAxisLineEnabled = false
         graphic.xAxis.drawGridLinesEnabled = false
         graphic.leftAxis.drawGridLinesEnabled = false

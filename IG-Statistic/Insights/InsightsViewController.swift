@@ -25,6 +25,7 @@ class InsightsViewController: UICollectionViewController {
         presenter = InsightsPresenter(view: self, credentials: credentials)
         menuBar.setSectionNames(presenter.getSectionNames())
         getActivity()
+        getAudience()
         setupMenuBar()
         setupCollectionView()
         setupView()
@@ -44,11 +45,10 @@ extension InsightsViewController {
         let beginDate = Date().nDaysAgoInSec(8)
         let endDate = Date().nDaysAgoInSec(1)
         presenter.loadActivityInsights(beginDate, endDate, "day")
-        presenter.loadAudienceInsights(beginDate, endDate)
     }
     
     func getAudience() {
-        
+        presenter.loadAudienceInsights()
     }
 }
 
@@ -127,6 +127,7 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
         case .audience:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: presenter.cellID(at: indexPath), for: indexPath) as! AudienceCollectionViewCell
             cell.config(with: presenter.getAudienceInsights())
+            return cell
         default:
             break;
         }
