@@ -18,7 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLu-WL-rR1">
-                        <rect key="frame" x="10" y="10" width="483" height="23"/>
+                        <rect key="frame" x="10" y="10" width="483" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="8Y2-jJ-mCU"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -26,38 +29,47 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="std-nt-j3s">
                         <rect key="frame" x="10" y="41" width="255.5" height="30"/>
                         <state key="normal" title="Button"/>
+                        <connections>
+                            <action selector="button1Tapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PL9-ir-mT0"/>
+                        </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgk-Mk-e8m" customClass="HorizontalBarChartView" customModule="Charts">
-                        <rect key="frame" x="10" y="81" width="509" height="240"/>
+                        <rect key="frame" x="10" y="76" width="509" height="245"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpc-Xa-h5a">
-                        <rect key="frame" x="498" y="10" width="21" height="22"/>
+                        <rect key="frame" x="498" y="10" width="26" height="26"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="21" id="BJH-ri-bC6"/>
+                            <constraint firstAttribute="width" constant="26" id="BJH-ri-bC6"/>
+                            <constraint firstAttribute="height" constant="26" id="lyO-1D-2ry"/>
                         </constraints>
                         <state key="normal" title="Button" image="info.circle" catalog="system"/>
+                        <connections>
+                            <action selector="info:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lXb-YQ-zQ7"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLu-qa-YHr">
                         <rect key="frame" x="270.5" y="41" width="248.5" height="30"/>
                         <state key="normal" title="Button"/>
+                        <connections>
+                            <action selector="button2Tapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ONj-NV-E0X"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="pLu-WL-rR1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="3Kz-9b-nwF"/>
-                    <constraint firstItem="WLu-qa-YHr" firstAttribute="top" secondItem="pLu-WL-rR1" secondAttribute="bottom" constant="8" id="43n-4T-mQr"/>
+                    <constraint firstItem="WLu-qa-YHr" firstAttribute="top" secondItem="pLu-WL-rR1" secondAttribute="bottom" constant="5" id="43n-4T-mQr"/>
                     <constraint firstItem="pLu-WL-rR1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="5dT-ru-GuD"/>
                     <constraint firstItem="std-nt-j3s" firstAttribute="height" secondItem="WLu-qa-YHr" secondAttribute="height" id="8Wr-2t-pDR"/>
                     <constraint firstItem="WLu-qa-YHr" firstAttribute="leading" secondItem="std-nt-j3s" secondAttribute="trailing" constant="5" id="8wk-O6-gQD"/>
                     <constraint firstAttribute="bottom" secondItem="Fgk-Mk-e8m" secondAttribute="bottom" constant="10" id="9H4-lc-tl0"/>
                     <constraint firstItem="Fgk-Mk-e8m" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="GYb-cR-GkC"/>
-                    <constraint firstAttribute="trailing" secondItem="Zpc-Xa-h5a" secondAttribute="trailing" constant="10" id="KC4-Qw-ZSA"/>
-                    <constraint firstItem="std-nt-j3s" firstAttribute="top" secondItem="pLu-WL-rR1" secondAttribute="bottom" constant="8" id="Qap-Re-vwx"/>
+                    <constraint firstAttribute="trailing" secondItem="Zpc-Xa-h5a" secondAttribute="trailing" constant="5" id="KC4-Qw-ZSA"/>
+                    <constraint firstItem="std-nt-j3s" firstAttribute="top" secondItem="pLu-WL-rR1" secondAttribute="bottom" constant="5" id="Qap-Re-vwx"/>
                     <constraint firstItem="std-nt-j3s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Rg6-LV-ZI7"/>
                     <constraint firstAttribute="trailing" secondItem="Fgk-Mk-e8m" secondAttribute="trailing" constant="10" id="V1x-KM-AA9"/>
-                    <constraint firstItem="pLu-WL-rR1" firstAttribute="height" secondItem="Zpc-Xa-h5a" secondAttribute="height" multiplier="1.04762" id="XAZ-4s-Nie"/>
                     <constraint firstItem="Zpc-Xa-h5a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="eHm-BO-Q2q"/>
-                    <constraint firstItem="Fgk-Mk-e8m" firstAttribute="top" secondItem="std-nt-j3s" secondAttribute="bottom" constant="10" id="fvI-yV-3Vf"/>
+                    <constraint firstItem="Fgk-Mk-e8m" firstAttribute="top" secondItem="std-nt-j3s" secondAttribute="bottom" constant="5" id="fvI-yV-3Vf"/>
                     <constraint firstAttribute="trailing" secondItem="WLu-qa-YHr" secondAttribute="trailing" constant="10" id="kHT-wB-YfK"/>
                     <constraint firstItem="std-nt-j3s" firstAttribute="width" secondItem="WLu-qa-YHr" secondAttribute="width" multiplier="1.02632" id="qRK-qA-T8c"/>
                     <constraint firstItem="Zpc-Xa-h5a" firstAttribute="leading" secondItem="pLu-WL-rR1" secondAttribute="trailing" constant="5" id="yqp-ZA-3sC"/>
@@ -71,7 +83,7 @@
                 <outlet property="horizontalChart" destination="Fgk-Mk-e8m" id="Slz-bs-P1t"/>
                 <outlet property="infoButton" destination="Zpc-Xa-h5a" id="g83-6H-1tC"/>
             </connections>
-            <point key="canvasLocation" x="283.33333333333337" y="218.63839285714286"/>
+            <point key="canvasLocation" x="-283.33333333333337" y="196.54017857142856"/>
         </tableViewCell>
     </objects>
     <resources>

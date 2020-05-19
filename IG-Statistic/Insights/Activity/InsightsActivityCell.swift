@@ -74,7 +74,12 @@ class InsightsActivityCell: UICollectionViewCell {
         chartDataSet.colors = [ThemeManager.currentTheme().barsColor.withAlphaComponent(0.8)]
         chartDataSet.valueTextColor = ThemeManager.currentTheme().titleTextColor
         let chartData = BarChartData(dataSet: chartDataSet)
-        graphic.xAxis.valueFormatter = IndexAxisValueFormatter(values: days) ;#warning("fix weekday layout")
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        formatter.multiplier = 1
+        chartDataSet.valueFormatter = DefaultValueFormatter(formatter: formatter)
+        graphic.xAxis.valueFormatter = IndexAxisValueFormatter(values: days) ; #warning("fix weekday")
         graphic.data = chartData
     }
     
@@ -88,9 +93,11 @@ class InsightsActivityCell: UICollectionViewCell {
         graphic.rightAxis.drawGridLinesEnabled = false
         graphic.rightAxis.drawAxisLineEnabled = false
         graphic.rightAxis.drawLabelsEnabled = false
-        graphic.xAxis.labelPosition = XAxis.LabelPosition.bottomInside
+        graphic.xAxis.labelPosition = XAxis.LabelPosition.bottom
         graphic.legend.enabled = false
         graphic.isUserInteractionEnabled = false
+        graphic.rightAxis.axisMinimum = 0.0
+        graphic.leftAxis.axisMinimum = 0.0
     }
     
     func configFC(_ data: [Int]) {
@@ -102,7 +109,7 @@ class InsightsActivityCell: UICollectionViewCell {
         
         descriptionLabel1.text = "Accounts following profile from \(bDate) - \(eDate)"
         descriptionLabel2.text = "Average"
-        averageLabel.text = "\(sum/7)"
+        averageLabel.text = String(format:"%.2f", Float(sum)/Float(7))
     }
     
     func configPV(_ data: [Int]) {
@@ -114,7 +121,7 @@ class InsightsActivityCell: UICollectionViewCell {
         
         descriptionLabel1.text = "Users who have viewed profile from \(bDate) - \(eDate)"
         descriptionLabel2.text = "Average"
-        averageLabel.text = "\(Float(sum)/Float(7))"
+        averageLabel.text = String(format:"%.2f", Float(sum)/Float(7))
     }
     
     func configImps(_ data: [Int]) {
@@ -126,7 +133,7 @@ class InsightsActivityCell: UICollectionViewCell {
         
         descriptionLabel1.text = "The total number of times that all of your posts have been seen from \(bDate) - \(eDate)"
         descriptionLabel2.text = "Average"
-        averageLabel.text = "\(Float(sum)/Float(7))"
+        averageLabel.text = String(format:"%.2f", Float(sum)/Float(7))
     }
     
     func configReach(_ data: [Int]) {
@@ -138,6 +145,6 @@ class InsightsActivityCell: UICollectionViewCell {
         
         descriptionLabel1.text = "The total number of unique accounts that have seen any of your posts from \(bDate) - \(eDate)"
         descriptionLabel2.text = "Average"
-        averageLabel.text = "\(Float(sum)/Float(7))"
+        averageLabel.text = String(format:"%.2f", Float(sum)/Float(7))
     }
 }

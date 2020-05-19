@@ -18,8 +18,6 @@ class AudienceCellWithLabelViewCell: UICollectionViewCell {
     }
     
     func setupView() {
-        layer.borderWidth = 1
-        layer.borderColor = ThemeManager.currentTheme().collectionCellBorderColor.cgColor
         self.backgroundColor = ThemeManager.currentTheme().backgroundColor
         self.label.textColor = ThemeManager.currentTheme().titleTextColor
     }

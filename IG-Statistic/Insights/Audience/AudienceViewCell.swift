@@ -10,6 +10,8 @@ import UIKit
 
 class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
 
+    weak var delegate: cellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -29,8 +31,9 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     }()
     
     let cellId = "cellId"
-    let cellIdHorizontal = "AudienceHorizontalChartTableViewCell"
-    let cellIdLabel = "AudienceCellWithLabelTableViewCell"
+    let cellIdHorizontal = "AudienceHorizontalChartCollectionViewCell"
+    let cellIdLabel = "AudienceCellWithLabelCollectionViewCell"
+    let cellAgeRangeID = "AudienceAgeRangeCollectionViewCel"
     var audience: Audience?
     
     func setupViews() {
@@ -44,6 +47,7 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         collectionView.register(UINib(nibName: "InsightsActivityCell", bundle: nil), forCellWithReuseIdentifier: cellId)
         collectionView.register(UINib(nibName: "AudienceHorizontalChartViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdHorizontal)
         collectionView.register(UINib(nibName: "AudienceCellWithLabelViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdLabel)
+        collectionView.register(UINib(nibName: "AudienceAgeRangeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellAgeRangeID)
     }
     
     func config(with audience: Audience?) {
@@ -67,10 +71,14 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdHorizontal, for: indexPath) as! AudienceHorizontalChartViewCell
-            //cell.config()
+            cell.configChartData(.locations, audience.cities, audience.countries)
+            cell.delegate = self
+            return cell
         case 2:
-            print(2)
-            //cell.config(type: .impressions, data: ac.impressions, beginDate: ac.beginDate, endDate: ac.endDate)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellAgeRangeID, for: indexPath) as! AudienceAgeRangeCollectionViewCell
+            cell.configChartData(audience.genderAges)
+            cell.delegate = self
+            return cell
         case 3:
             print(3)
             //cell.config(type: .reach, data: ac.reaches, beginDate: ac.beginDate, endDate: ac.endDate)
@@ -90,6 +98,12 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
+    }
+}
+
+extension AudienceCollectionViewCell: cellDelegate {
+    func showAlert(_ description: String) {
+        delegate?.showAlert(description)
     }
 }
 

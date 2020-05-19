@@ -42,6 +42,8 @@
 		08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */; };
 		08DB7EB12448B7CE005B7A7D /* InfoViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB7EB02448B7CE005B7A7D /* InfoViewPresenter.swift */; };
 		08DB7EC324490251005B7A7D /* InfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08DB7EC224490251005B7A7D /* InfoHeaderView.xib */; };
+		08EAB0172473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EAB0152473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.swift */; };
+		08EAB0182473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EAB0162473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.xib */; };
 		7903A92E24311D6B00414FA3 /* PostsCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */; };
 		792DBF5924265EE0003E39C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DBF5824265EE0003E39C5 /* AppDelegate.swift */; };
 		792DBF6024265EE0003E39C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792DBF5E24265EE0003E39C5 /* Main.storyboard */; };
@@ -138,6 +140,8 @@
 		08DB7EAA24487905005B7A7D /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
 		08DB7EB02448B7CE005B7A7D /* InfoViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewPresenter.swift; sourceTree = "<group>"; };
 		08DB7EC224490251005B7A7D /* InfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoHeaderView.xib; sourceTree = "<group>"; };
+		08EAB0152473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudienceAgeRangeCollectionViewCell.swift; sourceTree = "<group>"; };
+		08EAB0162473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudienceAgeRangeCollectionViewCell.xib; sourceTree = "<group>"; };
 		117BD61E07C240843DFE7898 /* Pods_IG_Statistic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IG_Statistic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7903A92D24311D6B00414FA3 /* PostsCollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionPresenter.swift; sourceTree = "<group>"; };
 		792DBF5524265EE0003E39C5 /* IG-Statistic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IG-Statistic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,10 +273,12 @@
 			isa = PBXGroup;
 			children = (
 				085EAABB2465FF7E00E0A8FE /* AudienceViewCell.swift */,
-				085EAABD2468714600E0A8FE /* AudienceHorizontalChartViewCell.swift */,
 				085EAAC12468989000E0A8FE /* AudienceCellWithLabelViewCell.swift */,
 				085EAAC22468989000E0A8FE /* AudienceCellWithLabelViewCell.xib */,
+				085EAABD2468714600E0A8FE /* AudienceHorizontalChartViewCell.swift */,
 				085EAABE2468714600E0A8FE /* AudienceHorizontalChartViewCell.xib */,
+				08EAB0152473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.swift */,
+				08EAB0162473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.xib */,
 			);
 			path = Audience;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 				08DB7EAC24487905005B7A7D /* InfoTableViewCell.xib in Resources */,
 				085EAAC02468714600E0A8FE /* AudienceHorizontalChartViewCell.xib in Resources */,
 				08932BD32460CE1C00D9BA7D /* SettingsTableViewCell.xib in Resources */,
+				08EAB0182473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.xib in Resources */,
 				792DBF6524265EE3003E39C5 /* LaunchScreen.storyboard in Resources */,
 				08DB7EC324490251005B7A7D /* InfoHeaderView.xib in Resources */,
 				792DBF6224265EE3003E39C5 /* Assets.xcassets in Resources */,
@@ -556,6 +563,7 @@
 				0852EF1F2454A0480084A4F7 /* InsightsActivityCell.swift in Sources */,
 				79C80F16242E6EBB000B0285 /* CollectionViewController.swift in Sources */,
 				08503212245AF65E006BD40D /* ThemeManager.swift in Sources */,
+				08EAB0172473380E00B3F6BF /* AudienceAgeRangeCollectionViewCell.swift in Sources */,
 				08CE3BE8244F4661005FCE2D /* InfoService.swift in Sources */,
 				08DB7E5F2446564D005B7A7D /* GradientView.swift in Sources */,
 				08932BD92460D1B300D9BA7D /* WithSegControlTableViewCell.swift in Sources */,

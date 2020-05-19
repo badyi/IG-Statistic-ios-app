@@ -127,6 +127,7 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
         case .audience:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: presenter.cellID(at: indexPath), for: indexPath) as! AudienceCollectionViewCell
             cell.config(with: presenter.getAudienceInsights())
+            cell.delegate = self
             return cell
         default:
             break;
@@ -145,5 +146,16 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+extension InsightsViewController: cellDelegate {
+    func showAlert(_ description: String) {
+        let alert = UIAlertController(title: "info", message: description, preferredStyle: .alert)
+        #warning("alert color")
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
     }
 }

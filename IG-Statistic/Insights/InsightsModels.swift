@@ -9,7 +9,7 @@
 import Foundation
 
 enum typeInsights {
-    case followsCount, impressions, reach, profileViews, locations, followersCount
+    case followsCount, impressions, reach, profileViews, locations, followersCount, gender
 }
 
 enum insightsCellType {

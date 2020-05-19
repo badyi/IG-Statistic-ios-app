@@ -58,7 +58,6 @@ extension AuthViewController: AuthViewProtocol {
         
         label.textColor = ThemeManager.currentTheme().titleTextColor
         self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        //loginButton.center =  view.center
         if presenter.isAccessTokenExisting()  == true {
             loginButton.isHidden = true
         }
