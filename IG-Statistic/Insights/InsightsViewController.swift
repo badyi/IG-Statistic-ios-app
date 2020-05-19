@@ -150,8 +150,8 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension InsightsViewController: cellDelegate {
-    func showAlert(_ description: String) {
-        let alert = UIAlertController(title: "info", message: description, preferredStyle: .alert)
+    func showAlert(_ title: String, _ description: String) {
+        let alert = UIAlertController(title: title, message: description, preferredStyle: .alert)
         #warning("alert color")
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         DispatchQueue.main.async {

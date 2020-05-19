@@ -34,6 +34,7 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     let cellIdHorizontal = "AudienceHorizontalChartCollectionViewCell"
     let cellIdLabel = "AudienceCellWithLabelCollectionViewCell"
     let cellAgeRangeID = "AudienceAgeRangeCollectionViewCel"
+    let cellGenderID = "AudienceGenderCollectionViewCell"
     var audience: Audience?
     
     func setupViews() {
@@ -48,6 +49,7 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         collectionView.register(UINib(nibName: "AudienceHorizontalChartViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdHorizontal)
         collectionView.register(UINib(nibName: "AudienceCellWithLabelViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdLabel)
         collectionView.register(UINib(nibName: "AudienceAgeRangeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellAgeRangeID)
+        collectionView.register(UINib(nibName: "AudienceGenderCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellGenderID)
     }
     
     func config(with audience: Audience?) {
@@ -56,18 +58,22 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let audience = audience else { return 0 }
+        guard let audience = audience else { return 1 }
         return audience.cellsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! InsightsActivityCell
         cell.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        guard let audience = audience else { return cell }
+        guard let audience = audience, let fCount = audience.followersCount else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdLabel, for: indexPath) as! AudienceCellWithLabelViewCell
+            cell.config("You can learn more about who's following you when you have at least 100 followers",14)
+            return cell
+        }
         switch indexPath.row {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdLabel, for: indexPath) as! AudienceCellWithLabelViewCell
-            cell.config("\(String(describing: audience.followersCount!)) followers")
+            cell.config("\(String(describing: fCount)) followers", 25)
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdHorizontal, for: indexPath) as! AudienceHorizontalChartViewCell
@@ -80,8 +86,10 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
             cell.delegate = self
             return cell
         case 3:
-            print(3)
-            //cell.config(type: .reach, data: ac.reaches, beginDate: ac.beginDate, endDate: ac.endDate)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellGenderID, for: indexPath) as! AudienceGenderCollectionViewCell
+            cell.configChartData(audience.genderAges)
+            cell.delegate = self
+            return cell
         default:
             break
         } 
@@ -102,8 +110,8 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
 }
 
 extension AudienceCollectionViewCell: cellDelegate {
-    func showAlert(_ description: String) {
-        delegate?.showAlert(description)
+    func showAlert(_ title: String,_ description: String) {
+        delegate?.showAlert(title, description)
     }
 }
 

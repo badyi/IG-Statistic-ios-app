@@ -128,6 +128,10 @@ final class InsightsService {
         _ = networkHelper.load(resource: resource) { result in
             switch result {
             case let .success(response):
+                if response.data.count == 0 {
+                    completionBlock(.failure(NSError(domain: "cant get activity data",code: 1, userInfo: nil)))
+                    break
+                }
                 let impressions = response.data[0].values.map { $0.value }
                 let reaches = response.data[1].values.map { $0.value }
                 let postViews = response.data[2].values.map { $0.value }
@@ -149,6 +153,10 @@ final class InsightsService {
         _ = networkHelper.load(resource: resource) { result in
             switch result {
             case let .success(response):
+                if response.data.count == 0 {
+                    completionBlock(.failure(NSError(domain: "cant get audience data",code: 1, userInfo: nil)))
+                    break
+                }
                 let cities = response.data[0].values[0].value
                 let countries = response.data[1].values[0].value
                 let genderAge = response.data[2].values[0].value

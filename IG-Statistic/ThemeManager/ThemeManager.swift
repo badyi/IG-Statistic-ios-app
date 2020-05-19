@@ -141,6 +141,14 @@ enum Theme: Int {
     var collectionCellBorderColor: UIColor {
         return .lightGray
     }
+    
+    var lightCoral: UIColor {
+        return UIColor(hexString:"F08080")
+    }
+    
+    var systemBlue: UIColor {
+        return UIColor.systemBlue
+    }
 }
 
 let SelectedThemeKey = "SelectedTheme"

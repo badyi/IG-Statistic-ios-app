@@ -22,7 +22,8 @@ class AudienceCellWithLabelViewCell: UICollectionViewCell {
         self.label.textColor = ThemeManager.currentTheme().titleTextColor
     }
     
-    func config(_ str: String) {
+    func config(_ str: String, _ fontSize: Int) {
         label.text = str
+        label.font = label.font.withSize(CGFloat(fontSize))
     }
 }
