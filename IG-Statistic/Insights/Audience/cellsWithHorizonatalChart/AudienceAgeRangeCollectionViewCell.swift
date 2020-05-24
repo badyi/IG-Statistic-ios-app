@@ -28,7 +28,6 @@ class AudienceAgeRangeCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
-        configViewOfChart()
     }
     
     @IBAction func firstButtonTapped(_ sender: Any) {
@@ -77,6 +76,7 @@ class AudienceAgeRangeCollectionViewCell: UICollectionViewCell {
         buttonCenter.setTitle("Male", for: .normal)
         buttonRight.setTitle("Female", for: .normal)
         descriptionLabel.text = "Age range"
+        configViewOfChart()
     }
     
     func configViewOfChart() {

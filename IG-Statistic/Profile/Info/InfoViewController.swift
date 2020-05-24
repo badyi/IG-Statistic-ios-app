@@ -23,10 +23,13 @@ class InfoViewController: UIViewController {
 
     private var presenter: InfoPresenter?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
         setupView()
         setupTableView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         presenter = InfoPresenter(credentials: cred!, view: self)
         presenter?.getMainProfileInfo()
     }

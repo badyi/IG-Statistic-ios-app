@@ -16,7 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        ThemeManager.applyTheme(theme: .light)
+        if let storedTheme = (UserDefaults.standard.value(forKey: SelectedThemeKey) as AnyObject).integerValue {
+            switch storedTheme {
+            case 0:
+                ThemeManager.applyTheme(theme: .light)
+            default:
+                ThemeManager.applyTheme(theme: .dark)
+            }
+        } else {
+            ThemeManager.applyTheme(theme: .light)
+        }
         ApplicationDelegate.shared.application (
             application,
             didFinishLaunchingWithOptions: launchOptions

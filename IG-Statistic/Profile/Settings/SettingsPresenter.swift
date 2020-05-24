@@ -34,7 +34,7 @@ enum settingsType {
 
 final class SettingsPresenter: SettingsPresenterProtocol {
     weak private var delegate: SettingsDelegate?
-    private let settingNames = ["Theme", "Change fb page", "Logout"]
+    private let settingNames = ["Theme", "Change Facebook page", "Logout"]
     
     init (delegat: SettingsDelegate) {
         self.delegate = delegat

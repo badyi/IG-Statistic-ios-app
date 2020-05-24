@@ -469,10 +469,10 @@
             </objects>
             <point key="canvasLocation" x="1252" y="436"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Tagged Posts Collection View Controller-->
         <scene sceneID="Fxm-a1-k4N">
             <objects>
-                <collectionViewController storyboardIdentifier="TagedVC" id="nz7-5e-dyc" customClass="CollectionViewController" customModule="IG_Statistic" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="TagedVC" id="nz7-5e-dyc" customClass="TaggedPostsCollectionViewController" customModule="IG_Statistic" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="umO-J5-Drz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="309"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

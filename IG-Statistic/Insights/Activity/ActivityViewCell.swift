@@ -32,6 +32,7 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     var activity: Activity?
     
     func setupViews() {
+        collectionView.backgroundColor = ThemeManager.currentTheme().backgroundColor
         backgroundColor = ThemeManager.currentTheme().backgroundColor
         collectionView.contentInset = .init(top: 100, left: 0, bottom: 0, right: 0)
         collectionView.scrollIndicatorInsets = .init(top: 50, left: 0, bottom: 0, right: 0)
@@ -58,12 +59,16 @@ class ActivityCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         switch indexPath.row {
         case 0:
             cell.config(type: .followsCount, data: ac.followerCount, beginDate: ac.beginDate, endDate: ac.endDate)
+            cell.setupView()
         case 1:
             cell.config(type: .profileViews, data: ac.profileViews, beginDate: ac.beginDate, endDate: ac.endDate)
+            cell.setupView()
         case 2:
             cell.config(type: .impressions, data: ac.impressions, beginDate: ac.beginDate, endDate: ac.endDate)
+            cell.setupView()
         case 3:
             cell.config(type: .reach, data: ac.reaches, beginDate: ac.beginDate, endDate: ac.endDate)
+            cell.setupView()
         default:
             break
         }

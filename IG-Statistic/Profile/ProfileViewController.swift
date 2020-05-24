@@ -27,13 +27,16 @@ final class ProfileViewController: UIViewController {
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
 
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let navigationVC = self.navigationController as! ProfileNavigationController
+        let navigationVC = navigationController as! ProfileNavigationController
         guard let credentials = navigationVC.credentials else { return }
         profilePresenter = ProfilePresenter(with: credentials,view: self)
         profilePresenter?.getMainProfileInfo()
-        setUpView()
     }
     
     @IBAction func sortPosts(_ sender: Any) {
@@ -50,13 +53,14 @@ final class ProfileViewController: UIViewController {
             shInsights.layer.borderColor = ThemeManager.currentTheme().buttonSelectedColor.cgColor
         } else {
             shInsights.setTitleColor(ThemeManager.currentTheme().titleTextColor, for: .normal)
-            self.shInsights.layer.borderWidth = 0.5
-            self.shInsights.layer.borderColor = UIColor.darkGray.cgColor
+            shInsights.layer.borderWidth = 0.5
+            shInsights.layer.borderColor = UIColor.darkGray.cgColor
         }
     }
     
     @IBAction func valueChanged(_ sender: Any) {
         print(234)
+        #warning("handle action")
     }
 }
 
@@ -68,45 +72,43 @@ extension ProfileViewController: ProfileViewProtocol {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func setUpView() {
+    func setupView() {
         let titleColor = ThemeManager.currentTheme().titleTextColor
         let borderColor = ThemeManager.currentTheme().borderColor
         let backgroundColor = ThemeManager.currentTheme().backgroundColor
         
-        self.navigationController?.navigationBar.barTintColor = backgroundColor
-        self.navigationController?.navigationBar.tintColor = backgroundColor
-        self.navigationController?.navigationBar.backgroundColor = backgroundColor
+        navigationController?.navigationBar.barTintColor = backgroundColor
+        navigationController?.navigationBar.backgroundColor = backgroundColor
         let textAttributes = [NSAttributedString.Key.foregroundColor:titleColor]
+        tabBarController?.tabBar.barTintColor = backgroundColor
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.tabBarController?.tabBar.barTintColor = backgroundColor
-        self.navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationController?.navigationBar.tintColor = titleColor
+        navigationController?.navigationBar.tintColor = titleColor
         
-        self.name.textColor = titleColor
-        self.postsCount.textColor = titleColor
-        self.postsLabel.textColor = titleColor
-        self.followersCount.textColor = titleColor
-        self.followersLabel.textColor = titleColor
-        self.followingsCount.textColor = titleColor
-        self.followingsLabel.textColor = titleColor
+        name.textColor = titleColor
+        postsCount.textColor = titleColor
+        postsLabel.textColor = titleColor
+        followersCount.textColor = titleColor
+        followersLabel.textColor = titleColor
+        followingsCount.textColor = titleColor
+        followingsLabel.textColor = titleColor
         
-        self.profileBackView.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        self.pageControl.backgroundColor = backgroundColor
+        profileBackView.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        pageControl.backgroundColor = backgroundColor
         
-        self.shInsights.layer.cornerRadius = 3
-        self.shInsights.layer.borderWidth = 0.5
-        self.shInsights.setTitleColor(titleColor, for: .normal)
-        self.shInsights.layer.borderColor = borderColor.cgColor
+        shInsights.layer.cornerRadius = 3
+        shInsights.layer.borderWidth = 0.5
+        shInsights.setTitleColor(titleColor, for: .normal)
+        shInsights.layer.borderColor = borderColor.cgColor
         
-        self.sortsPostsButton.layer.cornerRadius = 3
-        self.sortsPostsButton.layer.borderWidth = 0.5
-        self.sortsPostsButton.layer.borderColor = borderColor.cgColor
-        self.sortsPostsButton.setTitleColor(titleColor, for: .normal)
+        sortsPostsButton.layer.cornerRadius = 3
+        sortsPostsButton.layer.borderWidth = 0.5
+        sortsPostsButton.layer.borderColor = borderColor.cgColor
+        sortsPostsButton.setTitleColor(titleColor, for: .normal)
         
-        self.infoButton.layer.cornerRadius = 3
-        self.infoButton.layer.borderWidth = 0.5
-        self.infoButton.layer.borderColor = borderColor.cgColor
-        self.infoButton.setTitleColor(titleColor, for: .normal)
+        infoButton.layer.cornerRadius = 3
+        infoButton.layer.borderWidth = 0.5
+        infoButton.layer.borderColor = borderColor.cgColor
+        infoButton.setTitleColor(titleColor, for: .normal)
     }
     
     func setManiInfo(_ profile: ProfileView) {
@@ -114,15 +116,15 @@ extension ProfileViewController: ProfileViewProtocol {
         followersCount.text = profile.followersCount
         followingsCount.text = profile.followingsCount
         name.text = profile.name
-        self.title = profile.username
+        title = profile.username
         
-        self.pageVC?.transferData(self.profilePresenter!.profile)
+        pageVC?.transferData(profilePresenter!.profile)
     }
     
     func imageDidLoaded(_ image: UIImage) {
-        self.profileImage.image = image;
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
-        self.profileImage.clipsToBounds = true
+        profileImage.image = image;
+        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
+        profileImage.clipsToBounds = true
     }
 }
 

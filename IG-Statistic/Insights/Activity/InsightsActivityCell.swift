@@ -28,7 +28,6 @@ class InsightsActivityCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
-        configViewOfChart()
     }
     
     func setupView() {
@@ -43,6 +42,7 @@ class InsightsActivityCell: UICollectionViewCell {
         descriptionLabel2.textColor = titleTextColor
         graphic.tintColor = .green
         graphic.xAxis.labelTextColor = titleTextColor
+        configViewOfChart()
     }
     
     func config(type: typeInsights, data: [Int], beginDate: Int64, endDate: Int64) {

@@ -41,7 +41,6 @@ class AudienceHorizontalChartViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
-        configViewOfChart()
     }
     
     @IBAction func button1Tapped(_ sender: Any) {
@@ -80,6 +79,7 @@ class AudienceHorizontalChartViewCell: UICollectionViewCell {
         buttonRight.tintColor = ThemeManager.currentTheme().buttonColor
         buttonLeft.setTitle("Cities", for: .normal)
         buttonRight.setTitle("Contries", for: .normal)
+        configViewOfChart()
     }
     
     func configViewOfChart() {

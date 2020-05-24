@@ -16,6 +16,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
     var homeController: menuBarVCprotocol?
+    var currentSelected = 0;
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
@@ -57,7 +58,6 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .bottom)
-        
         setupHorizontalBar()
     }
     
@@ -75,7 +75,6 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
         cell.imageView.image = UIImage(named: sectionName[indexPath.item])?.withRenderingMode(.alwaysTemplate)
         cell.tintColor = ThemeManager.currentTheme().menuBarTintColor
-        
         return cell
     }
     

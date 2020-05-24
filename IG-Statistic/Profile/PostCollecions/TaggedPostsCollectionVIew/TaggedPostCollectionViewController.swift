@@ -1,8 +1,8 @@
 //
-//  PostsCollectionViewController.swift
+//  TaggedPostCollectionViewController.swift
 //  IG-Statistic
 //
-//  Created by Бадый Шагаалан on 28.03.2020.
+//  Created by и on 23.05.2020.
 //  Copyright © 2020 Бадый Шагаалан. All rights reserved.
 //
 
@@ -11,14 +11,14 @@ import ResourceNetworking
 
 private let reuseIdentifier = "PostCollectionViewCell"
 
-class FakeReachability: ReachabilityProtocol {
-    var isReachable: Bool = true
-}
-
-class PostsCollectionViewController: UICollectionViewController {
-    var presenter: PostsCollectionPresenter! 
+class TaggedPostsCollectionViewController: UICollectionViewController {
+    var presenter: TaggedPostsCollectionPresenter!
     private let refreshControl = UIRefreshControl()
 
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -32,18 +32,18 @@ class PostsCollectionViewController: UICollectionViewController {
     }
 }
 
-extension PostsCollectionViewController {
+extension TaggedPostsCollectionViewController {
     func setupView() {
         let backgroundColor = ThemeManager.currentTheme().backgroundColor
         collectionView.dataSource = self
         collectionView.delegate = self
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.tintColor = UIColor.red
-        self.collectionView!.register(UINib.init(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-        self.collectionView!.refreshControl = refreshControl
+        collectionView!.register(UINib.init(nibName: "PostCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.refreshControl = refreshControl
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.estimatedItemSize = .zero
-        self.collectionView.backgroundColor = backgroundColor
+        collectionView.backgroundColor = backgroundColor
     }
     
     func insightsTapped(with flag: Bool) {
@@ -56,7 +56,7 @@ extension PostsCollectionViewController {
     }
 }
 
-extension PostsCollectionViewController {
+extension TaggedPostsCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -86,14 +86,14 @@ extension PostsCollectionViewController {
     }
 }
 
-extension PostsCollectionViewController {
+extension TaggedPostsCollectionViewController {
     func transferData(_ profile: Profile) {
-        presenter = PostsCollectionPresenter(profile, self)
+        presenter = TaggedPostsCollectionPresenter(profile, self)
         presenter.getPosts()
     }
 }
 
-extension PostsCollectionViewController: UICollectionViewDelegateFlowLayout {
+extension TaggedPostsCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
@@ -106,13 +106,13 @@ extension PostsCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PostsCollectionViewController: PostListViewProtocol {
+extension TaggedPostsCollectionViewController: PostListViewProtocol {
     func reloadData() {
-        self.collectionView.reloadData()
+        collectionView.reloadData()
     }
     
     func reloadItem(at index: Int) {
         let index: IndexPath = IndexPath(row: index, section: 0)
-        self.collectionView.reloadItems(at: [index])
+        collectionView.reloadItems(at: [index])
     }
 }

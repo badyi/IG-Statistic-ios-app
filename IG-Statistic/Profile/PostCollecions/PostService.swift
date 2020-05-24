@@ -13,8 +13,20 @@ fileprivate struct PostsResponse: Codable {
     let media: Media
     let id: String
 }
+struct TaggedPostsResponse: Codable {
+    let data: [TaggedData]
+}
 
-struct Media: Codable {
+struct TaggedData: Codable {
+    let media_type: String
+    let caption: String?
+    let comments_count: Int
+    let media_url: String
+    let like_count: Int
+    let id: String
+}
+
+fileprivate struct Media: Codable {
     fileprivate let data: [Data]
     let paging: Paging
 }
@@ -62,13 +74,33 @@ fileprivate final class PostResourceFactory {
         return Resource(url: url, headers: nil)
     }
     
-    func createPostInfoResource(with credentials: Credentials,_ post: Post) -> Resource<PostResponse>? {
+    func createPostInfoResource(with credentials: Credentials, _ post: Post, _ fields: String) -> Resource<PostResponse>? {
         guard var urlComponents = URLComponents(string: "https://graph.facebook.com/\(post.id)") else {
             print("smt went wrong. invalid url components")
             return nil
         }
         urlComponents.queryItems = [
-            URLQueryItem(name: "fields", value: "id,media_type,media_url,owner,timestamp,caption,is_comment_enabled,like_count,username,thumbnail_url,comments_count"),
+            URLQueryItem(name: "fields", value: fields),
+            URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
+        ]
+        guard let url = urlComponents.url else {
+            print("smt went wrong. invalid url")
+            return nil
+        }
+        return Resource(url: url, headers: nil)
+    }
+    
+    func createTaggedPostsListResource(with credentials: Credentials) -> Resource<TaggedPostsResponse>? {
+        guard let instID = credentials.instUserID else {
+            print("smt went wrong. invalid inst user id")
+            return nil
+        }
+        guard var urlComponents = URLComponents(string: "https://graph.facebook.com/\(instID)/tags") else {
+            print("smt went wrong. invalid url components")
+            return nil
+        }
+        urlComponents.queryItems = [
+            URLQueryItem(name: "fields", value: "media_type,owner,caption,comments_count,media_url,like_count"),
             URLQueryItem(name: "access_token", value: credentials.fbAccessToken)
         ]
         guard let url = urlComponents.url else {
@@ -97,7 +129,6 @@ fileprivate final class PostResourceFactory {
 
 final class PostService {
     let networkHelper = NetworkHelper(reachability: FakeReachability())
-
     func getAllPostsIDList(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<[Post]>) -> ()) {
         guard let resource = PostResourceFactory().createPostsListResource(with: credentials) else {
             let error = NSError(domain: "cant get all posts list with id", code: 1, userInfo: nil)
@@ -116,8 +147,36 @@ final class PostService {
         }
     }
     
+    func getAllTaggedPostsIDList(_ credentials: Credentials, completionBlock: @escaping(OperationCompletion<[Post]>) -> ()) {
+        guard let resource = PostResourceFactory().createTaggedPostsListResource(with: credentials) else {
+            let error = NSError(domain: "cant get all posts list with id", code: 1, userInfo: nil)
+            completionBlock(.failure(error))
+            return
+        }
+        _ = networkHelper.load(resource: resource) { result in
+            switch result {
+            case let .success(postsResponse):
+                let postsResponse: TaggedPostsResponse = postsResponse
+                let posts = postsResponse.data.map { (i: TaggedData) -> Post in
+                        var post = Post(with: i.id)
+                        post.mediaURL = i.media_url
+                        post.mediaType = i.media_type
+                        post.thumbnail_url = i.media_url
+                        post.likesCount = i.like_count
+                        post.caption = i.caption
+                        post.commentesCount = i.comments_count
+                        return post
+                }
+                completionBlock(.success(posts))
+            case let .failure(error):
+                completionBlock(.failure(error))
+            }
+        }
+    }
+    
     func getPostInfo(_ credentials: Credentials,_ post: Post ,completionBlock: @escaping(OperationCompletion<Post>) -> ()) {
-        guard let resource = PostResourceFactory().createPostInfoResource(with: credentials, post) else {
+        let fields = "id,media_type,media_url,owner,timestamp,caption,is_comment_enabled,like_count,username,thumbnail_url,comments_count"
+        guard let resource = PostResourceFactory().createPostInfoResource(with: credentials, post, fields) else {
             let error = NSError(domain: "cant get post info", code: 1, userInfo: nil)
             completionBlock(.failure(error))
             return

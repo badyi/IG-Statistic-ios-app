@@ -45,13 +45,13 @@ class PostView {
     
     private var cancel: Cancellation?
     
-    private(set) var mediaURL: String? {
+    var mediaURL: String? {
         didSet {
             loadImageIfNeeded()
         }
     }
     
-    private(set) var thumbnail_url: String? {
+   var thumbnail_url: String? {
         didSet {
             loadImageIfNeeded()
         }

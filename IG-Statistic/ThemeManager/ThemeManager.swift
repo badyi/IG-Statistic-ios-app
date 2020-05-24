@@ -149,6 +149,15 @@ enum Theme: Int {
     var systemBlue: UIColor {
         return UIColor.systemBlue
     }
+    
+    var segmentControlBackColor: UIColor {
+        switch self {
+        case .light:
+            return .lightGray
+        default:
+            return .darkGray
+        }
+    }
 }
 
 let SelectedThemeKey = "SelectedTheme"

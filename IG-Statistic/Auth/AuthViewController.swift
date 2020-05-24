@@ -12,12 +12,15 @@ import ResourceNetworking
 
 final class AuthViewController: UIViewController {
     private var presenter: AuthPresenter!
-    private var loginButton : FBLoginButton = FBLoginButton(permissions: [ .publicProfile, .email, .userFriends, "instagram_basic", "pages_show_list", "instagram_manage_insights", "instagram_manage_comments"])
+    private var loginButton : FBLoginButton = FBLoginButton(permissions: [ .publicProfile, .email, .userFriends, "instagram_basic", "pages_show_list", "instagram_manage_insights", "instagram_manage_comments", "manage_pages"])
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setUpView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = AuthPresenter(view: self)
-        setUpView()
         loginButton.delegate = self
         if presenter.isAccessTokenExisting() {
             if presenter.doesDefaultUserPageExist() {
@@ -30,8 +33,13 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: AuthViewProtocol {
     func smtWrongAlert(reason: String) {
-        let alert = UIAlertController(title: "Error", message: reason, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Something went wrong", message: reason, preferredStyle: .alert)
+        alert.setTint(color: .red)
+        //alert.setBackgroundColor(color: ThemeManager.currentTheme().backgroundColor)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+       // alert.setTitle(font: UIFont.systemFont(ofSize: 16, weight: .bold), color: ThemeManager.currentTheme().titleTextColor)
+       // alert.setMessage(font: UIFont.systemFont(ofSize: 14), color: ThemeManager.currentTheme().titleTextColor)
+    
         present(alert,animated: true, completion: nil)
         loginButton.isHidden = false
         LoginManager().logOut()
@@ -57,7 +65,7 @@ extension AuthViewController: AuthViewProtocol {
         label.textAlignment = .center
         
         label.textColor = ThemeManager.currentTheme().titleTextColor
-        self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        view.backgroundColor = ThemeManager.currentTheme().backgroundColor
         if presenter.isAccessTokenExisting()  == true {
             loginButton.isHidden = true
         }
@@ -81,7 +89,7 @@ extension AuthViewController: AuthViewProtocol {
     }
     
     func performSeg(withIdentifier id: String, sender: Any) {
-        self.performSegue(withIdentifier: "authToTabBar", sender: self)
+        performSegue(withIdentifier: "authToTabBar", sender: self)
     }
 }
 

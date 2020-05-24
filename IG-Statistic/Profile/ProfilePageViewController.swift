@@ -19,15 +19,14 @@ protocol ProfilePageViewControllerDelegate: class {
 
 final class ProfilePageViewController: UIPageViewController {
     let postsCVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PostsVC") as! PostsCollectionViewController
-    let CVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TagedVC") as! CollectionViewController
+    let taggedCVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TagedVC") as! TaggedPostsCollectionViewController
     
-    lazy var subViewControllers: [UIViewController] = { return [ postsCVC, CVC ] }()
+    lazy var subViewControllers: [UIViewController] = { return [ postsCVC, taggedCVC ] }()
     
     weak var PPVCdelegate: ProfilePageViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         dataSource = self
         delegate = self
         for view in self.view.subviews {
@@ -44,13 +43,16 @@ final class ProfilePageViewController: UIPageViewController {
 extension ProfilePageViewController {
     func insightsTapped(with flag: Bool) {
         postsCVC.insightsTapped(with: flag)
+        taggedCVC.insightsTapped(with: flag)
     }
     
     func sortBy(_ creiterion: sortCriterion, _ direction: sortDirection) {
         postsCVC.sortBy(creiterion, direction)
+        taggedCVC.sortBy(creiterion, direction)
     }
     
     func transferData(_ profile: Profile) {
+        taggedCVC.transferData(profile)
         postsCVC.transferData(profile)
     }
     

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ProfileViewProtocol: AnyObject {
-    func setUpView()
+    func setupView()
     func setManiInfo(_ profileView: ProfileView)
     func imageDidLoaded(_ image: UIImage)
     func showAlert(_ alert: UIAlertController)

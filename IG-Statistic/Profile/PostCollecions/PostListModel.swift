@@ -72,7 +72,29 @@ final class PostListModel: PostListModelProtocol {
         }
     }
     
-       
+    func getTaggedPosts() {
+        postService.getAllTaggedPostsIDList(profile.credentials) { [weak self] result in
+            switch result {
+            case let .success(posts):
+                let posts: [Post] = posts
+                self?.posts = posts
+                let postsViews: [PostView] = posts.map { p in
+                    var result = PostView(with: p)
+                    result.mediaURL = p.mediaURL
+                    result.thumbnail_url = p.thumbnail_url
+                    result.likesCount = p.likesCount
+                    result.commentesCount = p.commentesCount
+                    result.caption = p.caption
+                    result.delegate = self
+                    return result
+                }
+                self?.postViews = postsViews
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+    
     func getPostInfo (at index: Int) {
         let post = posts[index]
         if post.date != nil {

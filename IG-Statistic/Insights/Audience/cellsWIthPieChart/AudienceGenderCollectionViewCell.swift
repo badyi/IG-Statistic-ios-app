@@ -43,6 +43,7 @@ class AudienceGenderCollectionViewCell: UICollectionViewCell {
         pieChart.usePercentValuesEnabled = false
         pieChart.drawEntryLabelsEnabled = false
         pieChart.legend.enabled = false
+        pieChart.holeColor = UIColor.clear
     }
     
     func configChartData(_ data: [String: Int]) {
@@ -85,6 +86,4 @@ class AudienceGenderCollectionViewCell: UICollectionViewCell {
         pieChartDataSet.valueFormatter = DefaultValueFormatter(formatter: formatter)
         pieChart.data = pieChartData
     }
-    
-    
 }

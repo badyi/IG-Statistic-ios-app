@@ -18,6 +18,13 @@ class InsightsViewController: UICollectionViewController {
         return mb
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupMenuBar()
+        setupCollectionView()
+        setupView()
+        collectionView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let navigationVC = self.navigationController as! InsightsNavigationController
@@ -26,19 +33,22 @@ class InsightsViewController: UICollectionViewController {
         menuBar.setSectionNames(presenter.getSectionNames())
         getActivity()
         getAudience()
-        setupMenuBar()
-        setupCollectionView()
-        setupView()
     }
 }
 
 extension InsightsViewController {
     func setupView() {
         let backgroundColor = ThemeManager.currentTheme().backgroundColor
-        self.navigationController?.navigationBar.barTintColor = backgroundColor
-        self.navigationController?.navigationBar.tintColor = backgroundColor
-        self.navigationController?.navigationBar.backgroundColor = backgroundColor
-        self.navigationController?.navigationBar.isTranslucent = false
+        let titleColor = ThemeManager.currentTheme().titleTextColor
+        let textAttributes = [NSAttributedString.Key.foregroundColor:titleColor]
+        
+        navigationController?.navigationBar.topItem?.title = "Insights"
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = backgroundColor
+        navigationController?.navigationBar.backgroundColor = backgroundColor
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.navigationBar.tintColor = titleColor
+        tabBarController?.tabBar.barTintColor = backgroundColor
     }
     
     func getActivity() {
@@ -67,6 +77,7 @@ extension InsightsViewController: menuBarVCprotocol {
     func scrollToMenuIndex(menuIndex: Int) {
         let indexPath = IndexPath(item: menuIndex, section: 0)
         collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        menuBar.currentSelected = menuIndex
     }
 }
 
@@ -81,6 +92,9 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
         view.addConstraintsWithFormat("H:|[v0]|", views: menuBar)
         view.addConstraintsWithFormat("V:[v0(50)]", views: menuBar)
         menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        menuBar.collectionView.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        menuBar.collectionView.reloadData()
+        menuBar.collectionView.selectItem(at: IndexPath(row: menuBar.currentSelected, section: 0), animated: true, scrollPosition: .centeredHorizontally)
     }
     
     func setupCollectionView() {
@@ -110,6 +124,7 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
         let index = Int(targetContentOffset.pointee.x / view.frame.width)
         let indexPath = IndexPath(item: index, section: 0)
         menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        menuBar.currentSelected = index
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -118,15 +133,16 @@ extension InsightsViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let insightsCellType = presenter.cellType(at: indexPath)
-        
         switch insightsCellType {
         case .activity:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: presenter.cellID(at: indexPath), for: indexPath) as! ActivityCollectionViewCell
             cell.config(with: presenter.getActivityInsights())
+            cell.setupViews()
             return cell
         case .audience:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: presenter.cellID(at: indexPath), for: indexPath) as! AudienceCollectionViewCell
             cell.config(with: presenter.getAudienceInsights())
+            cell.setupViews()
             cell.delegate = self
             return cell
         default:

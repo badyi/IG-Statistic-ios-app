@@ -16,12 +16,15 @@ final class SettingsViewController: UITableViewController {
     private let settingsCellwithLabelID = "labelCellID"
     private let withSegControlCellID = "SCCellID"
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
+        setupTableView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        setupView()
-        setupTableView()
         presenter = SettingsPresenter(delegat: self)
     }
     
@@ -53,10 +56,13 @@ final class SettingsViewController: UITableViewController {
         case .changePage, .logout:
             let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellwithLabelID, for: indexPath) as! SettingsTableViewCell
             cell.config(with: presenter.name(at: indexPath.row))
+            cell.setupView()
             return cell
         case .changeTheme:
             let cell = tableView.dequeueReusableCell(withIdentifier: withSegControlCellID, for: indexPath) as! WithSegControlTableViewCell
             cell.config(with: presenter.name(at: indexPath.row))
+            cell.setupView()
+            cell.delegate = self
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellwithLabelID, for: indexPath)
@@ -73,12 +79,24 @@ final class SettingsViewController: UITableViewController {
     }
 }
 
+extension SettingsViewController: changeThemeDelegate {
+    func redrawView() {
+        setupView()
+        setupTableView()
+        tableView.reloadData()
+    }
+}
+
 extension SettingsViewController {
     func setupView() {
         let titleColor = ThemeManager.currentTheme().titleTextColor
+        let backgroundColor = ThemeManager.currentTheme().backgroundColor
         let textAttributes = [NSAttributedString.Key.foregroundColor:titleColor]
-        self.navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationController?.navigationBar.tintColor = titleColor
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        navigationController?.navigationBar.barTintColor = backgroundColor
+        navigationController?.navigationBar.backgroundColor = backgroundColor
+        tabBarController?.tabBar.barTintColor = backgroundColor
+        navigationController?.navigationBar.tintColor = titleColor
     }
     
     func setupTableView() {
@@ -98,5 +116,4 @@ extension SettingsViewController: SettingsDelegate {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = loginPage
     }
-
 }

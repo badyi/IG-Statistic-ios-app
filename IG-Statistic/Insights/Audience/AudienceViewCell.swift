@@ -39,6 +39,7 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
     
     func setupViews() {
         backgroundColor = ThemeManager.currentTheme().backgroundColor
+        collectionView.backgroundColor = ThemeManager.currentTheme().backgroundColor
         collectionView.contentInset = .init(top: 100, left: 0, bottom: 0, right: 0)
         collectionView.scrollIndicatorInsets = .init(top: 50, left: 0, bottom: 0, right: 0)
         addSubview(collectionView)
@@ -74,20 +75,24 @@ class AudienceCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdLabel, for: indexPath) as! AudienceCellWithLabelViewCell
             cell.config("\(String(describing: fCount)) followers", 25)
+            cell.setupView()
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdHorizontal, for: indexPath) as! AudienceHorizontalChartViewCell
             cell.configChartData(.locations, audience.cities, audience.countries)
             cell.delegate = self
+            cell.setupView()
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellAgeRangeID, for: indexPath) as! AudienceAgeRangeCollectionViewCell
             cell.configChartData(audience.genderAges)
             cell.delegate = self
+            cell.setupView()
             return cell
         case 3:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellGenderID, for: indexPath) as! AudienceGenderCollectionViewCell
             cell.configChartData(audience.genderAges)
+            cell.setupView()
             cell.delegate = self
             return cell
         default:
