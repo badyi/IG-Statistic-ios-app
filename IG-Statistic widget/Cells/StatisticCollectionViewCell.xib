@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="StatisticCollectionViewCell" customModule="IG_Statistic_widget" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="244" height="244"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="244" height="244"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AEP-ar-L07">
+                        <rect key="frame" x="8" y="8" width="228" height="228"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeN-Hw-dwu">
+                                <rect key="frame" x="114" y="114" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0B-dW-oXn">
+                                <rect key="frame" x="114" y="116" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="A0B-dW-oXn" firstAttribute="centerX" secondItem="AEP-ar-L07" secondAttribute="centerX" id="9Hn-Je-8ua"/>
+                            <constraint firstItem="SeN-Hw-dwu" firstAttribute="centerX" secondItem="AEP-ar-L07" secondAttribute="centerX" id="BDl-Cj-uxg"/>
+                            <constraint firstItem="SeN-Hw-dwu" firstAttribute="centerY" secondItem="AEP-ar-L07" secondAttribute="centerY" id="XZt-9x-la8"/>
+                            <constraint firstItem="A0B-dW-oXn" firstAttribute="top" secondItem="SeN-Hw-dwu" secondAttribute="bottom" constant="2" id="lMh-ly-TlD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="AEP-ar-L07" secondAttribute="bottom" constant="8" id="40z-km-Py3"/>
+                <constraint firstItem="AEP-ar-L07" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="AuE-hd-CAq"/>
+                <constraint firstItem="AEP-ar-L07" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="Xcn-IY-Vwu"/>
+                <constraint firstAttribute="trailing" secondItem="AEP-ar-L07" secondAttribute="trailing" constant="8" id="l3e-rN-5hZ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="244" height="211"/>
+            <connections>
+                <outlet property="bView" destination="AEP-ar-L07" id="Of5-Ez-po7"/>
+                <outlet property="count" destination="SeN-Hw-dwu" id="Uqz-ri-Tht"/>
+                <outlet property="descripitionLabel" destination="A0B-dW-oXn" id="aP6-39-KF2"/>
+            </connections>
+            <point key="canvasLocation" x="128.98550724637681" y="187.83482142857142"/>
+        </collectionViewCell>
+    </objects>
+</document>
